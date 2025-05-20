@@ -4,7 +4,10 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
 import java.net.URL;
+
+import javax.imageio.ImageIO;
 
 public class Background {
 	
@@ -15,9 +18,18 @@ public class Background {
 	public void paint(Graphics g) {
 		
 		Graphics2D g2 = (Graphics2D) g;
-		Image grass = getImage("/imgs/map-pixilart.png");
 		
-		g.drawImage(grass, 0, 0, 1000, 800, null);
+		try {
+			BufferedImage back2 = ImageIO.read(getClass().getResource("/imgs/map-pixilart.png"));
+			g.drawImage(back2, 0, 0, 1000, 800, null);
+		} catch(Exception e) {
+			System.out.println("tuesday");
+		}
+		
+		
+		
+		//g.fillRect(0, 0, 1000, 800);
+		//g.drawImage
 		
 	}
 	
