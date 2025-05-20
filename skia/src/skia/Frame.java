@@ -22,8 +22,13 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 	int width = 1000;
 	int height = 800;
 	
+
+	Background back = new Background();
+	
 	public void paint(Graphics g) {
 		super.paintComponent(g);
+		
+		back.paint(g);
 	}
 	
 	public static void main(String[] arg) {
@@ -38,6 +43,8 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		f.setResizable(false);
 		f.addMouseListener(this);
 		f.addKeyListener(this);
+		
+
 		
 		
 		
