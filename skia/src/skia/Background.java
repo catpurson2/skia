@@ -11,6 +11,8 @@ import javax.imageio.ImageIO;
 
 public class Background {
 	
+	BufferedImage back2;
+	
 	public Background() {
 		
 	}
@@ -20,7 +22,7 @@ public class Background {
 		Graphics2D g2 = (Graphics2D) g;
 		
 		try {
-			BufferedImage back2 = ImageIO.read(getClass().getResource("/imgs/map-pixilart.png"));
+			back2 = ImageIO.read(getClass().getResource("/imgs/background.png"));
 			g.drawImage(back2, 0, 0, 1000, 800, null);
 		} catch(Exception e) {
 			System.out.println("tuesday");
