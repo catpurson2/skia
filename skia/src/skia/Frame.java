@@ -30,11 +30,12 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 	Background back = new Background();
 	Counter[] counters = new Counter[36];
 	Oven[] ovens = new Oven[3];
+	Sink sink = new Sink(20 + 80*5, 140 + 80*4);
+	Register reg = new Register(5*4+80, 35*4);
+	Mixer[] mixers = new Mixer[3];
 	
 	public void paint(Graphics g) {
 		super.paintComponent(g);
-		
-		
 		back.paint(g);
 		
 		for(Counter i : counters) {
@@ -43,7 +44,16 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			}
 		}
 		
-		ovens[0].paint(g);
+		for(Oven i : ovens) {
+			i.paint(g);
+		}
+		
+		for(Mixer i : mixers) {
+			i.paint(g);
+		}
+		
+		sink.paint(g);
+		reg.paint(g);
 	}
 	
 	public static void main(String[] arg) {
@@ -62,6 +72,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		
 		init(counters);
 		init(ovens);
+		init(mixers);
 		
 		/*setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
 				new ImageIcon("torch.png").getImage(),
@@ -118,7 +129,15 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 	}
 	
 	public void init(Oven[] o) {
-		o[0] = new Oven(900 - 80*2, 140);
+		o[0] = new Oven(900 - 80*2, 140, 0);
+		o[1] = new Oven(900, 140 + 80, 90);
+		o[2] = new Oven(900, 140 + 80*3, 90);
+	}
+	
+	public void init(Mixer[] m) {
+		m[0] = new Mixer(20 + 80, 700);
+		m[1] = new Mixer(20 + 80*3, 700);
+		m[2] = new Mixer(20 + 80*5, 700);
 	}
 	
 	
@@ -144,7 +163,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		
+		repaint();
 	}
 
 	@Override

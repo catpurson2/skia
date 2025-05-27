@@ -6,23 +6,18 @@ import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
 
-public class Counter {
+public class Sink {
 	
 	int width, height, x, y, c;
 	BufferedImage img;
-	static BufferedImage counter;
 	
-	public Counter(int x, int y) {
-		width = 80;
+	public Sink(int x, int y) {
+		width = 160;
 		height = 80;
 		this.x = x;
 		this.y = y;
 		
-		if(counter == null) {
-			counter = getImg("metal");
-		}
-		
-		img = counter;
+		img = getImg("sink");
 		
 		// TODO Auto-generated constructor stub
 	}
