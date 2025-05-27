@@ -33,6 +33,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 	Sink sink = new Sink(20 + 80*5, 140 + 80*4);
 	Register reg = new Register(5*4+80, 35*4);
 	Mixer[] mixers = new Mixer[3];
+	Chef chef = new Chef();
 	
 	public void paint(Graphics g) {
 		super.paintComponent(g);
@@ -54,6 +55,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		
 		sink.paint(g);
 		reg.paint(g);
+		chef.paint(g);
 	}
 	
 	public static void main(String[] arg) {
@@ -150,13 +152,34 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method st
+		
+		if (e.getKeyChar() == 'w') {
+			chef.setVY(-10);
+		} else if (e.getKeyChar() == 'a' ) {
+			chef.setVX(-10);
+		} else if (e.getKeyChar() == 's') {
+			chef.setVY(10);
+		} else if (e.getKeyChar() == 'd') {
+			chef.setVX(10);
+		}
+			
 		
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
+		
+		if (e.getKeyChar() == 'w') {
+			chef.setVY(0);
+		} else if (e.getKeyChar() == 'a' ) {
+			chef.setVX(0);
+		} else if (e.getKeyChar() == 's') {
+			chef.setVY(0);
+		} else if (e.getKeyChar() == 'd') {
+			chef.setVX(0);
+		}
 		
 	}
 
@@ -169,6 +192,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
+	
 		
 	}
 
