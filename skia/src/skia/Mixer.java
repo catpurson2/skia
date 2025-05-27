@@ -23,7 +23,7 @@ public class Mixer extends Counter {
 		mixer3 = mixer;
 		mixer4 = getImg("mixer2");
 		img = mixer;
-		mixing = false;
+		mixing = true;
 		f = 0;
 		
 		// TODO Auto-generated constructor stub
