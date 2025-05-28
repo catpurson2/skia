@@ -9,12 +9,21 @@ import javax.imageio.ImageIO;
 public class Oven extends Counter {
 	
 	int c;
-	String path;
+	BufferedImage oven1;
+	BufferedImage oven2;
 
-	public Oven(int x, int y) {
-		super(x, y);
+	public Oven(int x, int y, int dir) {
+		super(x, y, 0);
 		
-		path = "oven1";
+		if(dir == 0) {
+			oven1 = getImg("oven1");
+			oven2 = getImg("oven2");
+		} else if (dir == 90) {
+			oven1 = getImg("oven1s");
+			oven2 = getImg("oven2s");
+		}
+		
+		this.img = oven1;
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -23,16 +32,15 @@ public class Oven extends Counter {
 		Graphics2D g2 = (Graphics2D) g;
 		
 		c++;
-		if(c%5 == 0) {
-			if (path.equals("oven1")) {
-				path = "oven2";
+		if(c%10 == 0) {
+			if (this.img.equals(oven1)) {
+				img = oven2;
 			} else {
-				path = "oven1";
+				img = oven1;
 			}
+			c = 0;
 		}
 		
-		
-		super.setImg(path);
 		super.paint(g);
 		
 		
