@@ -33,6 +33,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 	Sink sink = new Sink(20 + 80*5, 140 + 80*4);
 	Register reg = new Register(5*4+80, 35*4);
 	Mixer[] mixers = new Mixer[3];
+	Chef chef = new Chef();
 	
 	public void paint(Graphics g) {
 		super.paintComponent(g);
@@ -54,6 +55,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		
 		sink.paint(g);
 		reg.paint(g);
+		chef.paint(g);
 	}
 	
 	public static void main(String[] arg) {
@@ -87,44 +89,44 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 	
 	public void init(Counter[] c) {
 		
-		c[0] = new Counter(5*4, 35*4);
-		c[1] = new Counter(20, 140 + 80);
-		c[2] = new Counter(20, 140 + 80*4);
-		c[3] = new Counter(20, 140 + 80*5);
-		c[4] = new Counter(20, 140 + 80*6);
-		c[5] = new Counter(20, 140 + 80*7);
-		c[6] = new Counter(20 + 80*2, 700);
-		c[7] = new Counter(20 + 80*4, 700);
-		c[8] = new Counter(20 + 80*6, 700);
-		c[9] = new Counter(20 + 80*6 + 80, 700);
-		c[10] = new Counter(20 + 80*6 + 80*2, 700);
-		c[11] = new Counter(20 + 80*6 + 80*3, 700);
-		c[12] = new Counter(20 + 80*6 + 80*4, 700);
-		c[13] = new Counter(20 + 80*6 + 80*5, 700);
-		c[14] = new Counter(900, 140 + 80*4);
-		c[15] = new Counter(900, 140 + 80*2);
-		c[16] = new Counter(900, 140);
-		c[17] = new Counter(900 - 80, 140);
-		c[18] = new Counter(900 - 80*3, 140);
-		c[19] = new Counter(900 - 80*4, 140);
-		c[20] = new Counter(900 - 80*5, 140);
-		c[21] = new Counter(900 - 80*6, 140);
+		c[0] = new Counter(5*4, 35*4, 1);
+		c[1] = new Counter(20, 140 + 80, 1);
+		c[2] = new Counter(20, 140 + 80*4, 1);
+		c[3] = new Counter(20, 140 + 80*5, 1);
+		c[4] = new Counter(20, 140 + 80*6, 1);
+		c[5] = new Counter(20, 140 + 80*7, 1);
+		c[6] = new Counter(20 + 80*2, 700, 1);
+		c[7] = new Counter(20 + 80*4, 700, 1);
+		c[8] = new Counter(20 + 80*6, 700, 1);
+		c[9] = new Counter(20 + 80*6 + 80, 700, 1);
+		c[10] = new Counter(20 + 80*6 + 80*2, 700, 1);
+		c[11] = new Counter(20 + 80*6 + 80*3, 700, 1);
+		c[12] = new Counter(20 + 80*6 + 80*4, 700, 1);
+		c[13] = new Counter(20 + 80*6 + 80*5, 700, 1);
+		c[14] = new Counter(900, 140 + 80*4, 1);
+		c[15] = new Counter(900, 140 + 80*2, 1);
+		c[16] = new Counter(900, 140, 1);
+		c[17] = new Counter(900 - 80, 140, 1);
+		c[18] = new Counter(900 - 80*3, 140, 1);
+		c[19] = new Counter(900 - 80*4, 140, 1);
+		c[20] = new Counter(900 - 80*5, 140, 1);
+		c[21] = new Counter(900 - 80*6, 140, 1);
 		
 		
-		c[22] = new Counter(20 + 80*3, 140 + 80*2);
-		c[23] = new Counter(20 + 80*3, 140 + 80*3);
-		c[24] = new Counter(20 + 80*3, 140 + 80*4);
-		c[25] = new Counter(20 + 80*3, 140 + 80*5);
-		c[26] = new Counter(20 + 80*4, 140 + 80*3);
-		c[27] = new Counter(20 + 80*4, 140 + 80*4);
-		c[28] = new Counter(20 + 80*5, 140 + 80*3);
-		c[29] = new Counter(20 + 80*6, 140 + 80*3);
-		c[30] = new Counter(20 + 80*7, 140 + 80*3);
-		c[31] = new Counter(20 + 80*7, 140 + 80*4);
-		c[32] = new Counter(20 + 80*8, 140 + 80*2);
-		c[33] = new Counter(20 + 80*8, 140 + 80*3);
-		c[34] = new Counter(20 + 80*8, 140 + 80*4);
-		c[35] = new Counter(20 + 80*8, 140 + 80*5);
+		c[22] = new Counter(20 + 80*3, 140 + 80*2, 0);
+		c[23] = new Counter(20 + 80*3, 140 + 80*3, 0);
+		c[24] = new Counter(20 + 80*3, 140 + 80*4, 0);
+		c[25] = new Counter(20 + 80*3, 140 + 80*5, 0);
+		c[26] = new Counter(20 + 80*4, 140 + 80*3, 0);
+		c[27] = new Counter(20 + 80*4, 140 + 80*4, 0);
+		c[28] = new Counter(20 + 80*5, 140 + 80*3, 0);
+		c[29] = new Counter(20 + 80*6, 140 + 80*3, 0);
+		c[30] = new Counter(20 + 80*7, 140 + 80*3, 0);
+		c[31] = new Counter(20 + 80*7, 140 + 80*4, 0);
+		c[32] = new Counter(20 + 80*8, 140 + 80*2, 0);
+		c[33] = new Counter(20 + 80*8, 140 + 80*3, 0);
+		c[34] = new Counter(20 + 80*8, 140 + 80*4, 0);
+		c[35] = new Counter(20 + 80*8, 140 + 80*5, 0);
 		
 	}
 	
@@ -150,13 +152,40 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method st
+		
+		if (e.getKeyChar() == 'w' || e.getKeyCode() == 38) {
+			chef.setVY(-10);
+			chef.dir = 0;
+		} else if (e.getKeyChar() == 'a' || e.getKeyCode() == 37) {
+			chef.setVX(-10);
+			chef.dir = 270;
+		} else if (e.getKeyChar() == 's' || e.getKeyCode() == 40) {
+			chef.setVY(10);
+			chef.dir = 180;
+		} else if (e.getKeyChar() == 'd' || e.getKeyCode() == 39) {
+			chef.setVX(10);
+			chef.dir = 90;
+		}
+			
 		
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
+		
+		//System.out.println(e.getKeyChar() + " " + e.getKeyCode() + " " + (e.getKeyCode() == 38));
+		
+		if (e.getKeyChar() == 'w' || e.getKeyCode() == 38) {
+			chef.setVY(0);
+		} else if (e.getKeyChar() == 'a' || e.getKeyCode() == 37) {
+			chef.setVX(0);
+		} else if (e.getKeyChar() == 's' || e.getKeyCode() == 40) {
+			chef.setVY(0);
+		} else if (e.getKeyChar() == 'd' || e.getKeyCode() == 39) {
+			chef.setVX(0);
+		}
 		
 	}
 
@@ -169,6 +198,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
+	
 		
 	}
 

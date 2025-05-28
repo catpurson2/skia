@@ -10,19 +10,25 @@ public class Counter {
 	
 	int width, height, x, y, c;
 	BufferedImage img;
-	static BufferedImage counter;
+	static BufferedImage metal;
+	static BufferedImage wood;
 	
-	public Counter(int x, int y) {
+	public Counter(int x, int y, int img) {
 		width = 80;
 		height = 80;
 		this.x = x;
 		this.y = y;
 		
-		if(counter == null) {
-			counter = getImg("metal");
+		if(metal == null && wood == null) {
+			metal = getImg("metal");
+			wood = getImg("wood");
 		}
 		
-		img = counter;
+		if(img == 0) {
+			this.img = metal;
+		} else if(img == 1) {
+			this.img = wood;
+		}
 		
 		// TODO Auto-generated constructor stub
 	}
