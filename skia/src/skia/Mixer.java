@@ -15,7 +15,7 @@ public class Mixer extends Counter {
 	int f;
 
 	public Mixer(int x, int y) {
-		super(x, y);
+		super(x, y, 1);
 		
 		miximg = "mixer";
 		mixer = getImg("mixer");

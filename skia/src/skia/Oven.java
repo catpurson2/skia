@@ -13,7 +13,7 @@ public class Oven extends Counter {
 	BufferedImage oven2;
 
 	public Oven(int x, int y, int dir) {
-		super(x, y);
+		super(x, y, 0);
 		
 		if(dir == 0) {
 			oven1 = getImg("oven1");
