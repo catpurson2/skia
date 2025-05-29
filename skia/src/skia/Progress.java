@@ -24,7 +24,7 @@ public class Progress {
 	public void paint(Graphics g) {
 		
 		
-		if(progress != 2000) {
+		if(progress != 500) {
 			g.fillRect(x+(int) (80.0/30*2), y+(int) (80.0/30*2), progress*((int) (80.0/30*28))/500, (int) (80.0/30*2));
 			
 			g.drawImage(bar, x, y, 80, 80, null);
