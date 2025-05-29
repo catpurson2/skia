@@ -25,7 +25,8 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 	
 	int width = 1000;
 	int height = 828;
-	
+	boolean touching = false;
+	boolean holding;
 
 	Background back = new Background();
 	Counter[] counters = new Counter[36];
@@ -39,6 +40,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		super.paintComponent(g);
 		back.paint(g);
 		boolean colliding=false;
+		
 		chef.move();
 		
 		for(Counter i : counters) {
@@ -50,7 +52,8 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 					
 				}
 				if(chef.touching(i)) {
-					System.out.println("hands");
+					
+					touching = true;
 				}
 			}
 		}
@@ -218,7 +221,10 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			chef.setVY(0);
 			chef.dir = 90;
 		}
-			
+		
+		if(e.getKeyChar() == 'e' && touching) {
+			System.out.println("placed");
+		}
 		
 	}
 
