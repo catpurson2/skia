@@ -2,10 +2,12 @@ package skia;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 public class Chef {
 	
 	int x, y;
+	int width,height;
 	int vx, vy;
 	Object obj;
 	int dir;
@@ -13,6 +15,8 @@ public class Chef {
 	public Chef() {
 		x = 150;
 		y = 300;
+		width = 60;
+		height = 60;
 		vx = 0;
 		vy = 0;
 		obj = new Object(true, 0);
@@ -21,8 +25,6 @@ public class Chef {
 	
 	public void paint(Graphics g) {
 		
-		x+=vx;
-		y+=vy;
 		
 		if(dir == 0) {
 			g.setColor(Color.green);
@@ -42,7 +44,19 @@ public class Chef {
 			obj.paint(g, x-60, y+10);
 		}
 		
-		g.fillOval(x, y, 80, 80);
+		g.fillOval(x, y, width,height);
+		
+	}
+	
+	public boolean collided(Counter character) {
+		
+		//represent eachj object as a rectange
+		//then check if they are interesecting
+		
+		Rectangle main = new Rectangle(character.x,character.y,character.width,character.height);
+		Rectangle thisObject = new Rectangle(x,y,width,height);
+		
+		return main.intersects(thisObject);
 		
 	}
 	
@@ -54,6 +68,9 @@ public class Chef {
 		vy = v;
 	}
 
-	
+	public void move() {
+		x+=vx;
+		y+=vy;
+	}
 
 }
