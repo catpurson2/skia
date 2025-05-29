@@ -38,24 +38,67 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 	public void paint(Graphics g) {
 		super.paintComponent(g);
 		back.paint(g);
+		boolean colliding=false;
+		chef.move();
 		
 		for(Counter i : counters) {
+			
 			if(i != null) {
 				i.paint(g);
+				if(chef.collided(i)) {
+					colliding = true;
+					
+				}
 			}
 		}
 		
 		for(Oven i : ovens) {
 			i.paint(g);
+			if(chef.collided(i)) {
+				colliding = true;
+				
+			}
 		}
 		
 		for(Mixer i : mixers) {
 			i.paint(g);
+			if(chef.collided(i)) {
+				colliding = true;
+				
+			}
 		}
 		
 		sink.paint(g);
+		if(chef.collided(sink)) {
+			colliding = true;
+			
+		}
 		reg.paint(g);
-		chef.paint(g);
+
+		if(chef.collided(reg)) {
+			colliding = true;
+			
+		}
+		
+		
+		if(!colliding) {
+			chef.paint(g);
+		}else {
+			if(chef.dir == 90) {
+				chef.x-=10;
+			}if(chef.dir == 0) {
+				chef.y+=10;
+			}if (chef.dir == 180) {
+				chef.y -=10;
+			}if (chef.dir == 270) {
+				chef.x +=10;
+			}
+			
+			chef.vx = 0;
+			chef.paint(g);
+			colliding = !colliding;
+		}
+		
 		
 	}
 	
@@ -157,15 +200,19 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		
 		if (e.getKeyChar() == 'w' || e.getKeyCode() == 38) {
 			chef.setVY(-10);
+			chef.setVX(0);
 			chef.dir = 0;
 		} else if (e.getKeyChar() == 'a' || e.getKeyCode() == 37) {
 			chef.setVX(-10);
+			chef.setVY(0);
 			chef.dir = 270;
 		} else if (e.getKeyChar() == 's' || e.getKeyCode() == 40) {
 			chef.setVY(10);
+			chef.setVX(0);
 			chef.dir = 180;
 		} else if (e.getKeyChar() == 'd' || e.getKeyCode() == 39) {
 			chef.setVX(10);
+			chef.setVY(0);
 			chef.dir = 90;
 		}
 			
