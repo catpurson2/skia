@@ -34,6 +34,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 	Register reg = new Register(5*4+80, 35*4);
 	Mixer[] mixers = new Mixer[3];
 	Chef chef = new Chef();
+	Progress bar = new Progress(200, 200);
 	
 	public void paint(Graphics g) {
 		super.paintComponent(g);
@@ -98,6 +99,8 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			chef.paint(g);
 			colliding = !colliding;
 		}
+		
+		bar.paint(g);
 		
 		
 	}
