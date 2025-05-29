@@ -28,6 +28,11 @@ public class Chef {
 			g.setColor(Color.green);
 			
 			obj.paint(g, x, y-70);
+			
+			if(obj.bowl != null) {
+				g.fillOval(x, y-35, 20, 20);
+				g.fillOval(x+60, y-35, 20, 20);
+			}
 		} else if(dir == 90) {
 			g.setColor(Color.black);
 			
