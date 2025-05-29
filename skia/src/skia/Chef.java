@@ -31,42 +31,42 @@ public class Chef {
 		if(dir == 0) {
 			g.setColor(Color.green);
 			
-			obj.paint(g, x+5, y-50);
+			obj.paint(g, x-5, y-60);
 			
 			if(obj.bowl != null) {
-				g.fillOval(x+5, y-20, 20, 20);
-				g.fillOval(x+55, y-20, 20, 20);
+				g.fillOval(x-5, y-30, 20, 20);
+				g.fillOval(x+45, y-30, 20, 20);
 			}
 		} else if(dir == 90) {
 			g.setColor(Color.black);
 			
-			obj.paint(g, x+60, y+5);
+			obj.paint(g, x+50, y-5);
 			
 			if(obj.bowl != null) {
-				g.fillOval(x+80, y+5, 20, 20);
-				g.fillOval(x+80, y+55, 20, 20);
+				g.fillOval(x+70, y-5, 20, 20);
+				g.fillOval(x+70, y+45, 20, 20);
 			}
 		} else if(dir == 180) {
 			g.setColor(Color.white);
 			
-			obj.paint(g, x+5, y+60);
+			obj.paint(g, x-5, y+50);
 			
 			if(obj.bowl != null) {
-				g.fillOval(x+5, y+80, 20, 20);
-				g.fillOval(x+55, y+80, 20, 20);
+				g.fillOval(x-5, y+70, 20, 20);
+				g.fillOval(x+45, y+70, 20, 20);
 			}
 		} else if(dir == 270) {
 			g.setColor(Color.blue);
 			
-			obj.paint(g, x-50, y+5);
+			obj.paint(g, x-60, y-5);
 			
 			if(obj.bowl != null) {
-				g.fillOval(x-20, y+5, 20, 20);
-				g.fillOval(x-20, y+55, 20, 20);
+				g.fillOval(x-30, y-5, 20, 20);
+				g.fillOval(x-30, y+45, 20, 20);
 			}
 		}
     
-		g.fillOval(x+10, y+10, size, size);
+		g.fillOval(x, y, size, size);
 		
 		//hitboxes
 		if(dir == 0) {
@@ -74,10 +74,10 @@ public class Chef {
 			g.drawRect(x,y-20,60,20);
 		}else if(dir == 90) {
 			
-			g.drawRect(x+width,y,20,60);
+			g.drawRect(x+size,y,20,60);
 		}else if(dir == 180) {
 			
-			g.drawRect(x,y+height,60,20);
+			g.drawRect(x,y+size,60,20);
 		}else {
 			
 			g.drawRect(x-20,y,20,60);
@@ -112,7 +112,7 @@ public class Chef {
 		//then check if they are interesecting
 		
 		Rectangle main = new Rectangle(character.x,character.y,character.width,character.height);
-		Rectangle thisObject = new Rectangle(x+10, y+10, size, size);
+		Rectangle thisObject = new Rectangle(x, y, size, size);
 		
 		return main.intersects(thisObject);
 		
@@ -125,7 +125,7 @@ public class Chef {
 		//System.out.println(((80-size)/2) + " " + size);
 		
 		Rectangle main = new Rectangle(character.x,character.y,character.width,character.height);
-		Rectangle thisObject = new Rectangle(x+10, y+10, size, size);
+		Rectangle thisObject = new Rectangle(x, y, size, size);
 		
 		return main.intersects(thisObject);
 		

@@ -54,7 +54,19 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 					
 				}
 				if(chef.touching(i)) {
-					touched = i;
+					if(touching) {
+						if(chef.dir == 0 || chef.dir == 180) {
+							if((Math.abs(chef.x-10 - i.x)) <= Math.abs(chef.x-10 - touched.x)) {
+								touched = i;
+							}
+						} else {
+							if((Math.abs(chef.y-10 - i.y)) <= Math.abs(chef.y-10 - touched.y)) {
+								touched = i;
+							}
+						}
+					}else {
+						touched = i;
+					}
 					touching = true;
 				}else if(touched == i){
 					touched = null;

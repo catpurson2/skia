@@ -39,7 +39,7 @@ public class Counter {
 		Graphics2D g2 = (Graphics2D) g;
 		g.drawImage(img, x, y, width, height, null);
 		if(obj != null) {
-			obj.paint(g, x+10, y+10);
+			obj.paint(g, x+5, y+5);
 		}
 		
 	}
