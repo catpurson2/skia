@@ -74,6 +74,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			
 		}
 		reg.paint(g);
+
 		if(chef.collided(reg)) {
 			colliding = true;
 			
@@ -97,7 +98,6 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			chef.paint(g);
 			colliding = !colliding;
 		}
-		
 		
 		
 	}
