@@ -45,6 +45,41 @@ public class Chef {
 		}
 		
 		g.fillOval(x, y, width,height);
+		Rectangle thisObject;
+		if(dir == 0) {
+			
+			g.drawRect(x,y-20,80,20);
+		}else if(dir == 90) {
+			
+			g.drawRect(x+width,y,20,80);
+		}else if(dir == 180) {
+			
+			g.drawRect(x,y+height,80,20);
+		}else {
+			
+			g.drawRect(x-20,y,20,80);
+		}
+	}
+	
+	public boolean touching(Counter character) {
+		
+		//represent eachj object as a rectange
+		//then check if they are interesecting
+		
+		Rectangle main = new Rectangle(character.x,character.y,character.width,character.height);
+		Rectangle thisObject;
+		if(dir == 0) {
+			thisObject = new Rectangle(x,y-20,80,20);
+			
+		}else if(dir == 90) {
+			thisObject = new Rectangle(x+width,y,20,80);
+		}else if(dir == 180) {
+			thisObject = new Rectangle(x,y+height,80,20);
+		}else {
+			thisObject = new Rectangle(x-20,y,20,80);
+		}
+		
+		return main.intersects(thisObject);
 		
 	}
 	

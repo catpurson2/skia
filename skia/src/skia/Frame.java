@@ -49,6 +49,9 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 					colliding = true;
 					
 				}
+				if(chef.touching(i)) {
+					System.out.println("hands");
+				}
 			}
 		}
 		
