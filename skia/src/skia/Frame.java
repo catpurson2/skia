@@ -35,7 +35,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 	Register reg = new Register(5*4+80, 35*4);
 	Mixer[] mixers = new Mixer[3];
 	Chef chef = new Chef();
-	
+	Counter touched;
 	public void paint(Graphics g) {
 		super.paintComponent(g);
 		back.paint(g);
@@ -52,8 +52,11 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 					
 				}
 				if(chef.touching(i)) {
-					
+					touched = i;
 					touching = true;
+				}else if(touched == i){
+					touched = null;
+					touching = false;
 				}
 			}
 		}
@@ -223,6 +226,9 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		}
 		
 		if(e.getKeyChar() == 'e' && touching) {
+			Object temp = touched.obj;
+			touched.obj = chef.obj;
+			chef.obj = temp;
 			System.out.println("placed");
 		}
 		
