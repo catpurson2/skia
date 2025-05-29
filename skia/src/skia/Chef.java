@@ -27,19 +27,19 @@ public class Chef {
 		if(dir == 0) {
 			g.setColor(Color.green);
 			
-			obj.paint(g, x+10, y-60);
+			obj.paint(g, x, y-70);
 		} else if(dir == 90) {
 			g.setColor(Color.black);
 			
-			obj.paint(g, x+60+20, y+10);
+			obj.paint(g, x+70, y);
 		} else if(dir == 180) {
 			g.setColor(Color.white);
 			
-			obj.paint(g, x+10, y+60+20);
+			obj.paint(g, x, y+70);
 		} else if(dir == 270) {
 			g.setColor(Color.blue);
 			
-			obj.paint(g, x-60, y+10);
+			obj.paint(g, x-70, y);
 		}
 		
 		g.fillOval(x, y, 80, 80);

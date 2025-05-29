@@ -56,6 +56,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		sink.paint(g);
 		reg.paint(g);
 		chef.paint(g);
+		
 	}
 	
 	public static void main(String[] arg) {

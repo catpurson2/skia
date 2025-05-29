@@ -26,10 +26,10 @@ public class Object {
 	public void paint(Graphics g, int x, int y) {
 		
 		if(bowl != null) {
-			g.drawImage(bowl, x, y, 60, 60, null);
+			g.drawImage(bowl, x, y, 80, 80, null);
 		}
 		if(obj != null) {
-			g.drawImage(bowl, x, y, 60, 60, null);
+			g.drawImage(bowl, x, y, 80, 80, null);
 		}
 		
 	}
