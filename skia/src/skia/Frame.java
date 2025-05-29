@@ -69,8 +69,17 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		}
 		
 		sink.paint(g);
-		
+		if(chef.collided(sink)) {
+			colliding = true;
+			
+		}
 		reg.paint(g);
+		if(chef.collided(reg)) {
+			colliding = true;
+			
+		}
+		
+		
 		if(!colliding) {
 			chef.paint(g);
 		}else {

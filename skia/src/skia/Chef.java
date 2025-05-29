@@ -60,6 +60,30 @@ public class Chef {
 		
 	}
 	
+	public boolean collided(Sink character) {
+		
+		//represent eachj object as a rectange
+		//then check if they are interesecting
+		
+		Rectangle main = new Rectangle(character.x,character.y,character.width,character.height);
+		Rectangle thisObject = new Rectangle(x,y,width,height);
+		
+		return main.intersects(thisObject);
+		
+	}
+	
+	public boolean collided(Register character) {
+		
+		//represent eachj object as a rectange
+		//then check if they are interesecting
+		
+		Rectangle main = new Rectangle(character.x,character.y,character.width,character.height);
+		Rectangle thisObject = new Rectangle(x,y,width,height);
+		
+		return main.intersects(thisObject);
+		
+	}
+	
 	public void setVX(int v) {
 		vx = v;
 	}
