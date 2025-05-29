@@ -21,7 +21,7 @@ public class Chef {
 		size = 60;
 		vx = 0;
 		vy = 0;
-		obj = new Object(true, 0);
+		obj = new Object(false, 0);
 		dir = 0;
 	}
 	
@@ -137,7 +137,7 @@ public class Chef {
 		//then check if they are interesecting
 		
 		Rectangle main = new Rectangle(character.x, character.y, character.width, character.height);
-		Rectangle thisObject = new Rectangle(x+10, y+10, size, size);
+		Rectangle thisObject = new Rectangle(x, y, size, size);
 		
 		return main.intersects(thisObject);
 		
