@@ -19,7 +19,7 @@ public class Chef {
 		height = 60;
 		vx = 0;
 		vy = 0;
-		obj = new Object(true, 0);
+		obj = new Plate();
 		dir = 0;
 	}
 	

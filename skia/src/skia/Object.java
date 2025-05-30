@@ -9,17 +9,9 @@ public class Object {
 	
 	BufferedImage bowl, obj;
 	
-	public Object(Boolean bowl, int obj) {
+	public Object() {
 		
-		if (bowl) {
-			this.bowl = getImg("bowl");
-		} else {
-			bowl = null;
-		}
 		
-		if(obj == 0) {
-			this.obj = null;
-		}
 		
 	}
 	
