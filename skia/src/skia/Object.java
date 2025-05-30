@@ -13,19 +13,10 @@ public class Object {
 	ArrayList<BufferedImage> ingredients;
 	int progress;
 	
-	/*public Object(Boolean bowl, int obj) {
-		
-		if (bowl) {
-			this.bowl = getImg("bowl");
-		} else {
-			bowl = null;
-		}
-		
-		if(obj == 0) {
-			this.obj = null;
-		}
-		
-	}*/
+
+	public Object() {
+		bowl = null;
+	}
 	
 	public void paint(Graphics g, int x, int y) {
 		

@@ -87,6 +87,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			colliding = true;
 			
 		}
+		
 		reg.paint(g);
 
 		if(chef.collided(reg)) {
@@ -186,10 +187,11 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		c[34] = new Counter(20 + 80*8, 140 + 80*4, 0);
 		c[35] = new Counter(20 + 80*8, 140 + 80*5, 0);
 		
-		c[22].obj = new Bowl(true, 0);
-		c[28].obj = new Bowl(true, 0);
-		c[29].obj = new Bowl(true, 0);
-		c[32].obj = new Bowl(true, 0);
+		c[22].obj = new Bowl();
+		c[28].obj = new Bowl();
+		c[29].obj = new Bowl();
+		c[32].obj = new Bowl();
+		c[35].obj = new Plate();
 	}
 	
 	public void init(Oven[] o) {
@@ -252,6 +254,12 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			chef.setVX(10);
 			chef.setVY(0);
 			chef.dir = 90;
+		}
+		
+		if(e.getKeyChar() == 'e' && chef.touching(sink) && chef.obj instanceof Plate ) {
+			Object temp = chef.obj;
+			chef.obj = sink.obj;
+			sink.obj = temp;
 		}
 		
 		if(e.getKeyChar() == 'e' && touching) {

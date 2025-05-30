@@ -9,7 +9,7 @@ import javax.imageio.ImageIO;
 public class Counter {
 	
 	int width, height, x, y, c;
-	Object obj = new Bowl(false, 0);
+	Object obj = new Object();
 	BufferedImage img;
 	static BufferedImage metal;
 	static BufferedImage wood;
