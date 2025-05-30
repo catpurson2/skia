@@ -10,7 +10,7 @@ public class Sink {
 	
 	int width, height, x, y, c;
 	BufferedImage img;
-	Object obj = new Bowl(false, 0);
+	Object obj = new Object();
 	
 	public Sink(int x, int y) {
 		width = 160;

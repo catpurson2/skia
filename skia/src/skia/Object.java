@@ -13,7 +13,7 @@ public class Object {
 	
 
 	public Object() {
-
+		bowl = null;
 	}
 	
 	public void paint(Graphics g, int x, int y) {

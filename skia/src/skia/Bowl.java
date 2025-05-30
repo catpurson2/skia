@@ -2,18 +2,12 @@ package skia;
 
 public class Bowl extends Object {
 
-	public Bowl(Boolean bowl, int obj) {
+	
+	
+	public Bowl() {
 		
-		if (bowl) {
-			this.bowl = getImg("bowl");
-		} else {
-			bowl = null;
-		}
+		this.bowl = getImg("bowl");
 		
-		if(obj == 0) {
-			this.obj = null;
-		}
-		// TODO Auto-generated constructor stub
 	}
 
 }

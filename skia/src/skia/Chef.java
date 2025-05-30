@@ -24,7 +24,7 @@ public class Chef {
 
 		
 
-		obj = new Bowl(false, 0);
+		obj = new Object();
 
 		dir = 0;
 	}
