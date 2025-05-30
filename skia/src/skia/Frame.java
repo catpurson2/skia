@@ -36,7 +36,6 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 	Mixer[] mixers = new Mixer[3];
 	Chef chef = new Chef();
 	Counter touched;
-	Progress bar = new Progress(200, 200);
   
 	public void paint(Graphics g) {
 		super.paintComponent(g);
@@ -54,7 +53,19 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 					
 				}
 				if(chef.touching(i)) {
-					touched = i;
+					if(touching) {
+						if(chef.dir == 0 || chef.dir == 180) {
+							if((Math.abs(chef.x-10 - i.x)) <= Math.abs(chef.x-10 - touched.x)) {
+								touched = i;
+							}
+						} else {
+							if((Math.abs(chef.y-10 - i.y)) <= Math.abs(chef.y-10 - touched.y)) {
+								touched = i;
+							}
+						}
+					}else {
+						touched = i;
+					}
 					touching = true;
 				}else if(touched == i){
 					touched = null;
@@ -68,6 +79,28 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			if(chef.collided(i)) {
 				colliding = true;
 				
+			}
+			if(i.fireCheck()) {
+				System.out.println("FIREEEEEEEE OH NO");
+			}
+			if(chef.touching(i)) {
+				if(touching) {
+					if(chef.dir == 0 || chef.dir == 180) {
+						if((Math.abs(chef.x-10 - i.x)) <= Math.abs(chef.x-10 - touched.x)) {
+							touched = i;
+						}
+					} else {
+						if((Math.abs(chef.y-10 - i.y)) <= Math.abs(chef.y-10 - touched.y)) {
+							touched = i;
+						}
+					}
+				}else {
+					touched = i;
+				}
+				touching = true;
+			}else if(touched == i){
+				touched = null;
+				touching = false;
 			}
 		}
 		
@@ -109,8 +142,6 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			chef.paint(g);
 			colliding = !colliding;
 		}
-		
-		bar.paint(g);
 		
 		
 	}
@@ -185,6 +216,10 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		c[34] = new Counter(20 + 80*8, 140 + 80*4, 0);
 		c[35] = new Counter(20 + 80*8, 140 + 80*5, 0);
 		
+		c[22].obj = new Bowl(true, 0);
+		c[28].obj = new Bowl(true, 0);
+		c[29].obj = new Bowl(true, 0);
+		c[32].obj = new Bowl(true, 0);
 	}
 	
 	public void init(Oven[] o) {
@@ -230,10 +265,20 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		}
 		
 		if(e.getKeyChar() == 'e' && touching) {
-			Object temp = touched.obj;
-			touched.obj = chef.obj;
-			chef.obj = temp;
-			System.out.println("placed");
+			
+			//System.out.println(touched.getClass().getName());
+			
+			if(touched.getClass().getName().equals("skia.Counter")) {
+				Object temp = touched.obj;
+				touched.obj = chef.obj;
+				chef.obj = temp;
+				//System.out.println("placed");
+				
+			} else if (touched.getClass().getName().equals("skia.Oven")) {
+				Object temp = touched.obj;
+				touched.obj = chef.obj;
+				chef.obj = temp;
+			}
 		}
 		
 	}
