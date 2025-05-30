@@ -24,7 +24,7 @@ public class Oven extends Counter {
 			oven1 = getImg("oven1");
 			oven2 = getImg("oven2");
 		} else if (dir == 90) {
-			oven = getImg("oven");
+			oven = getImg("ovens");
 			oven1 = getImg("oven1s");
 			oven2 = getImg("oven2s");
 		}

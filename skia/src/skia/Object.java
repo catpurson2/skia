@@ -3,12 +3,14 @@ package skia;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
 public class Object {
 	
-	BufferedImage bowl, plate, obj;
+	BufferedImage bowl, plate;
+	ArrayList<BufferedImage> ingredients;
 	int progress;
 	
 	/*public Object(Boolean bowl, int obj) {
@@ -27,24 +29,6 @@ public class Object {
 	
 	public void paint(Graphics g, int x, int y) {
 		
-		if(bowl != null) {
-			g.drawImage(bowl, x, y, 70, 70, null);
-			
-			if(progress > 0 && progress < 250) {
-				g.setColor(Color.yellow);
-				g.fillOval(x+15, y+15, 40, 40);
-			} else if (progress > 0 && progress < 500) {
-				g.setColor(Color.orange);
-				g.fillOval(x+15, y+15, 40, 40);
-			} else if (progress > 0){
-				g.setColor(Color.green);
-				g.fillOval(x+15, y+15, 40, 40);
-			}
-		}
-		if(obj != null) {
-			g.drawImage(bowl, x, y, 70, 70, null);
-		}
-		
 	}
 	
 	public BufferedImage getImg(String path) {
@@ -57,6 +41,10 @@ public class Object {
 		
 		return null;
 		
+	}
+	
+	public void add(String ingredient) {
+		ingredients.add(getImg(ingredient));
 	}
 
 }
