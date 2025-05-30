@@ -8,10 +8,10 @@ import javax.imageio.ImageIO;
 
 public class Object {
 	
-	BufferedImage bowl, obj;
+	BufferedImage bowl, plate, obj;
 	int progress;
 	
-	public Object(Boolean bowl, int obj) {
+	/*public Object(Boolean bowl, int obj) {
 		
 		if (bowl) {
 			this.bowl = getImg("bowl");
@@ -23,7 +23,7 @@ public class Object {
 			this.obj = null;
 		}
 		
-	}
+	}*/
 	
 	public void paint(Graphics g, int x, int y) {
 		
