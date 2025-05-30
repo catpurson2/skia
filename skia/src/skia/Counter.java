@@ -9,6 +9,7 @@ import javax.imageio.ImageIO;
 public class Counter {
 	
 	int width, height, x, y, c;
+	Object obj = new Bowl(false, 0);
 	BufferedImage img;
 	static BufferedImage metal;
 	static BufferedImage wood;
@@ -37,7 +38,9 @@ public class Counter {
 		
 		Graphics2D g2 = (Graphics2D) g;
 		g.drawImage(img, x, y, width, height, null);
-		
+		if(obj != null && this.getClass().getName().equals("skia.Counter")) {
+			obj.paint(g, x+5, y+5);
+		}
 		
 	}
 	

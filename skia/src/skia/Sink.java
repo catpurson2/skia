@@ -10,6 +10,7 @@ public class Sink {
 	
 	int width, height, x, y, c;
 	BufferedImage img;
+	Object obj = new Bowl(false, 0);
 	
 	public Sink(int x, int y) {
 		width = 160;
@@ -26,7 +27,9 @@ public class Sink {
 		
 		Graphics2D g2 = (Graphics2D) g;
 		g.drawImage(img, x, y, width, height, null);
-		
+		if(obj != null && this.getClass().getName().equals("skia.Sink")) {
+			obj.paint(g, x+8, y+5);
+		}
 		
 	}
 	
