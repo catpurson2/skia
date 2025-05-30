@@ -88,6 +88,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			if(chef.collided(i)) {
 				colliding = true;
 			}
+			touching(i, colliding);
 		}
 		
 		sink.paint(g);
@@ -285,7 +286,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 				touched.obj = chef.obj;
 				chef.obj = temp;
 				((Oven) touched).bar.on = false;
-			} else if (touched.getClass().getName().equals("skia.Mixer")) {
+			} if (touched.getClass().getName().equals("skia.Mixer")) {
 				Object temp = touched.obj;
 				touched.obj = chef.obj;
 				chef.obj = temp;

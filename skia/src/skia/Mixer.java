@@ -5,20 +5,22 @@ import java.awt.image.BufferedImage;
 
 public class Mixer extends Counter {
 	
+	BufferedImage notmix;
 	BufferedImage mixer;
 	BufferedImage mixer2;
 	BufferedImage mixer3;
 	BufferedImage mixer4;
 	BufferedImage img;
 	Progress bar = new Progress(x, y-20);
-	String miximg;
+	//String mixImg;
 	Boolean mixing;
 	int f;
 
 	public Mixer(int x, int y) {
 		super(x, y, 1);
-		
-		miximg = "mixer";
+		obj = new Object();
+		//mixImg = "mixer";
+		notmix = getImg("nomix");
 		mixer = getImg("mixer");
 		mixer2 = getImg("mixer1");
 		mixer3 = mixer;
@@ -37,6 +39,9 @@ public class Mixer extends Counter {
 		
 		if(obj.bowl != null) {
 			mixing = true;
+			mix();
+		} else {
+			mixing = false;
 		}
 		
 		if(mixing && f%5 == 0) {
@@ -50,12 +55,19 @@ public class Mixer extends Counter {
 				img = mixer;
 			}
 		}
+		
 		if(!mixing) {
-			img = mixer;
+			img = notmix;
 		}
 		
 		g.drawImage(img, x, y-4, (int) (1*width), (int) (1*height), null);
 		
+	}
+	
+	public void mix() {
+		if(img.equals(notmix)) {
+			img = mixer;
+		}
 	}
 	
 
