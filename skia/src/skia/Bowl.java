@@ -10,22 +10,11 @@ public class Bowl extends Object {
 	
 	
 	public Bowl() {
+		super();
 		
 		this.bowl = getImg("bowl");
-		this.ingredients = new ArrayList<BufferedImage>();
 		// TODO Auto-generated constructor stub
 
-	}
-	
-	public void paint(Graphics g, int x, int y) {
-		
-		if(bowl != null) {
-			g.drawImage(bowl, x, y, 70, 70, null);
-		}
-		for(BufferedImage i : ingredients) {
-			g.drawImage(i, x, y, 70, 70, null);
-		}
-		
 	}
 
 

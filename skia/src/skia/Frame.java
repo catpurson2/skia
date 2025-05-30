@@ -31,6 +31,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 	Background back = new Background();
 	Counter[] counters = new Counter[36];
 	Box milk = new Box(20 + 80*6 + 80*5, 700-80*2, 0);
+	Box egg = new Box(20 + 80*6 + 80*5, 700-80, 1);
 	Oven[] ovens = new Oven[3];
 	Sink sink = new Sink(20 + 80*5, 140 + 80*4);
 	Register reg = new Register(5*4+80, 35*4);
@@ -62,6 +63,13 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			
 		}
 		touching(milk, colliding);
+		
+		egg.paint(g);
+		if(chef.collided(egg)) {
+			colliding = true;
+			
+		}
+		touching(egg, colliding);
 		
 		for(Oven i : ovens) {
 			i.paint(g);
@@ -276,6 +284,12 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 				Object temp = touched.obj;
 				touched.obj = chef.obj;
 				chef.obj = temp;
+				((Oven) touched).bar.on = false;
+			} else if (touched.getClass().getName().equals("skia.Mixer")) {
+				Object temp = touched.obj;
+				touched.obj = chef.obj;
+				chef.obj = temp;
+				
 			} else if (touched.getClass().getName().equals("skia.Box")) {
 				if(chef.obj.bowl != null) {
 					Box temp = (Box) touched;

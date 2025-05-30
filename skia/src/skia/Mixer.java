@@ -10,6 +10,7 @@ public class Mixer extends Counter {
 	BufferedImage mixer3;
 	BufferedImage mixer4;
 	BufferedImage img;
+	Progress bar = new Progress(x, y-20);
 	String miximg;
 	Boolean mixing;
 	int f;
@@ -23,7 +24,7 @@ public class Mixer extends Counter {
 		mixer3 = mixer;
 		mixer4 = getImg("mixer2");
 		img = mixer;
-		mixing = true;
+		mixing = false;
 		f = 0;
 		
 		// TODO Auto-generated constructor stub
@@ -33,6 +34,10 @@ public class Mixer extends Counter {
 		
 		super.paint(g);
 		f++;
+		
+		if(obj.bowl != null) {
+			mixing = true;
+		}
 		
 		if(mixing && f%5 == 0) {
 			if(img.equals(mixer)) {
