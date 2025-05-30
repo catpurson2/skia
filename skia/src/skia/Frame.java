@@ -30,6 +30,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 
 	Background back = new Background();
 	Counter[] counters = new Counter[36];
+	Milk milk = new Milk(20 + 80*6 + 80*5, 700-80*2);
 	Oven[] ovens = new Oven[3];
 	Sink sink = new Sink(20 + 80*5, 140 + 80*4);
 	Register reg = new Register(5*4+80, 35*4);
@@ -50,29 +51,17 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 				i.paint(g);
 				if(chef.collided(i)) {
 					colliding = true;
-					
 				}
-				if(chef.touching(i)) {
-					if(touching) {
-						if(chef.dir == 0 || chef.dir == 180) {
-							if((Math.abs(chef.x-10 - i.x)) <= Math.abs(chef.x-10 - touched.x)) {
-								touched = i;
-							}
-						} else {
-							if((Math.abs(chef.y-10 - i.y)) <= Math.abs(chef.y-10 - touched.y)) {
-								touched = i;
-							}
-						}
-					}else {
-						touched = i;
-					}
-					touching = true;
-				}else if(touched == i){
-					touched = null;
-					touching = false;
-				}
+				touching(i, colliding);
 			}
 		}
+		
+		milk.paint(g);
+		if(chef.collided(milk)) {
+			colliding = true;
+			
+		}
+		touching(milk, colliding);
 		
 		for(Oven i : ovens) {
 			i.paint(g);
@@ -81,34 +70,15 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 				
 			}
 			if(i.fireCheck()) {
-				System.out.println("FIREEEEEEEE OH NO");
+				//System.out.println("FIREEEEEEEE OH NO");
 			}
-			if(chef.touching(i)) {
-				if(touching) {
-					if(chef.dir == 0 || chef.dir == 180) {
-						if((Math.abs(chef.x-10 - i.x)) <= Math.abs(chef.x-10 - touched.x)) {
-							touched = i;
-						}
-					} else {
-						if((Math.abs(chef.y-10 - i.y)) <= Math.abs(chef.y-10 - touched.y)) {
-							touched = i;
-						}
-					}
-				}else {
-					touched = i;
-				}
-				touching = true;
-			}else if(touched == i){
-				touched = null;
-				touching = false;
-			}
+			touching(i, colliding);
 		}
 		
 		for(Mixer i : mixers) {
 			i.paint(g);
 			if(chef.collided(i)) {
 				colliding = true;
-				
 			}
 		}
 		
@@ -234,7 +204,27 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		m[2] = new Mixer(20 + 80*5, 700);
 	}
 	
-	
+	public void touching(Counter i, Boolean colliding) {
+		if(chef.touching(i)) {
+			if(touching) {
+				if(chef.dir == 0 || chef.dir == 180) {
+					if((Math.abs(chef.x-10 - i.x)) <= Math.abs(chef.x-10 - touched.x)) {
+						touched = i;
+					}
+				} else {
+					if((Math.abs(chef.y-10 - i.y)) <= Math.abs(chef.y-10 - touched.y)) {
+						touched = i;
+					}
+				}
+			}else {
+				touched = i;
+			}
+			touching = true;
+		}else if(touched == i){
+			touched = null;
+			touching = false;
+		}
+	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -278,6 +268,10 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 				Object temp = touched.obj;
 				touched.obj = chef.obj;
 				chef.obj = temp;
+			} else if (touched.getClass().getName().equals("skia.Milk")) {
+				if(chef.obj.bowl != null) {
+					chef.obj.add("milk");
+				}
 			}
 		}
 		
