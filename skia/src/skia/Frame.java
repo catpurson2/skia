@@ -266,11 +266,17 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			chef.dir = 90;
 		}
 		
-		if(e.getKeyChar() == 'e' && chef.touching(sink) && chef.obj instanceof Plate ) {
-			Object temp = chef.obj;
+		if(e.getKeyChar() == 'e' && chef.touching(sink) && chef.obj instanceof Plate) {
+			Plate temp = (Plate) chef.obj;
 			chef.obj = sink.obj;
 			sink.obj = temp;
 		}
+		
+		if(e.getKeyChar() == 'l'  && chef.obj instanceof Plate) {
+			Plate temp = (Plate) chef.obj;
+			temp.isDirty = !temp.isDirty;
+		}
+		
 		
 		if(e.getKeyChar() == 'e' && touching) {
 			
