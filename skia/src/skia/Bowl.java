@@ -14,7 +14,7 @@ public class Bowl extends Object {
 		this.bowl = getImg("bowl");
 		this.ingredients = new ArrayList<BufferedImage>();
 		// TODO Auto-generated constructor stub
-
+		super.empty = false;
 	}
 	
 	public void paint(Graphics g, int x, int y) {

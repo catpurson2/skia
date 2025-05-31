@@ -12,14 +12,20 @@ public class Object {
 	BufferedImage bowl, plate;
 	ArrayList<BufferedImage> ingredients;
 	int progress;
-	
+	boolean empty;
 
 	public Object() {
 		bowl = null;
+		empty = true;
 	}
 	
 	public void paint(Graphics g, int x, int y) {
-		
+		if(bowl != null) {
+			g.drawImage(bowl, x, y, 70, 70, null);
+		}
+		if(plate != null) {
+			g.drawImage(plate, x, y, 70, 70, null);
+		}
 	}
 	
 	public BufferedImage getImg(String path) {

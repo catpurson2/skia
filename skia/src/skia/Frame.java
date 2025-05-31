@@ -37,7 +37,8 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 	Mixer[] mixers = new Mixer[3];
 	Chef chef = new Chef();
 	Counter touched;
-  
+	int count = 0;
+	
 	public void paint(Graphics g) {
 		super.paintComponent(g);
 		back.paint(g);
@@ -192,6 +193,9 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		c[29].obj = new Bowl();
 		c[32].obj = new Bowl();
 		c[35].obj = new Plate();
+		c[25].obj = new Plate();
+		c[27].obj = new Plate();
+		c[31].obj = new Plate();
 	}
 	
 	public void init(Oven[] o) {
@@ -238,6 +242,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method st
 		
+		
 		if (e.getKeyChar() == 'w' || e.getKeyCode() == 38) {
 			chef.setVY(-10);
 			chef.setVX(0);
@@ -256,10 +261,25 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			chef.dir = 90;
 		}
 		
-		if(e.getKeyChar() == 'e' && chef.touching(sink) && chef.obj instanceof Plate ) {
-			Object temp = chef.obj;
-			chef.obj = sink.obj;
-			sink.obj = temp;
+		if(e.getKeyChar() == 'e' && chef.touching(sink)  ) {
+			if(chef.obj instanceof Plate) {
+				Plate temp = (Plate) chef.obj;
+				if(temp.isDirty()) {
+					chef.obj = new Object();
+					sink.dirtyPlates.add(temp);
+				}
+				
+			}else if(chef.obj.empty && sink.cleanPlates.size() > 0) {
+				chef.obj = sink.cleanPlates.remove(0);
+			}
+			
+		}
+		
+		if(e.getKeyChar() == ' ' && chef.touching(sink) && sink.dirtyPlates.size() > 0 && sink.dirtyPlates.get(0) instanceof Plate && chef.obj.empty) {
+			
+			
+			sink.cleanPlates.add(sink.dirtyPlates.remove(sink.dirtyPlates.size()-1));
+			sink.cleanPlates.get(sink.cleanPlates.size()-1).isDirty = false;
 		}
 		
 		if(e.getKeyChar() == 'e' && touching) {
