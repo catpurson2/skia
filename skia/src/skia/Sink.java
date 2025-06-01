@@ -1,5 +1,6 @@
 package skia;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -9,11 +10,14 @@ import javax.imageio.ImageIO;
 
 public class Sink {
 	
+	int timer = 0;
 	int width, height, x, y, c;
 	BufferedImage img;
 	ArrayList<Plate> cleanPlates = new ArrayList<Plate>(); 
 	ArrayList<Plate> dirtyPlates = new ArrayList<Plate>(); 
-	
+	Progress bar = new Progress (x+100, y-20);
+	boolean washing;
+	Boolean fire;
 	
 	public Sink(int x, int y) {
 		
@@ -28,6 +32,8 @@ public class Sink {
 	}
 	
 	public void paint(Graphics g) {
+		
+		
 		
 		int i = 0;
 		
@@ -56,6 +62,13 @@ public class Sink {
 			
 			i++;
 		}
+		
+		if(washing) {
+			g.setColor(Color.green);
+			g.fillRect(x+80+(int) (80.0/30*2)+1, y-20+(int) (80.0/30*2), timer*((int) (80.0/12*26))/500, (int) (80.0/30*2)+3);
+			g.drawImage(bar.bar, x+80, y-20, 80, 80, null);
+		}
+		
 	}
 	
 	public BufferedImage getImg(String path) {

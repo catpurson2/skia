@@ -84,6 +84,9 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		}
 		
 		sink.paint(g);
+		
+		sink.bar.paint(g);
+		
 		if(chef.collided(sink)) {
 			colliding = true;
 			
@@ -278,8 +281,18 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		if(e.getKeyChar() == ' ' && chef.touching(sink) && sink.dirtyPlates.size() > 0 && sink.dirtyPlates.get(0) instanceof Plate && chef.obj.empty) {
 			
 			
-			sink.cleanPlates.add(sink.dirtyPlates.remove(sink.dirtyPlates.size()-1));
-			sink.cleanPlates.get(sink.cleanPlates.size()-1).isDirty = false;
+			//play the washing animation
+			sink.timer++;
+			sink.washing = true;
+			if(sink.timer == 200) {
+				sink.timer = 0;
+				sink.cleanPlates.add(sink.dirtyPlates.remove(sink.dirtyPlates.size()-1));
+				sink.cleanPlates.get(sink.cleanPlates.size()-1).isDirty = false;
+				if(sink.dirtyPlates.size() == 0) {
+					sink.washing = false;
+				}
+			}
+			
 		}
 		
 		if(e.getKeyChar() == 'e' && touching) {
@@ -311,6 +324,8 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		// TODO Auto-generated method stub
 		
 		//System.out.println(e.getKeyChar() + " " + e.getKeyCode() + " " + (e.getKeyCode() == 38));
+		
+	
 		
 		if (e.getKeyChar() == 'w' || e.getKeyCode() == 38) {
 			chef.setVY(0);

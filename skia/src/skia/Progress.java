@@ -26,7 +26,6 @@ public class Progress {
 	
 	public Boolean paint(Graphics g) {
 		
-		
 		if(progress <= 500) {
 			
 			if(progress < 250) {
