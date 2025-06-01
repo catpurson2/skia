@@ -14,7 +14,7 @@ public class Bowl extends Object {
 		
 		this.bowl = getImg("bowl");
 		// TODO Auto-generated constructor stub
-
+		super.empty = false;
 	}
 
 

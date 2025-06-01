@@ -12,10 +12,11 @@ public class Object {
 	BufferedImage bowl, plate;
 	ArrayList<BufferedImage> ingredients;
 	int progress;
-	
+	boolean empty;
 
 	public Object() {
 		bowl = null;
+		empty = true;
 		ingredients = new ArrayList<BufferedImage>();
 	}
 	
