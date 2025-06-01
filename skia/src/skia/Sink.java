@@ -36,10 +36,18 @@ public class Sink {
 		for(Object obj: cleanPlates) {
 			if(obj instanceof Plate) {
 				obj.plate = getImg("plate");
-				obj.paint(g, x+8, y+5);
+				obj.paint(g, x+8, y+5+4*i);
 			}
 			
-		}for(Object obj : dirtyPlates) {
+			i++;
+			if(i%2 == 0) {
+				i*=2;
+			}else {
+				i*=-1;
+			}
+		}
+		i = 0;
+		for(Object obj : dirtyPlates) {
 			
 			if(obj instanceof Plate) {
 				obj.plate = getImg("sideplate");
