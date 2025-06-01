@@ -36,6 +36,7 @@ public class Register {
 			if(obj != null && !obj.isDirty) {
 				obj.paint(g, x+80, y-5-(int)(1-10*obj.alpha));
 			}else if(obj != null && obj.isDirty) {
+				
 				obj.paint(g, x+165, y+5+4*i);
 				
 				i++;
