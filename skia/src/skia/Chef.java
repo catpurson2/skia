@@ -132,6 +132,29 @@ public class Chef {
 		
 	}
 	
+	public boolean touching(Register character) {
+		
+		//represent eachj object as a rectange
+		//then check if they are interesecting
+		
+		
+		Rectangle main = new Rectangle(character.x,character.y,character.width,character.height);
+		Rectangle thisObject;
+		if(dir == 0) {
+			thisObject = new Rectangle(x,y-20,60,20);
+			
+		}else if(dir == 90) {
+			thisObject = new Rectangle(x+width,y,20,60);
+		}else if(dir == 180) {
+			thisObject = new Rectangle(x,y+height,60,20);
+		}else {
+			thisObject = new Rectangle(x-20,y,20,60);
+		}
+		
+		return main.intersects(thisObject);
+		
+	}
+	
 	public boolean collided(Counter character) {
 		
 		//represent eachj object as a rectange

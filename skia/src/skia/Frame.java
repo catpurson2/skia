@@ -1,8 +1,10 @@
 package skia;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
@@ -94,10 +96,15 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		
 		reg.paint(g);
 
+		Graphics2D g2 = (Graphics2D) g;
+		
+		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+		
 		if(chef.collided(reg)) {
 			colliding = true;
 			
 		}
+		
 		
 		
 		if(!colliding) {
@@ -284,13 +291,24 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			//play the washing animation
 			sink.timer++;
 			sink.washing = true;
-			if(sink.timer == 200) {
+			if(sink.timer == 150) {
 				sink.timer = 0;
 				sink.cleanPlates.add(sink.dirtyPlates.remove(sink.dirtyPlates.size()-1));
 				sink.cleanPlates.get(sink.cleanPlates.size()-1).isDirty = false;
 				if(sink.dirtyPlates.size() == 0) {
 					sink.washing = false;
 				}
+			}
+			
+		}
+		
+		if(e.getKeyChar() == 'e' && chef.touching(reg) && chef.obj instanceof Plate) {
+			
+			Plate temp = (Plate) chef.obj;
+			
+			if(!temp.isDirty) {
+				chef.obj = new Object();
+				reg.sell(temp);
 			}
 			
 		}
