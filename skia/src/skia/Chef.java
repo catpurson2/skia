@@ -73,7 +73,7 @@ public class Chef {
 		g.fillOval(x, y, size, size);
 		
 		//hitboxes
-		if(dir == 0) {
+		/*if(dir == 0) {
 			
 			g.drawRect(x,y-20,60,20);
 		}else if(dir == 90) {
@@ -85,7 +85,7 @@ public class Chef {
 		}else {
 			
 			g.drawRect(x-20,y,20,60);
-		}
+		}*/
 	}
 	
 	public boolean touching(Counter character) {
