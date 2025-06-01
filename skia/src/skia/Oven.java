@@ -9,16 +9,24 @@ import javax.imageio.ImageIO;
 public class Oven extends Counter {
 	
 	int c;
+	int b;
+	Boolean extinguished = false;
 	BufferedImage oven;
 	BufferedImage oven1;
 	BufferedImage oven2;
+	BufferedImage fires;
+	BufferedImage fire1;
+	BufferedImage fire2;
+	BufferedImage fire3;
+	BufferedImage fire4;
+	
 	Progress bar = new Progress(x, y-20);
 	Boolean on;
 	Boolean fire;
 
 	public Oven(int x, int y, int dir) {
 		super(x, y, 0);
-		
+		fires = getImg("fire1");
 		if(dir == 0) {
 			oven = getImg("oven");
 			oven1 = getImg("oven1");
@@ -29,6 +37,11 @@ public class Oven extends Counter {
 			oven2 = getImg("oven2s");
 		}
 		
+		fire1 = getImg("fire1");
+		fire2 = getImg("fire2");
+		fire3 = getImg("fire3");
+		fire4 = getImg("fire4");
+		fires = fire1;
 		this.img = oven;
 		fire = false;
 		on = false;
@@ -37,7 +50,7 @@ public class Oven extends Counter {
 	
 	public void paint(Graphics g) {
 		
-		if(obj.bowl != null) {
+		if(obj.bowl != null && !fire) {
 			bar.turnOn(obj.progress);
 			on = true;
 		} else {
@@ -65,13 +78,38 @@ public class Oven extends Counter {
 		}
 		
 		super.paint(g);
-		
+		System.out.println(fire + " " + on);
+		if(fire && !extinguished) {
+			b++;
+			if(b%5 == 0) {
+				if(fires.equals(fire1)) {
+					fires = fire2;
+				}else if(fires.equals(fire2)) {
+					fires = fire3;
+				}else if(fires.equals(fire3)) {
+					fires = fire4;
+				}else {
+					fires = fire1;
+					b=0;
+				}
+			}
+			g.drawImage(fires, x,y, 80,80,null);
+			
+		}
 		
 	}
 	
 	public Boolean fireCheck() {
 		return fire;
 	}
-
+	
+	public void extinguish() {
+		extinguished = true;
+		fire = false;
+		on = false;
+		bar.progress = 0;
+		bar.on = false;
+		System.out.println("extingnngng");
+	}
 
 }
