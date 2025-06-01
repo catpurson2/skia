@@ -36,6 +36,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 	Oven[] ovens = new Oven[3];
 	Sink sink = new Sink(20 + 80*5, 140 + 80*4);
 	Register reg = new Register(5*4+80, 35*4);
+	ReturnCounter ret = new ReturnCounter(5*4+240, 35*4);
 	Mixer[] mixers = new Mixer[3];
 	Chef chef = new Chef();
 	Counter touched;
@@ -93,6 +94,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			colliding = true;
 			
 		}
+		ret.paint(g);
 		
 		reg.paint(g);
 
@@ -100,7 +102,9 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		
 		g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 		
-		if(chef.collided(reg)) {
+		
+		
+		if(chef.collided(reg) || chef.collided(ret)) {
 			colliding = true;
 			
 		}
@@ -124,7 +128,12 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			chef.paint(g);
 			colliding = !colliding;
 		}
-		
+		Plate temp = reg.remove();
+		if(temp != null) {
+			
+			ret.plates.add(temp);
+			
+		}
 		
 	}
 	
@@ -309,7 +318,15 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			if(!temp.isDirty) {
 				chef.obj = new Object();
 				reg.sell(temp);
+				
 			}
+			
+		}
+		
+		if(e.getKeyChar() == 'e' && chef.touching(ret) && chef.obj.empty && ret.plates.size() > 0) {
+			
+			
+			chef.obj = ret.plates.remove(ret.plates.size()-1);
 			
 		}
 		

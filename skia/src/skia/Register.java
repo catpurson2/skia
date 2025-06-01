@@ -32,19 +32,10 @@ public class Register {
 		
 		int i =0;
 		g.drawImage(img, x, y, width, height, null);
-		for(Plate obj: plates) {
+		for(int j =0; j< plates.size(); j++) {
+			Plate obj = plates.get(j);
 			if(obj != null && !obj.isDirty) {
 				obj.paint(g, x+80, y-5-(int)(1-10*obj.alpha));
-			}else if(obj != null && obj.isDirty) {
-				
-				obj.paint(g, x+165, y+5+4*i);
-				
-				i++;
-				if(i%2 == 0) {
-					i*=2;
-				}else {
-					i*=-1;
-				}
 			}
 		}
 		
@@ -69,4 +60,14 @@ public class Register {
 		score ++;
 	}
 	
+	public Plate remove() {
+		
+		for(int i = 0; i<plates.size(); i++) {
+			if(plates.get(i) != null && plates.get(i).isDirty) {
+				return plates.remove(i);
+			}
+		}
+		
+		return null;
+	}
 }
