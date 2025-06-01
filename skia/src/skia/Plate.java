@@ -13,7 +13,9 @@ public class Plate extends Object {
 	boolean sold = false;
 	int timer = 0;
 	
+
 	public Plate() {
+    super();
 		super.empty = false;
 		super.plate = getImg("dirtyplate");
 		// TODO Auto-generated constructor stub

@@ -17,6 +17,7 @@ public class Object {
 	public Object() {
 		bowl = null;
 		empty = true;
+		ingredients = new ArrayList<BufferedImage>();
 	}
 	
 	public void paint(Graphics g, int x, int y) {
@@ -26,6 +27,12 @@ public class Object {
 		if(plate != null) {
 			g.drawImage(plate, x, y, 70, 70, null);
 		}
+		
+	
+		for(BufferedImage i : ingredients) {
+			g.drawImage(i, x, y, 70, 70, null);
+		}
+		
 	}
 	
 	public BufferedImage getImg(String path) {
