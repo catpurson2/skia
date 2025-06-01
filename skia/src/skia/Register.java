@@ -6,13 +6,15 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
+import java.util.ArrayList;
 
 public class Register {
 	
 	int width, height, x, y, c;
 	BufferedImage img;
 	float alpha = 1f;
-	Plate obj;
+	ArrayList<Plate> plates = new ArrayList<Plate>();
+	int score = 0;
 	
 	public Register(int x, int y) {
 		width = 160;
@@ -28,12 +30,23 @@ public class Register {
 	public void paint(Graphics g) {
 		
 		
-		
+		int i =0;
 		g.drawImage(img, x, y, width, height, null);
-		
-		if(obj != null) {
-			obj.paint(g, x+80, y-(int)(1-10*obj.alpha));
+		for(Plate obj: plates) {
+			if(obj != null && !obj.isDirty) {
+				obj.paint(g, x+80, y-5-(int)(1-10*obj.alpha));
+			}else if(obj != null && obj.isDirty) {
+				obj.paint(g, x+165, y+5+4*i);
+				
+				i++;
+				if(i%2 == 0) {
+					i*=2;
+				}else {
+					i*=-1;
+				}
+			}
 		}
+		
 	}
 	
 	public BufferedImage getImg(String path) {
@@ -50,10 +63,9 @@ public class Register {
 	
 	public void sell(Plate temp) {
 		temp.sold = true;
-		obj = temp;
+		plates.add(temp);
 		
-		
-		
+		score ++;
 	}
 	
 }
