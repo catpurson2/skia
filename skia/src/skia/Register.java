@@ -1,15 +1,20 @@
 package skia;
 
+import java.awt.AlphaComposite;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
+import java.util.ArrayList;
 
 public class Register {
 	
 	int width, height, x, y, c;
 	BufferedImage img;
+	float alpha = 1f;
+	ArrayList<Plate> plates = new ArrayList<Plate>();
+	int score = 0;
 	
 	public Register(int x, int y) {
 		width = 160;
@@ -24,9 +29,15 @@ public class Register {
 	
 	public void paint(Graphics g) {
 		
-		Graphics2D g2 = (Graphics2D) g;
-		g.drawImage(img, x, y, width, height, null);
 		
+		int i =0;
+		g.drawImage(img, x, y, width, height, null);
+		for(int j =0; j< plates.size(); j++) {
+			Plate obj = plates.get(j);
+			if(obj != null && !obj.isDirty) {
+				obj.paint(g, x+80, y-5-(int)(1-10*obj.alpha));
+			}
+		}
 		
 	}
 	
@@ -41,5 +52,22 @@ public class Register {
 		return null;
 		
 	}
-
+	
+	public void sell(Plate temp) {
+		temp.sold = true;
+		plates.add(temp);
+		
+		score ++;
+	}
+	
+	public Plate remove() {
+		
+		for(int i = 0; i<plates.size(); i++) {
+			if(plates.get(i) != null && plates.get(i).isDirty) {
+				return plates.remove(i);
+			}
+		}
+		
+		return null;
+	}
 }
