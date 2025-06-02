@@ -32,8 +32,6 @@ public class Bowl extends Object {
 			
 			if(in.contains("milk") && in.contains("egg") && in.contains("flour") && in.contains("sugar") && in.get(in.size()-1).equals("batter")) {
 				add("cake");
-			} if(in.contains("milk") && in.contains("egg")) {
-				add("cake");
 			} else {
 				add("green");
 			}

@@ -11,6 +11,7 @@ public class Object {
 	
 	BufferedImage bowl, plate;
 	ArrayList<BufferedImage> ingredients;
+	IngredientBar bar;
 	ArrayList<String> in;
 	int progress;
 	boolean empty;
@@ -49,6 +50,10 @@ public class Object {
 			
 		}
 		
+		if(bar != null) {
+			bar.paint(g, x, y);
+		}
+		
 	}
 	
 	public BufferedImage getImg(String path) {
@@ -67,6 +72,7 @@ public class Object {
 		ingredients.add(getImg(ingredient));
 		in.add(ingredient);
 		progress = 0;
+		bar = new IngredientBar(in);
 	}
 
 }
