@@ -5,6 +5,7 @@ import java.awt.AlphaComposite;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 public class Plate extends Object {
 	
@@ -37,6 +38,9 @@ public class Plate extends Object {
 				super.plate = null;
 				alpha = 1f;
 				timer++;
+				empty = true;
+				ingredients = new ArrayList<BufferedImage>();
+				in = new ArrayList<String>();
 				if(timer == 10){
 					timer = 0;
 					isDirty = true;
