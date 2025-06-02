@@ -50,7 +50,7 @@ public class Oven extends Counter {
 	
 	public void paint(Graphics g) {
 		
-		if(obj.bowl != null && !fire) {
+		if(obj.bowl != null && !fire && !extinguished) {
 			bar.turnOn(obj.progress);
 			on = true;
 		} else {
@@ -60,6 +60,7 @@ public class Oven extends Counter {
 		
 		Graphics2D g2 = (Graphics2D) g;
 		
+		//check if ingredients of obj contain burnt to turn off extinguished, wait no do that in chef
 		
 		if(on) {
 			c++;
@@ -78,7 +79,7 @@ public class Oven extends Counter {
 		}
 		
 		super.paint(g);
-		System.out.println(fire + " " + on);
+	
 		if(fire && !extinguished) {
 			b++;
 			if(b%5 == 0) {
@@ -104,12 +105,11 @@ public class Oven extends Counter {
 	}
 	
 	public void extinguish() {
+		obj.progress = 0;
+		bar.on = false;
 		extinguished = true;
 		fire = false;
-		on = false;
-		bar.progress = 0;
-		bar.on = false;
-		System.out.println("extingnngng");
+		
 	}
 
 }
