@@ -50,9 +50,24 @@ public class Oven extends Counter {
 	
 	public void paint(Graphics g) {
 		
+
+		if(obj.bowl != null) {
+			if(obj.mixed && obj.ingredients.size() > 0) {
+				obj.progress = 0;
+				obj.mixed = false;
+			}
+    }
+    
 		if(obj.bowl != null && !fire && !extinguished) {
+
 			bar.turnOn(obj.progress);
 			on = true;
+			
+			if(bar.progress == 500) {
+				((Bowl) obj).bake();
+			} else if(bar.progress == 800) {
+				((Bowl) obj).burn();
+			}
 		} else {
 			bar.on = false;
 			on = false;

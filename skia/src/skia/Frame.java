@@ -16,6 +16,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.net.URL;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -34,6 +35,8 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 	Counter[] counters = new Counter[36];
 	Box milk = new Box(20 + 80*6 + 80*5, 700-80*2, 0);
 	Box egg = new Box(20 + 80*6 + 80*5, 700-80, 1);
+	Box sugar = new Box(20, 140 + 80*3, 3);
+	Box flour = new Box(20, 140 + 80*2, 2);
 	Oven[] ovens = new Oven[3];
 	Sink sink = new Sink(20 + 80*5, 140 + 80*4);
 	Register reg = new Register(5*4+80, 35*4);
@@ -74,6 +77,20 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			
 		}
 		touching(egg, colliding);
+		
+		sugar.paint(g);
+		if(chef.collided(sugar)) {
+			colliding = true;
+			
+		}
+		touching(sugar, colliding);
+		
+		flour.paint(g);
+		if(chef.collided(flour)) {
+			colliding = true;
+			
+		}
+		touching(flour, colliding);
 		
 		for(Oven i : ovens) {
 			i.paint(g);
@@ -350,19 +367,30 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			//System.out.println(touched.getClass().getName());
 			
 			if(touched.getClass().getName().equals("skia.Counter")) {
-				Object temp = touched.obj;
-				touched.obj = chef.obj;
-				chef.obj = temp;
-				//System.out.println("placed");
 				
-			} else if (touched.getClass().getName().equals("skia.Oven")) {
-				if(!((Oven) touched).fire) {
+				if(chef.obj instanceof Bowl && touched.obj instanceof Plate && !((Plate) touched.obj).isDirty) {
+					if(chef.obj.in.contains("cake") && touched.obj.in.size() == 0) {
+						touched.obj.add("cake");
+						chef.obj = new Bowl();
+					} else if (chef.obj.in.contains("frosting") && touched.obj.in.size() == 1 && touched.obj.in.contains("cake")) {
+						touched.obj.add("cakeFrosting");
+						chef.obj = new Bowl();
+					}
+					
+				} else {
 					Object temp = touched.obj;
 					touched.obj = chef.obj;
 					chef.obj = temp;
-					((Oven) touched).bar.on = false;
 				}
-			} if (touched.getClass().getName().equals("skia.Mixer")) {
+				//System.out.println("placed");
+				
+
+			} else if (touched.getClass().getName().equals("skia.Oven") && chef.obj.plate == null) {
+				Object temp = touched.obj;
+				touched.obj = chef.obj;
+				chef.obj = temp;
+				((Oven) touched).bar.on = false;
+			} if (touched.getClass().getName().equals("skia.Mixer") && chef.obj.plate == null) {
 				Object temp = touched.obj;
 				touched.obj = chef.obj;
 				chef.obj = temp;
