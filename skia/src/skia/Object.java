@@ -16,6 +16,7 @@ public class Object {
 	boolean empty;
 	boolean mixed;
 	static BufferedImage[] ing;
+	boolean burnt = false;
 	
 
 	public Object() {

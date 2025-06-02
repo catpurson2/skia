@@ -8,7 +8,6 @@ import java.util.ArrayList;
 public class Bowl extends Object {
 
 	
-	
 	public Bowl() {
 		super();
 		
@@ -42,6 +41,7 @@ public class Bowl extends Object {
 	
 	public void burn() {
 		add("burnt");
+		burnt = true;
 	}
 
 

@@ -46,6 +46,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 	Counter touched;
 	int count = 0;
 	
+	
 	public void paint(Graphics g) {
 		super.paintComponent(g);
 		back.paint(g);
@@ -338,9 +339,10 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			
 		}
 		
-		if(e.getKeyChar() == ' ' && touching && chef.obj instanceof Extinguisher && touched instanceof Oven){
-			((Oven) touched).extinguish();
-			
+		if(e.getKeyChar() == ' ' && touching && chef.obj instanceof Extinguisher && touched instanceof Oven ){
+			if(((Oven) touched).fire) {
+				((Oven) touched).extinguish();
+			}
 		}
 		
 		if(e.getKeyChar() == 'e' && chef.touching(reg) && chef.obj instanceof Plate) {
@@ -382,13 +384,16 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 					touched.obj = chef.obj;
 					chef.obj = temp;
 				}
-				//System.out.println("placed");
+				
 				
 
 			} else if (touched.getClass().getName().equals("skia.Oven") && chef.obj.plate == null) {
 				Object temp = touched.obj;
 				touched.obj = chef.obj;
 				chef.obj = temp;
+				if(temp.burnt) {
+					((Oven)touched).extinguished = false;
+				}
 				((Oven) touched).bar.on = false;
 			} if (touched.getClass().getName().equals("skia.Mixer") && chef.obj.plate == null) {
 				Object temp = touched.obj;
