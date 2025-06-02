@@ -49,6 +49,7 @@ public class Object {
 	
 	public void add(String ingredient) {
 		ingredients.add(getImg(ingredient));
+		
 	}
 
 }

@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 
 public class Plate extends Object {
 	
-	boolean isDirty = true;
+	boolean isDirty = false;
 	float alpha = 1f;
 	boolean sold = false;
 	int timer = 0;
@@ -17,7 +17,7 @@ public class Plate extends Object {
 	public Plate() {
     super();
 		super.empty = false;
-		super.plate = getImg("dirtyplate");
+		super.plate = getImg("plate");
 		// TODO Auto-generated constructor stub
 	}
 	
