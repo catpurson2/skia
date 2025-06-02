@@ -3,6 +3,8 @@ package skia;
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -15,6 +17,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -45,6 +48,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 	Chef chef = new Chef();
 	Counter touched; 
 	int count = 0;
+	Font joystix;
 	
 	//FONT VIDEO LINK:https://www.youtube.com/watch?v=g-wrebFVP3E
 	
@@ -52,6 +56,12 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		super.paintComponent(g);
 		back.paint(g);
 		boolean colliding=false;
+	
+		g.setColor(Color.white);
+		g.setFont(joystix);
+		g.setFont(g.getFont().deriveFont(Font.PLAIN,32F));
+		
+		g.drawString("tuesday", 50, 50);
 		
 		chef.move();
 		
@@ -182,6 +192,16 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		init(counters);
 		init(ovens);
 		init(mixers);
+		
+		try {
+			joystix = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("/font/joystix monospace.otf"));
+		} catch (FontFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		/*setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
 				new ImageIcon("torch.png").getImage(),
