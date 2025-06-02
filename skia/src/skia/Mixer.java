@@ -11,7 +11,7 @@ public class Mixer extends Counter {
 	BufferedImage mixer3;
 	BufferedImage mixer4;
 	BufferedImage img;
-	Progress bar = new Progress(x, y-20);
+	Progress bar = new Progress(x, y+80);
 	//String mixImg;
 	Boolean mixing;
 	int f;
@@ -38,10 +38,18 @@ public class Mixer extends Counter {
 		f++;
 		
 		if(obj.bowl != null) {
+			bar.turnOn(obj.progress);
 			mixing = true;
 			mix();
+			bar.paint(g);
+			
+			if(bar.progress == 500) {
+				((Bowl) obj).mix();
+			}
+			obj.progress = bar.progress;
 		} else {
 			mixing = false;
+			bar.on = false;
 		}
 		
 		if(mixing && f%5 == 0) {

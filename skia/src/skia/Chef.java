@@ -37,7 +37,7 @@ public class Chef {
 			
 			obj.paint(g, x-5, y-60);
 			
-			if(obj.bowl != null) {
+			if(obj.bowl != null || obj.plate != null) {
 				g.fillOval(x-5, y-30, 20, 20);
 				g.fillOval(x+45, y-30, 20, 20);
 			}
@@ -46,7 +46,7 @@ public class Chef {
 			
 			obj.paint(g, x+50, y-5);
 			
-			if(obj.bowl != null) {
+			if(obj.bowl != null || obj.plate != null) {
 				g.fillOval(x+70, y-5, 20, 20);
 				g.fillOval(x+70, y+45, 20, 20);
 			}
@@ -55,7 +55,7 @@ public class Chef {
 			
 			obj.paint(g, x-5, y+50);
 			
-			if(obj.bowl != null) {
+			if(obj.bowl != null || obj.plate != null) {
 				g.fillOval(x-5, y+70, 20, 20);
 				g.fillOval(x+45, y+70, 20, 20);
 			}
@@ -64,7 +64,7 @@ public class Chef {
 			
 			obj.paint(g, x-60, y-5);
 			
-			if(obj.bowl != null) {
+			if(obj.bowl != null || obj.plate != null) {
 				g.fillOval(x-30, y-5, 20, 20);
 				g.fillOval(x-30, y+45, 20, 20);
 			}

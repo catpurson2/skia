@@ -11,13 +11,27 @@ public class Object {
 	
 	BufferedImage bowl, plate;
 	ArrayList<BufferedImage> ingredients;
+	ArrayList<String> in;
 	int progress;
 	boolean empty;
+	boolean mixed;
+	static BufferedImage[] ing;
+	
 
 	public Object() {
 		bowl = null;
 		empty = true;
 		ingredients = new ArrayList<BufferedImage>();
+		in = new ArrayList<String>();
+		mixed = true;
+		
+		if(ing == null) {
+			ing = new BufferedImage[4];
+			ing[0] = getImg("milk");
+			ing[1] = getImg("egg");
+			ing[2] = getImg("flour");
+			ing[3] = getImg("sugar");
+		}
 	}
 	
 	public void paint(Graphics g, int x, int y) {
@@ -30,7 +44,9 @@ public class Object {
 		
 	
 		for(BufferedImage i : ingredients) {
+			
 			g.drawImage(i, x, y, 70, 70, null);
+			
 		}
 		
 	}
@@ -49,6 +65,8 @@ public class Object {
 	
 	public void add(String ingredient) {
 		ingredients.add(getImg(ingredient));
+		in.add(ingredient);
+		progress = 0;
 	}
 
 }

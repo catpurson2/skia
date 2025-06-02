@@ -5,10 +5,11 @@ import java.awt.AlphaComposite;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 public class Plate extends Object {
 	
-	boolean isDirty = true;
+	boolean isDirty = false;
 	float alpha = 1f;
 	boolean sold = false;
 	int timer = 0;
@@ -17,7 +18,7 @@ public class Plate extends Object {
 	public Plate() {
     super();
 		super.empty = false;
-		super.plate = getImg("dirtyplate");
+		super.plate = getImg("plate");
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -37,6 +38,9 @@ public class Plate extends Object {
 				super.plate = null;
 				alpha = 1f;
 				timer++;
+				empty = true;
+				ingredients = new ArrayList<BufferedImage>();
+				in = new ArrayList<String>();
 				if(timer == 10){
 					timer = 0;
 					isDirty = true;
