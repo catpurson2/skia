@@ -35,7 +35,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 	boolean holding;
 
 	Background back = new Background();
-	Counter[] counters = new Counter[36];
+	Counter[] counters = new Counter[37];
 	Box milk = new Box(20 + 80*6 + 80*5, 700-80*2, 0);
 	Box egg = new Box(20 + 80*6 + 80*5, 700-80, 1);
 	Box sugar = new Box(20, 140 + 80*3, 3);
@@ -51,6 +51,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 	Font joystix;
 	
 	//FONT VIDEO LINK:https://www.youtube.com/watch?v=g-wrebFVP3E
+	
 	
 	public void paint(Graphics g) {
 		super.paintComponent(g);
@@ -238,32 +239,32 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		c[19] = new Counter(900 - 80*4, 140, 1);
 		c[20] = new Counter(900 - 80*5, 140, 1);
 		c[21] = new Counter(900 - 80*6, 140, 1);
+		c[22] = new Counter(900 - 80*7, 140, 1);
 		
+		c[23] = new Counter(20 + 80*3, 140 + 80*2, 0);
+		c[24] = new Counter(20 + 80*3, 140 + 80*3, 0);
+		c[25] = new Counter(20 + 80*3, 140 + 80*4, 0);
+		c[26] = new Counter(20 + 80*3, 140 + 80*5, 0);
+		c[27] = new Counter(20 + 80*4, 140 + 80*3, 0);
+		c[28] = new Counter(20 + 80*4, 140 + 80*4, 0);
+		c[29] = new Counter(20 + 80*5, 140 + 80*3, 0);
+		c[30] = new Counter(20 + 80*6, 140 + 80*3, 0);
+		c[31] = new Counter(20 + 80*7, 140 + 80*3, 0);
+		c[32] = new Counter(20 + 80*7, 140 + 80*4, 0);
+		c[33] = new Counter(20 + 80*8, 140 + 80*2, 0);
+		c[34] = new Counter(20 + 80*8, 140 + 80*3, 0);
+		c[35] = new Counter(20 + 80*8, 140 + 80*4, 0);
+		c[36] = new Counter(20 + 80*8, 140 + 80*5, 0);
 		
-		c[22] = new Counter(20 + 80*3, 140 + 80*2, 0);
-		c[23] = new Counter(20 + 80*3, 140 + 80*3, 0);
-		c[24] = new Counter(20 + 80*3, 140 + 80*4, 0);
-		c[25] = new Counter(20 + 80*3, 140 + 80*5, 0);
-		c[26] = new Counter(20 + 80*4, 140 + 80*3, 0);
-		c[27] = new Counter(20 + 80*4, 140 + 80*4, 0);
-		c[28] = new Counter(20 + 80*5, 140 + 80*3, 0);
-		c[29] = new Counter(20 + 80*6, 140 + 80*3, 0);
-		c[30] = new Counter(20 + 80*7, 140 + 80*3, 0);
-		c[31] = new Counter(20 + 80*7, 140 + 80*4, 0);
-		c[32] = new Counter(20 + 80*8, 140 + 80*2, 0);
-		c[33] = new Counter(20 + 80*8, 140 + 80*3, 0);
-		c[34] = new Counter(20 + 80*8, 140 + 80*4, 0);
-		c[35] = new Counter(20 + 80*8, 140 + 80*5, 0);
-		
-		c[22].obj = new Bowl();
-		c[28].obj = new Bowl();
+		c[23].obj = new Bowl();
 		c[29].obj = new Bowl();
-		c[32].obj = new Bowl();
-		c[35].obj = new Plate();
-		c[25].obj = new Plate();
-		c[27].obj = new Plate();
-		c[31].obj = new Plate();
-		c[20].obj = new Extinguisher();
+		c[30].obj = new Bowl();
+		c[33].obj = new Bowl();
+		c[36].obj = new Plate();
+		c[26].obj = new Plate();
+		c[28].obj = new Plate();
+		c[32].obj = new Plate();
+		c[22].obj = new Extinguisher();
 	}
 	
 	public void init(Oven[] o) {
@@ -329,6 +330,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			chef.dir = 90;
 		}
 		
+
 		if(e.getKeyChar() == 'e' && chef.touching(sink)  ) {
 			if(chef.obj instanceof Plate) {
 				Plate temp = (Plate) chef.obj;
@@ -360,9 +362,10 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			
 		}
 		
-		if(e.getKeyChar() == ' ' && touching && chef.obj instanceof Extinguisher && touched instanceof Oven){
-			((Oven) touched).extinguish();
-			
+		if(e.getKeyChar() == ' ' && touching && chef.obj instanceof Extinguisher && touched instanceof Oven ){
+			if(((Oven) touched).fire) {
+				((Oven) touched).extinguish();
+			}
 		}
 		
 		if(e.getKeyChar() == 'e' && chef.touching(reg) && chef.obj instanceof Plate) {
@@ -384,6 +387,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			
 		}
 		
+		
 		if(e.getKeyChar() == 'e' && touching) {
 			
 			//System.out.println(touched.getClass().getName());
@@ -400,17 +404,23 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 					}
 					
 				} else {
+					
 					Object temp = touched.obj;
 					touched.obj = chef.obj;
 					chef.obj = temp;
+					
+					
 				}
-				//System.out.println("placed");
+				
 				
 
 			} else if (touched.getClass().getName().equals("skia.Oven") && chef.obj.plate == null) {
 				Object temp = touched.obj;
 				touched.obj = chef.obj;
 				chef.obj = temp;
+				if(temp.burnt) {
+					((Oven)touched).extinguished = false;
+				}
 				((Oven) touched).bar.on = false;
 			} if (touched.getClass().getName().equals("skia.Mixer") && chef.obj.plate == null) {
 				Object temp = touched.obj;
@@ -424,6 +434,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 				}
 			}
 		}
+		
 		
 	}
 

@@ -36,14 +36,18 @@ public class Chef {
 			g.setColor(Color.green);
 			
 			obj.paint(g, x-5, y-60);
-			
+			if(obj instanceof Extinguisher) {
+				((Extinguisher) obj).plate = ((Extinguisher) obj).up;
+			}
 			if(obj.bowl != null || obj.plate != null) {
 				g.fillOval(x-5, y-30, 20, 20);
 				g.fillOval(x+45, y-30, 20, 20);
 			}
 		} else if(dir == 90) {
 			g.setColor(Color.black);
-			
+			if(obj instanceof Extinguisher) {
+				((Extinguisher) obj).plate = ((Extinguisher) obj).right;
+			}
 			obj.paint(g, x+50, y-5);
 			
 			if(obj.bowl != null || obj.plate != null) {
@@ -52,7 +56,9 @@ public class Chef {
 			}
 		} else if(dir == 180) {
 			g.setColor(Color.white);
-			
+			if(obj instanceof Extinguisher) {
+				((Extinguisher) obj).plate = ((Extinguisher) obj).down;
+			}
 			obj.paint(g, x-5, y+50);
 			
 			if(obj.bowl != null || obj.plate != null) {
@@ -61,7 +67,9 @@ public class Chef {
 			}
 		} else if(dir == 270) {
 			g.setColor(Color.blue);
-			
+			if(obj instanceof Extinguisher) {
+				((Extinguisher) obj).plate = ((Extinguisher) obj).left;
+			}
 			obj.paint(g, x-60, y-5);
 			
 			if(obj.bowl != null || obj.plate != null) {

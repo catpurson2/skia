@@ -43,6 +43,7 @@ public class Counter {
 		Graphics2D g2 = (Graphics2D) g;
 		g.drawImage(img, x, y, width, height, null);
 		if(obj != null && this.getClass().getName().equals("skia.Counter")) {
+			
 			obj.paint(g, x+5, y+5);
 		}
 		
