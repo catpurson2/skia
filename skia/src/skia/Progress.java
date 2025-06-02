@@ -26,7 +26,6 @@ public class Progress {
 	
 	public Boolean paint(Graphics g) {
 		
-		
 		if(progress <= 500) {
 			
 			if(progress < 250) {
@@ -43,6 +42,7 @@ public class Progress {
 			return false;
 			
 		} else if (progress <= 650) {
+			
 			g.setColor(Color.green);
 			g.fillRect(x+(int) (80.0/30*2)+1, y+(int) (80.0/30*2), (int) (80.0/30*26), (int) (80.0/30*2)+3);
 			
@@ -59,7 +59,10 @@ public class Progress {
 			return false;
 			
 		} else {
-			on = false;
+			g.setColor(Color.red);
+			g.fillRect(x+(int) (80.0/30*2)+1, y+(int) (80.0/30*2), (int) (80.0/30*26), (int) (80.0/30*2)+3);
+			
+			g.drawImage(bar, x, y, 80, 80, null);
 			return true;
 		}
 	}

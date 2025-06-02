@@ -3,37 +3,51 @@ package skia;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
 public class Object {
 	
-	BufferedImage bowl, plate, obj;
+	BufferedImage bowl, plate;
+	ArrayList<BufferedImage> ingredients;
+	ArrayList<String> in;
 	int progress;
+	boolean empty;
+	boolean mixed;
+	static BufferedImage[] ing;
+	boolean burnt = false;
 	
 
 	public Object() {
 		bowl = null;
+		empty = true;
+		ingredients = new ArrayList<BufferedImage>();
+		in = new ArrayList<String>();
+		mixed = true;
+		
+		if(ing == null) {
+			ing = new BufferedImage[4];
+			ing[0] = getImg("milk");
+			ing[1] = getImg("egg");
+			ing[2] = getImg("flour");
+			ing[3] = getImg("sugar");
+		}
 	}
 	
 	public void paint(Graphics g, int x, int y) {
-		
 		if(bowl != null) {
 			g.drawImage(bowl, x, y, 70, 70, null);
-			
-			if(progress > 0 && progress < 250) {
-				g.setColor(Color.yellow);
-				g.fillOval(x+15, y+15, 40, 40);
-			} else if (progress > 0 && progress < 500) {
-				g.setColor(Color.orange);
-				g.fillOval(x+15, y+15, 40, 40);
-			} else if (progress > 0){
-				g.setColor(Color.green);
-				g.fillOval(x+15, y+15, 40, 40);
-			}
 		}
-		if(obj != null) {
-			g.drawImage(bowl, x, y, 70, 70, null);
+		if(plate != null) {
+			g.drawImage(plate, x, y, 70, 70, null);
+		}
+		
+	
+		for(BufferedImage i : ingredients) {
+			
+			g.drawImage(i, x, y, 70, 70, null);
+			
 		}
 		
 	}
@@ -48,6 +62,12 @@ public class Object {
 		
 		return null;
 		
+	}
+	
+	public void add(String ingredient) {
+		ingredients.add(getImg(ingredient));
+		in.add(ingredient);
+		progress = 0;
 	}
 
 }
