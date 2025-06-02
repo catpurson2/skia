@@ -43,8 +43,10 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 	ReturnCounter ret = new ReturnCounter(5*4+240, 35*4);
 	Mixer[] mixers = new Mixer[3];
 	Chef chef = new Chef();
-	Counter touched;
+	Counter touched; 
 	int count = 0;
+	
+	//FONT VIDEO LINK:https://www.youtube.com/watch?v=g-wrebFVP3E
 	
 	public void paint(Graphics g) {
 		super.paintComponent(g);
