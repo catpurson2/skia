@@ -17,9 +17,13 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -49,12 +53,12 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 	Counter touched; 
 	int count = 0;
 	Font joystix;
-	int min = 3;
+	int min = 0;
 	int tens = 0;
 	int sec = 0;
-	int timer = 180;
+	int timer = 12;
 	long time = System.currentTimeMillis();
-	
+	static int hiScore;
 	
 	public void paint(Graphics g) {
 		super.paintComponent(g);
@@ -77,8 +81,25 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 				time = System.currentTimeMillis();	
 		}
 		
-		
+		if(timer == 0) {
 			
+			try {
+			      FileWriter myWriter = new FileWriter("saveData.txt");
+			      
+			      if(reg.score > hiScore) {
+			    	  myWriter.write(reg.score + "");
+				      myWriter.close();
+			      }else {
+			    	  myWriter.write(hiScore + "");
+			    	  myWriter.close();
+			      }
+			     
+			      System.out.println("Successfully wrote to the file.");
+			    } catch (IOException e) {
+			      System.out.println("An error occurred.");
+			      e.printStackTrace();
+			    }
+		}
 		
 		
 		
@@ -197,6 +218,12 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 	
 	public static void main(String[] arg) {
 		Frame f = new Frame();
+		try {
+			Scanner scan = new Scanner(new File("saveData.txt"));
+			hiScore = scan.nextInt();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public Frame() {

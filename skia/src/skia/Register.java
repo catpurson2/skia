@@ -55,6 +55,7 @@ public class Register {
 	
 	public void sell(Plate temp) {
 		temp.sold = true;
+		temp.in.remove(0);
 		plates.add(temp);
 		
 		score ++;
