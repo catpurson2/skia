@@ -17,9 +17,13 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -33,7 +37,9 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 	int height = 828;
 	boolean touching = false;
 	boolean holding;
-
+	Timer t;
+	
+	Boolean start = true;
 	Background back = new Background();
 	Counter[] counters = new Counter[36];
 	Box milk = new Box(20 + 80*6 + 80*5, 700-80*2, 0);
@@ -50,9 +56,12 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 	Counter touched; 
 	int count = 0;
 	Font joystix;
-	
-	//FONT VIDEO LINK:https://www.youtube.com/watch?v=g-wrebFVP3E
-	
+	int min = 0;
+	int tens = 0;
+	int sec = 0;
+	int timer = 300;
+	long time = System.currentTimeMillis();
+	static int hiScore;
 	
 	public void paint(Graphics g) {
 		super.paintComponent(g);
@@ -63,7 +72,12 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		g.setFont(joystix);
 		g.setFont(g.getFont().deriveFont(Font.PLAIN,32F));
 		
-		g.drawString("tuesday", 50, 50);
+		g.drawString("TIME " + min + ":" + tens + sec + "   SCORE: " + reg.score + "  HIGH SCORE: " + hiScore, 5, 35);
+		
+		
+		
+		
+		
 		
 		chef.move();
 		
@@ -181,11 +195,62 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			ret.plates.add(temp);
 			
 		}
+		//timing
+		if(start) {
+			min = timer/60;
+			tens = timer%60/10;
+			sec = timer%60%10;
+			
+			if((int) System.currentTimeMillis()/1000 == ((int) time/1000 + 1)) {
+				timer--;
+				time = System.currentTimeMillis();	
+			}
+		}	
+		if(timer == 0) {
+			min = timer/60;
+			tens = timer%60/10;
+			sec = timer%60%10;
+			start = false;
+			try {
+				FileWriter myWriter = new FileWriter("saveData.txt");
+				g.setColor(Color.black);
+				g.fillRect(40, 125, 900, 620);
+				g.setColor(new Color(146,100,58));
+				g.fillRect(65, 150, 850, 570);
+				g.setColor(Color.white);
+				g.setFont(g.getFont().deriveFont(Font.PLAIN,65F));
+				g.drawString("Times Up!", 100, 250);
+				if(reg.score > hiScore) {
+					myWriter.write(reg.score + "");
+					myWriter.close();
+					g.drawString("New High Score!", 100, 350);
+					g.drawString("Score: " + reg.score, 350, 650);
+				}else {
+					myWriter.write(hiScore + "");
+					myWriter.close();
+					
+					g.drawString("Nice Try, Chef!", 100, 350);
+					g.drawString("Score: " + reg.score, 350, 550);
+				}
+				
+			} catch (IOException e) {
+				System.out.println("An error occurred.");
+				e.printStackTrace();
+			}
+				
+		}
 		
+	
 	}
 	
 	public static void main(String[] arg) {
 		Frame f = new Frame();
+		try {
+			Scanner scan = new Scanner(new File("saveData.txt"));
+			hiScore = scan.nextInt();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public Frame() {
@@ -196,6 +261,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		f.setResizable(false);
 		f.addMouseListener(this);
 		f.addKeyListener(this);
+		start = true;
 		
 		
 		init(counters);
@@ -217,10 +283,11 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 				new Point(0,0),"custom cursor"));	*/
 		
 		
-		Timer t = new Timer(16, this);
+		t = new Timer(16, this);
 		t.start();
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setVisible(true);
+		
 	}
 	
 	public void init(Counter[] c) {
@@ -360,7 +427,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			//play the washing animation
 			sink.timer++;
 			sink.washing = true;
-			if(sink.timer == 150) {
+			if(sink.timer == 100) {
 				sink.timer = 0;
 				sink.cleanPlates.add(sink.dirtyPlates.remove(sink.dirtyPlates.size()-1));
 				sink.cleanPlates.get(sink.cleanPlates.size()-1).isDirty = false;
@@ -381,7 +448,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			
 			Plate temp = (Plate) chef.obj;
 			
-			if(!temp.isDirty) {
+			if(temp.in.contains("cake")) {
 				chef.obj = new Object();
 				reg.sell(temp);
 				
@@ -399,7 +466,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		
 		if(e.getKeyChar() == 'e' && touching) {
 			
-			//System.out.println(touched.getClass().getName());
+			//System.out.println(touched.getClass().getName());dw
 			
 			if(touched.getClass().getName().equals("skia.Counter")) {
 				
@@ -424,13 +491,15 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 				
 
 			} else if (touched.getClass().getName().equals("skia.Oven") && chef.obj.plate == null) {
-				Object temp = touched.obj;
-				touched.obj = chef.obj;
-				chef.obj = temp;
-				if(temp.burnt) {
-					((Oven)touched).extinguished = false;
+				if(!((Oven) touched).fire) {
+					Object temp = touched.obj;
+					touched.obj = chef.obj;
+					chef.obj = temp;
+					if(temp.burnt) {
+						((Oven)touched).extinguished = false;
+					}
+					((Oven) touched).bar.on = false;
 				}
-				((Oven) touched).bar.on = false;
 			} if (touched.getClass().getName().equals("skia.Mixer") && chef.obj.plate == null) {
 				Object temp = touched.obj;
 				touched.obj = chef.obj;
