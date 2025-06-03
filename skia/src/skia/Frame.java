@@ -37,7 +37,9 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 	int height = 828;
 	boolean touching = false;
 	boolean holding;
-
+	Timer t;
+	
+	boolean start = true;
 	Background back = new Background();
 	Counter[] counters = new Counter[37];
 	Box milk = new Box(20 + 80*6 + 80*5, 700-80*2, 0);
@@ -56,7 +58,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 	int min = 0;
 	int tens = 0;
 	int sec = 0;
-	int timer = 12;
+	int timer = 300;
 	long time = System.currentTimeMillis();
 	static int hiScore;
 	
@@ -71,35 +73,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		
 		g.drawString("TIME " + min + ":" + tens + sec + "   SCORE: " + reg.score, 5, 35);
 		
-		//timing
-		min = timer/60;
-		tens = timer%60/10;
-		sec = timer%60%10;
-			
-		if((int) System.currentTimeMillis()/1000 == ((int) time/1000 + 1)) {
-				timer--;
-				time = System.currentTimeMillis();	
-		}
 		
-		if(timer == 0) {
-			
-			try {
-			      FileWriter myWriter = new FileWriter("saveData.txt");
-			      
-			      if(reg.score > hiScore) {
-			    	  myWriter.write(reg.score + "");
-				      myWriter.close();
-			      }else {
-			    	  myWriter.write(hiScore + "");
-			    	  myWriter.close();
-			      }
-			     
-			      System.out.println("Successfully wrote to the file.");
-			    } catch (IOException e) {
-			      System.out.println("An error occurred.");
-			      e.printStackTrace();
-			    }
-		}
 		
 		
 		
@@ -213,7 +187,52 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			ret.plates.add(temp);
 			
 		}
+		//timing
+		if(start) {
+			min = timer/60;
+			tens = timer%60/10;
+			sec = timer%60%10;
+						
+			if((int) System.currentTimeMillis()/1000 == ((int) time/1000 + 1)) {
+				timer--;
+				time = System.currentTimeMillis();	
+			}
+		}	
+		if(timer == 0) {
+			min = timer/60;
+			tens = timer%60/10;
+			sec = timer%60%10;
+			start = false;
+			try {
+				FileWriter myWriter = new FileWriter("saveData.txt");
+				g.setColor(Color.black);
+				g.fillRect(40, 125, 900, 620);
+				g.setColor(new Color(146,100,58));
+				g.fillRect(65, 150, 850, 570);
+				g.setColor(Color.white);
+				g.setFont(g.getFont().deriveFont(Font.PLAIN,65F));
+				g.drawString("Times Up!", 100, 250);
+				if(reg.score > hiScore) {
+					myWriter.write(reg.score + "");
+					myWriter.close();
+					g.drawString("New High Score!", 100, 350);
+					g.drawString("Score: " + reg.score, 350, 650);
+				}else {
+					myWriter.write(hiScore + "");
+					myWriter.close();
+					
+					g.drawString("Nice Try, Chef!", 100, 350);
+					g.drawString("Score: " + reg.score, 350, 550);
+				}
+				
+			} catch (IOException e) {
+				System.out.println("An error occurred.");
+				e.printStackTrace();
+			}
+				
+		}
 		
+	
 	}
 	
 	public static void main(String[] arg) {
@@ -255,10 +274,11 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 				new Point(0,0),"custom cursor"));	*/
 		
 		
-		Timer t = new Timer(16, this);
+		t = new Timer(16, this);
 		t.start();
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setVisible(true);
+		
 	}
 	
 	public void init(Counter[] c) {
