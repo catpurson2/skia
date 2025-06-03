@@ -77,7 +77,7 @@ public class Oven extends Counter {
 		
 		//check if ingredients of obj contain burnt to turn off extinguished, wait no do that in chef
 		
-		if(on) {
+		if(on|| fire) {
 			c++;
 			if(c%10 == 0) {
 				if (this.img.equals(oven1)) {
