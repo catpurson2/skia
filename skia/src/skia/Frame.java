@@ -39,7 +39,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 	boolean holding;
 	Timer t;
 	
-	boolean start = true;
+	Boolean start = true;
 	Background back = new Background();
 	Counter[] counters = new Counter[37];
 	Box milk = new Box(20 + 80*6 + 80*5, 700-80*2, 0);
@@ -71,7 +71,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		g.setFont(joystix);
 		g.setFont(g.getFont().deriveFont(Font.PLAIN,32F));
 		
-		g.drawString("TIME " + min + ":" + tens + sec + "   SCORE: " + reg.score, 5, 35);
+		g.drawString("TIME " + min + ":" + tens + sec + "   SCORE: " + reg.score + "  HIGH SCORE: " + hiScore, 5, 35);
 		
 		
 		
@@ -481,13 +481,15 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 				
 
 			} else if (touched.getClass().getName().equals("skia.Oven") && chef.obj.plate == null) {
-				Object temp = touched.obj;
-				touched.obj = chef.obj;
-				chef.obj = temp;
-				if(temp.burnt) {
-					((Oven)touched).extinguished = false;
+				if(!((Oven) touched).fire) {
+					Object temp = touched.obj;
+					touched.obj = chef.obj;
+					chef.obj = temp;
+					if(temp.burnt) {
+						((Oven)touched).extinguished = false;
+					}
+					((Oven) touched).bar.on = false;
 				}
-				((Oven) touched).bar.on = false;
 			} if (touched.getClass().getName().equals("skia.Mixer") && chef.obj.plate == null) {
 				Object temp = touched.obj;
 				touched.obj = chef.obj;
