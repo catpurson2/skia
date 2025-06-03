@@ -49,8 +49,11 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 	Counter touched; 
 	int count = 0;
 	Font joystix;
-	
-	//FONT VIDEO LINK:https://www.youtube.com/watch?v=g-wrebFVP3E
+	int min = 3;
+	int tens = 0;
+	int sec = 0;
+	int timer = 180;
+	long time = System.currentTimeMillis();
 	
 	
 	public void paint(Graphics g) {
@@ -62,7 +65,23 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		g.setFont(joystix);
 		g.setFont(g.getFont().deriveFont(Font.PLAIN,32F));
 		
-		g.drawString("tuesday", 50, 50);
+		g.drawString("TIME " + min + ":" + tens + sec + "   SCORE: " + reg.score, 5, 35);
+		
+		//timing
+		min = timer/60;
+		tens = timer%60/10;
+		sec = timer%60%10;
+			
+		if((int) System.currentTimeMillis()/1000 == ((int) time/1000 + 1)) {
+				timer--;
+				time = System.currentTimeMillis();	
+		}
+		
+		
+			
+		
+		
+		
 		
 		chef.move();
 		
@@ -372,7 +391,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			
 			Plate temp = (Plate) chef.obj;
 			
-			if(!temp.isDirty) {
+			if(temp.in.contains("cake")) {
 				chef.obj = new Object();
 				reg.sell(temp);
 				
@@ -390,7 +409,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		
 		if(e.getKeyChar() == 'e' && touching) {
 			
-			//System.out.println(touched.getClass().getName());
+			//System.out.println(touched.getClass().getName());dw
 			
 			if(touched.getClass().getName().equals("skia.Counter")) {
 				
