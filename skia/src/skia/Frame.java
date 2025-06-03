@@ -192,7 +192,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			min = timer/60;
 			tens = timer%60/10;
 			sec = timer%60%10;
-						
+			
 			if((int) System.currentTimeMillis()/1000 == ((int) time/1000 + 1)) {
 				timer--;
 				time = System.currentTimeMillis();	
@@ -253,6 +253,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		f.setResizable(false);
 		f.addMouseListener(this);
 		f.addKeyListener(this);
+		start = true;
 		
 		
 		init(counters);
@@ -417,7 +418,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			//play the washing animation
 			sink.timer++;
 			sink.washing = true;
-			if(sink.timer == 150) {
+			if(sink.timer == 100) {
 				sink.timer = 0;
 				sink.cleanPlates.add(sink.dirtyPlates.remove(sink.dirtyPlates.size()-1));
 				sink.cleanPlates.get(sink.cleanPlates.size()-1).isDirty = false;

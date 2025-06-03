@@ -58,7 +58,7 @@ public class Register {
 		temp.in.remove(0);
 		plates.add(temp);
 		
-		score ++;
+		score += 40;
 	}
 	
 	public Plate remove() {
