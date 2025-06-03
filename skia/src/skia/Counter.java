@@ -33,7 +33,7 @@ public class Counter {
 			this.img = wood;
 		} else if (img == 2) {
 			this.img = ret;
-		}
+		} 
 		
 		// TODO Auto-generated constructor stub
 	}

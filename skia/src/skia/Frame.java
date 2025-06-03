@@ -312,12 +312,11 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		c[17] = new Counter(900 - 80, 140, 1);
 		c[18] = new Counter(900 - 80*3, 140, 1);
 		c[19] = new Counter(900 - 80*4, 140, 1);
-		c[20] = new Counter(900 - 80*5, 140, 1);
+		c[20] = new Trashcan(900 - 80*5, 140, 1);
 		c[21] = new Counter(900 - 80*6, 140, 1);
+		c[22] = new Counter(900 - 80*7, 140, 1);
     
-    c[22] = new Counter(900 - 80*7, 140, 1);
-    
-    c[23] = new Counter(20 + 80*3, 140 + 80*2, 0);
+    	c[23] = new Counter(20 + 80*3, 140 + 80*2, 0);
 		c[24] = new Counter(20 + 80*3, 140 + 80*3, 0);
 		c[25] = new Counter(20 + 80*3, 140 + 80*4, 0);
 		c[26] = new Counter(20 + 80*3, 140 + 80*5, 0);
@@ -330,9 +329,9 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		c[33] = new Counter(20 + 80*8, 140 + 80*2, 0);
 		c[34] = new Counter(20 + 80*8, 140 + 80*3, 0);
 		c[35] = new Counter(20 + 80*8, 140 + 80*4, 0);
-    c[10] = new Counter(20 + 80*8, 140 + 80*5, 0);
+		c[10] = new Counter(20 + 80*8, 140 + 80*5, 0);
     
-    c[23].obj = new Bowl();
+    	c[23].obj = new Bowl();
 		c[29].obj = new Bowl();
 		c[30].obj = new Bowl();
 		c[33].obj = new Bowl();
@@ -510,6 +509,8 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 					Box temp = (Box) touched;
 					chef.obj.add(temp.getType());
 				}
+			} else if (touched instanceof Trashcan) {
+				((Trashcan) touched).throwOut(chef.obj);
 			}
 		}
 		
