@@ -20,7 +20,7 @@ public class Bowl extends Object {
 	public void mix() {
 		if(ingredients.size() > 0) {
 			if(in.contains("milk") && in.contains("sugar") && !in.contains("egg") && !in.contains("flour")) {
-				add("frosting");
+				add("frosted");
 			} else {
 				add("batter");
 			}

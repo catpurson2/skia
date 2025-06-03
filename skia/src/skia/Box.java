@@ -21,6 +21,9 @@ public class Box extends Counter {
 			case 3:
 				type = "sugar";
 				break;
+			case 4:
+				type = "strawberry";
+				break;
 		}
 		
 		System.out.println(type);
