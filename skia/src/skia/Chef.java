@@ -3,6 +3,9 @@ package skia;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
+
+import javax.imageio.ImageIO;
 
 public class Chef {
 	
@@ -12,12 +15,27 @@ public class Chef {
 	Object obj;
 	int dir;
 	int size;
+	BufferedImage chef;
+	BufferedImage flynn0 = getImg("flynn0");
+	BufferedImage flynn90 = getImg("flynn90");
+	BufferedImage flynn180 = getImg("flynn180");
+	BufferedImage flynn270 = getImg("flynn270");
+	BufferedImage leftHand;
+	BufferedImage rightHand;
+	BufferedImage upLeft = getImg("flynnleft0");
+	BufferedImage upRight = getImg("flynnright0");
+	BufferedImage downLeft = getImg("flynnleft180");
+	BufferedImage downRight = getImg("flynnright180");
+	BufferedImage leftLeft = getImg("flynnleft270");
+	BufferedImage leftRight = getImg("flynnright270");
+	BufferedImage rightLeft = getImg("flynnleft90");
+	BufferedImage rightRight = getImg("flynnright90");
 	
 	public Chef() {
 		x = 150;
 		y = 300;
-		width = 80;
-		height = 80;
+		width = 60;
+		height = 67;
 		size = 60;
 		vx = 0;
 		vy = 0;
@@ -39,10 +57,17 @@ public class Chef {
 			if(obj instanceof Extinguisher) {
 				((Extinguisher) obj).plate = ((Extinguisher) obj).up;
 			}
+			
 			if(obj.bowl != null || obj.plate != null) {
-				g.fillOval(x-5, y-30, 20, 20);
-				g.fillOval(x+45, y-30, 20, 20);
+				leftHand = upLeft;
+				rightHand = upRight;
+				g.drawImage(leftHand, x-5, y-30, 20, 20, null);
+				g.drawImage(rightHand, x+45, y-30, 20, 20, null);
 			}
+			chef = flynn0;
+			height = 67;
+			width = 60;
+			
 		} else if(dir == 90) {
 			g.setColor(Color.black);
 			if(obj instanceof Extinguisher) {
@@ -51,9 +76,14 @@ public class Chef {
 			obj.paint(g, x+50, y-5);
 			
 			if(obj.bowl != null || obj.plate != null) {
-				g.fillOval(x+70, y-5, 20, 20);
-				g.fillOval(x+70, y+45, 20, 20);
+				leftHand = rightLeft;
+				rightHand = rightRight;
+				g.drawImage(leftHand, x+70, y-5, 20, 20, null);
+				g.drawImage(rightHand, x+70, y+45, 20, 20, null);
 			}
+			chef = flynn90;
+			width = 67;
+			height = 60;
 		} else if(dir == 180) {
 			g.setColor(Color.white);
 			if(obj instanceof Extinguisher) {
@@ -62,9 +92,14 @@ public class Chef {
 			obj.paint(g, x-5, y+50);
 			
 			if(obj.bowl != null || obj.plate != null) {
-				g.fillOval(x-5, y+70, 20, 20);
-				g.fillOval(x+45, y+70, 20, 20);
+				leftHand = downLeft;
+				rightHand = downRight;
+				g.drawImage(leftHand, x-5, y+70, 20, 20, null);
+				g.drawImage(rightHand, x+45, y+70, 20, 20, null);
 			}
+			chef = flynn180;
+			height = 67;
+			width = 60;
 		} else if(dir == 270) {
 			g.setColor(Color.blue);
 			if(obj instanceof Extinguisher) {
@@ -73,12 +108,17 @@ public class Chef {
 			obj.paint(g, x-60, y-5);
 			
 			if(obj.bowl != null || obj.plate != null) {
-				g.fillOval(x-30, y-5, 20, 20);
-				g.fillOval(x-30, y+45, 20, 20);
+				leftHand = leftLeft;
+				rightHand = leftRight;
+				g.drawImage(leftHand, x-30, y-5, 20, 20, null);
+				g.drawImage(rightHand, x-30, y+45, 20, 20, null);
 			}
+			chef = flynn270;
+			width = 67;
+			height = 60;
 		}
     
-		g.fillOval(x, y, size, size);
+		g.drawImage(chef, x, y, width, height, null);
 		
 		//hitboxes
 		/*if(dir == 0) {
@@ -213,4 +253,16 @@ public class Chef {
 		y+=vy;
 	}
 
+	public BufferedImage getImg(String path) {
+		
+		try {
+			return ImageIO.read(getClass().getResource("/character/" + path + ".png"));
+		} catch(Exception e) {
+			System.out.println("tuesday");
+		}
+		
+		return null;
+		
+	}
+	
 }
