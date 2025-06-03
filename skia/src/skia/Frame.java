@@ -41,11 +41,12 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 	
 	Boolean start = true;
 	Background back = new Background();
-	Counter[] counters = new Counter[37];
+	Counter[] counters = new Counter[36];
 	Box milk = new Box(20 + 80*6 + 80*5, 700-80*2, 0);
 	Box egg = new Box(20 + 80*6 + 80*5, 700-80, 1);
 	Box sugar = new Box(20, 140 + 80*3, 3);
 	Box flour = new Box(20, 140 + 80*2, 2);
+	Box strawberry = new Box(20 + 80*6 + 80*2, 700, 4);
 	Oven[] ovens = new Oven[3];
 	Sink sink = new Sink(20 + 80*5, 140 + 80*4);
 	Register reg = new Register(5*4+80, 35*4);
@@ -118,6 +119,13 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			
 		}
 		touching(flour, colliding);
+		
+		strawberry.paint(g);
+		if(chef.collided(strawberry)) {
+			colliding = true;
+			
+		}
+		touching(strawberry, colliding);
 		
 		for(Oven i : ovens) {
 			i.paint(g);
@@ -294,7 +302,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		c[7] = new Counter(20 + 80*4, 700, 1);
 		c[8] = new Counter(20 + 80*6, 700, 1);
 		c[9] = new Counter(20 + 80*6 + 80, 700, 1);
-		c[10] = new Counter(20 + 80*6 + 80*2, 700, 1);
+		//c[10] = new Counter(20 + 80*6 + 80*2, 700, 1);
 		c[11] = new Counter(20 + 80*6 + 80*3, 700, 1);
 		c[12] = new Counter(20 + 80*6 + 80*4, 700, 1);
 		c[13] = new Counter(20 + 80*6 + 80*5, 700, 1);
@@ -306,9 +314,10 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		c[19] = new Counter(900 - 80*4, 140, 1);
 		c[20] = new Counter(900 - 80*5, 140, 1);
 		c[21] = new Counter(900 - 80*6, 140, 1);
-		c[22] = new Counter(900 - 80*7, 140, 1);
-		
-		c[23] = new Counter(20 + 80*3, 140 + 80*2, 0);
+    
+    c[22] = new Counter(900 - 80*7, 140, 1);
+    
+    c[23] = new Counter(20 + 80*3, 140 + 80*2, 0);
 		c[24] = new Counter(20 + 80*3, 140 + 80*3, 0);
 		c[25] = new Counter(20 + 80*3, 140 + 80*4, 0);
 		c[26] = new Counter(20 + 80*3, 140 + 80*5, 0);
@@ -321,13 +330,13 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		c[33] = new Counter(20 + 80*8, 140 + 80*2, 0);
 		c[34] = new Counter(20 + 80*8, 140 + 80*3, 0);
 		c[35] = new Counter(20 + 80*8, 140 + 80*4, 0);
-		c[36] = new Counter(20 + 80*8, 140 + 80*5, 0);
-		
-		c[23].obj = new Bowl();
+    c[10] = new Counter(20 + 80*8, 140 + 80*5, 0);
+    
+    c[23].obj = new Bowl();
 		c[29].obj = new Bowl();
 		c[30].obj = new Bowl();
 		c[33].obj = new Bowl();
-		c[36].obj = new Plate();
+		c[10].obj = new Plate();
 		c[26].obj = new Plate();
 		c[28].obj = new Plate();
 		c[32].obj = new Plate();
