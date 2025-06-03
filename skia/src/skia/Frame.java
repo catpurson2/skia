@@ -315,9 +315,9 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		c[20] = new Counter(900 - 80*5, 140, 1);
 		c[21] = new Counter(900 - 80*6, 140, 1);
     
-    c[22] = new Counter(900 - 80*7, 140, 1);
+		c[22] = new Counter(900 - 80*7, 140, 1);
     
-    c[23] = new Counter(20 + 80*3, 140 + 80*2, 0);
+		c[23] = new Counter(20 + 80*3, 140 + 80*2, 0);
 		c[24] = new Counter(20 + 80*3, 140 + 80*3, 0);
 		c[25] = new Counter(20 + 80*3, 140 + 80*4, 0);
 		c[26] = new Counter(20 + 80*3, 140 + 80*5, 0);
@@ -330,9 +330,9 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		c[33] = new Counter(20 + 80*8, 140 + 80*2, 0);
 		c[34] = new Counter(20 + 80*8, 140 + 80*3, 0);
 		c[35] = new Counter(20 + 80*8, 140 + 80*4, 0);
-    c[10] = new Counter(20 + 80*8, 140 + 80*5, 0);
+		c[10] = new Counter(20 + 80*8, 140 + 80*5, 0);
     
-    c[23].obj = new Bowl();
+		c[23].obj = new Bowl();
 		c[29].obj = new Bowl();
 		c[30].obj = new Bowl();
 		c[33].obj = new Bowl();
@@ -474,12 +474,39 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 					if(chef.obj.in.contains("cake") && touched.obj.in.size() == 0) {
 						touched.obj.add("cake");
 						chef.obj = new Bowl();
+						if(chef.obj.in.contains("burnt")) {
+							touched.obj.add("burnt");	
+						} else if(chef.obj.in.contains("strawberrycake")) {
+							touched.obj.add("strawberrycake");
+						}
 					} else if (chef.obj.in.contains("frosting") && touched.obj.in.size() == 1 && touched.obj.in.contains("cake")) {
-						touched.obj.add("cakeFrosting");
+						touched.obj.add("frosted");
 						chef.obj = new Bowl();
+						if(chef.obj.in.contains("strawberryfrosting")) {
+							touched.obj.add("strawberryfrosted");
+						}
 					}
 					
-				} else {
+				} else if (chef.obj instanceof Plate && touched.obj instanceof Bowl && !((Plate) chef.obj).isDirty) {
+					if(touched.obj.in.contains("cake") && chef.obj.in.size() == 0) {
+						chef.obj.add("cake");
+						touched.obj = new Bowl();
+						if(chef.obj.in.contains("burnt")) {
+							chef.obj.add("burnt");	
+						} else if(chef.obj.in.contains("strawberrycake")) {
+							chef.obj.add("strawberrycake");
+						}
+					} else if (touched.obj.in.contains("frosting") && chef.obj.in.size() == 1 && chef.obj.in.contains("cake")) {
+						chef.obj.add("frosted");
+						chef.obj = new Bowl();
+						if(chef.obj.in.contains("strawberryfrosting")) {
+							chef.obj.add("strawberryfrosted");
+						}
+					}
+					
+				}
+				
+				else {
 					
 					Object temp = touched.obj;
 					touched.obj = chef.obj;

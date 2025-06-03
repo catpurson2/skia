@@ -41,6 +41,7 @@ public class Plate extends Object {
 				empty = true;
 				ingredients = new ArrayList<BufferedImage>();
 				in = new ArrayList<String>();
+				bar = null;
 				if(timer == 10){
 					timer = 0;
 					isDirty = true;
