@@ -34,7 +34,7 @@ import javax.swing.Timer;
 public class Frame extends JPanel implements MouseListener, ActionListener, KeyListener {
 	
 	int width = 1000;
-	int height = 828;
+	int height = 1006;
 	boolean touching = false;
 	boolean holding;
 	Timer t;
@@ -53,6 +53,11 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 	ReturnCounter ret = new ReturnCounter(5*4+240, 35*4);
 	Mixer[] mixers = new Mixer[3];
 	Chef chef = new Chef();
+	ArrayList<Order> orders = new ArrayList<Order>();
+	int lastOrder;
+	
+	//
+	
 	Counter touched; 
 	int count = 0;
 	Font joystix;
@@ -62,6 +67,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 	int timer = 300;
 	long time = System.currentTimeMillis();
 	static int hiScore;
+	int frame = 0;
 	
 	public void paint(Graphics g) {
 		super.paintComponent(g);
@@ -240,6 +246,24 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 				
 		}
 		
+		if(timer%30 == 0 && Math.abs(timer-lastOrder) > 2 && orders.size() < 4) {
+			orders.add(new Order());
+			lastOrder = timer;
+		}
+		
+		if(orders.size() == 0) {
+			orders.add(new Order());
+			lastOrder = timer;
+		}
+		
+		for(int i = 0; i < orders.size(); i++) {
+			orders.get(i).paint(g, 20 + 210*i, 140 + 80*8+5+4*3);
+		}
+		//order.paint(g, 20, 140 + 80*8+5);
+		
+		
+		frame++;
+		
 	
 	}
 	
@@ -267,6 +291,8 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		init(counters);
 		init(ovens);
 		init(mixers);
+		orders.add(new Order());
+		lastOrder = 300;
 		
 		try {
 			joystix = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("/font/joystix monospace.otf"));
@@ -447,9 +473,27 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			
 			Plate temp = (Plate) chef.obj;
 			
-			if(temp.in.contains("cake") && temp.in.contains("frosted") && !temp.in.contains("burnt")) {
+			if(temp.in.contains("cake") && temp.in.contains("frosted")) {
 				chef.obj = new Object();
-				reg.sell(temp);
+				if(temp.in.contains("burnt") || temp.in.contains("green")) {
+					reg.ew(temp);
+				} else {
+					Boolean bad = false;
+					for(int i = 0; i < orders.size(); i++) {
+						if(temp.in.contains("strawberrycake") == orders.get(i).cake
+								&& temp.in.contains("strawberryfrosted") == orders.get(i).frosting
+								&& temp.in.contains("strawberry") == orders.get(i).topping) {
+							reg.sell(temp);
+							orders.remove(i);
+							bad = true;
+							break;
+						}
+					}
+					
+					if(bad) {
+						reg.ew(temp);
+					}
+				}
 				
 			}
 			
@@ -492,15 +536,15 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 				} else if (chef.obj instanceof Plate && touched.obj instanceof Bowl && !((Plate) chef.obj).isDirty) {
 					if(touched.obj.in.contains("cake") && chef.obj.in.size() == 0) {
 						chef.obj.add("cake");
-						if(chef.obj.in.contains("burnt")) {
+						if(touched.obj.in.contains("burnt")) {
 							chef.obj.add("burnt");	
-						} else if(chef.obj.in.contains("strawberrycake")) {
+						} else if(touched.obj.in.contains("strawberrycake")) {
 							chef.obj.add("strawberrycake");
 						}
 						touched.obj = new Bowl();
 					} else if (touched.obj.in.contains("frosting") && !chef.obj.in.contains("frosted") && chef.obj.in.contains("cake")) {
 						chef.obj.add("frosted");
-						if(chef.obj.in.contains("strawberryfrosting")) {
+						if(touched.obj.in.contains("strawberryfrosting")) {
 							chef.obj.add("strawberryfrosted");
 						}
 						touched.obj = new Bowl();
