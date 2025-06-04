@@ -448,7 +448,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			
 			Plate temp = (Plate) chef.obj;
 			
-			if(temp.in.contains("cake")) {
+			if(temp.in.contains("cake") && temp.in.contains("frosted")) {
 				chef.obj = new Object();
 				reg.sell(temp);
 				
@@ -473,35 +473,41 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 				if(chef.obj instanceof Bowl && touched.obj instanceof Plate && !((Plate) touched.obj).isDirty) {
 					if(chef.obj.in.contains("cake") && touched.obj.in.size() == 0) {
 						touched.obj.add("cake");
-						chef.obj = new Bowl();
 						if(chef.obj.in.contains("burnt")) {
 							touched.obj.add("burnt");	
 						} else if(chef.obj.in.contains("strawberrycake")) {
 							touched.obj.add("strawberrycake");
 						}
-					} else if (chef.obj.in.contains("frosting") && touched.obj.in.size() == 1 && touched.obj.in.contains("cake")) {
-						touched.obj.add("frosted");
 						chef.obj = new Bowl();
+					} else if (chef.obj.in.contains("frosting") && !touched.obj.in.contains("frosted") && touched.obj.in.contains("cake")) {
+						touched.obj.add("frosted");
 						if(chef.obj.in.contains("strawberryfrosting")) {
 							touched.obj.add("strawberryfrosted");
 						}
+						chef.obj = new Bowl();
+					} else if (chef.obj.in.contains("frosting") && !(touched.obj.in.contains("strawberry") || touched.obj.in.contains("frosted") || touched.obj.in.contains("cake")) && chef.obj.in.size() == 1)  {
+						touched.obj.add("strawberry");
+						chef.obj = new Bowl();
 					}
 					
 				} else if (chef.obj instanceof Plate && touched.obj instanceof Bowl && !((Plate) chef.obj).isDirty) {
 					if(touched.obj.in.contains("cake") && chef.obj.in.size() == 0) {
 						chef.obj.add("cake");
-						touched.obj = new Bowl();
 						if(chef.obj.in.contains("burnt")) {
 							chef.obj.add("burnt");	
 						} else if(chef.obj.in.contains("strawberrycake")) {
 							chef.obj.add("strawberrycake");
 						}
-					} else if (touched.obj.in.contains("frosting") && chef.obj.in.size() == 1 && chef.obj.in.contains("cake")) {
+						touched.obj = new Bowl();
+					} else if (touched.obj.in.contains("frosting") && !chef.obj.in.contains("frosted") && chef.obj.in.contains("cake")) {
 						chef.obj.add("frosted");
-						chef.obj = new Bowl();
 						if(chef.obj.in.contains("strawberryfrosting")) {
 							chef.obj.add("strawberryfrosted");
 						}
+						touched.obj = new Bowl();
+					} else if (touched.obj.in.contains("frosting") && !(chef.obj.in.contains("strawberry") || chef.obj.in.contains("frosted") || chef.obj.in.contains("cake")) && touched.obj.in.size() == 1)  {
+						chef.obj.add("strawberry");
+						touched.obj = new Bowl();
 					}
 					
 				}
@@ -528,14 +534,20 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 					((Oven) touched).bar.on = false;
 				}
 			} if (touched.getClass().getName().equals("skia.Mixer") && chef.obj.plate == null) {
-				Object temp = touched.obj;
-				touched.obj = chef.obj;
-				chef.obj = temp;
+				if(chef.obj.mixed) {
+					Object temp = touched.obj;
+					touched.obj = chef.obj;
+					chef.obj = temp;
+				}
 				
 			} else if (touched.getClass().getName().equals("skia.Box")) {
 				if(chef.obj.bowl != null) {
 					Box temp = (Box) touched;
 					chef.obj.add(temp.getType());
+				} else if (((Box) touched).getType().equals("strawberry")) {
+					if(chef.obj.plate != null && chef.obj.in.contains("cake") && chef.obj.in.contains("frosted")) {
+						chef.obj.add("strawberry");
+					}
 				}
 			}
 		}
