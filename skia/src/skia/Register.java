@@ -14,7 +14,7 @@ public class Register {
 	BufferedImage img;
 	float alpha = 1f;
 	ArrayList<Plate> plates = new ArrayList<Plate>();
-	int score = 0;
+	int score = 10;
 	
 	public Register(int x, int y) {
 		width = 160;

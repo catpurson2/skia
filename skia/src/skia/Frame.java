@@ -216,22 +216,34 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 				FileWriter myWriter = new FileWriter("saveData.txt");
 				g.setColor(Color.black);
 				g.fillRect(40, 125, 900, 620);
+				
 				g.setColor(new Color(146,100,58));
 				g.fillRect(65, 150, 850, 570);
+				g.setColor(Color.black);
+				g.fillRect(115, 400, 360, 150);
+				g.fillRect(530, 400, 360, 150);
+				g.setColor(new Color(196,150,108));
+				g.fillRect(130, 415, 330, 120);
+				g.fillRect(545, 415, 330, 120);
+				g.setColor(Color.black);
+				g.setFont(g.getFont().deriveFont(Font.PLAIN,80F));
+				g.drawString("home", 165, 500);
+				g.drawString("Quit", 580, 500);
 				g.setColor(Color.white);
 				g.setFont(g.getFont().deriveFont(Font.PLAIN,65F));
-				g.drawString("Times Up!", 100, 250);
+				g.drawString("times Up!", 114, 250);
+				
 				if(reg.score > hiScore) {
 					myWriter.write(reg.score + "");
 					myWriter.close();
-					g.drawString("New High Score!", 100, 350);
-					g.drawString("Score: " + reg.score, 350, 650);
+					g.drawString("New High Score!", 115, 350);
+					g.drawString("Score: " + reg.score, 115, 650);
 				}else {
 					myWriter.write(hiScore + "");
 					myWriter.close();
 					
-					g.drawString("Nice Try, Chef!", 100, 350);
-					g.drawString("Score: " + reg.score, 350, 550);
+					g.drawString("Nice Try, Chef!", 115, 350);
+					g.drawString("Score: " + reg.score, 115, 650);
 				}
 				
 			} catch (IOException e) {
@@ -577,7 +589,17 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-	
+		if(!Runner.start) {
+			if(e.getX() >= 122 && e.getX() <= 482 && e.getY() >= 430 && e.getY() <= 580) {
+				Runner.f.setVisible(false);
+				Runner.f.dispose();
+				Runner r = new Runner();
+			}
+			if(e.getX() >= 538 && e.getX() <= 898 && e.getY() >= 430 && e.getY() <= 580) {
+				Runner.f.setVisible(false);
+				Runner.f.dispose();
+			}
+		}
 		
 	}
 

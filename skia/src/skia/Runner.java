@@ -24,6 +24,7 @@ import javax.swing.JPanel;
 public class Runner extends JPanel implements MouseListener, KeyListener, ActionListener {
 
 	static JFrame f;
+	static Frame frame;
 	BufferedImage menu = getImg("menu");
 	static boolean start = false;
 	Font joystix;
@@ -126,7 +127,7 @@ public class Runner extends JPanel implements MouseListener, KeyListener, Action
 		// TODO Auto-generated method stub
 		if(!start) {
 			if(e.getX() >= 104 && e.getX() <= 424 && e.getY() <= 404 && e.getY() >= 354) {
-				Frame f = new Frame();
+				frame = new Frame();
 				start = true;
 			}
 		}
