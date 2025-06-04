@@ -19,7 +19,10 @@ public class Bowl extends Object {
 	public void mix() {
 		if(ingredients.size() > 0) {
 			if(in.contains("milk") && in.contains("sugar") && !in.contains("egg") && !in.contains("flour")) {
-				add("frosted");
+				add("frosting");
+				if(in.contains("strawberry")) {
+					add("strawberryfrosting");
+				}
 			} else {
 				add("batter");
 			}
@@ -31,6 +34,9 @@ public class Bowl extends Object {
 			
 			if(in.contains("milk") && in.contains("egg") && in.contains("flour") && in.contains("sugar") && in.get(in.size()-1).equals("batter")) {
 				add("cake");
+				if(in.contains("strawberry")) {
+					add("strawberrycake");
+				}
 			} else {
 				add("green");
 			}
