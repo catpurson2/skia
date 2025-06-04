@@ -20,17 +20,27 @@ import java.util.Scanner;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 public class Runner extends JPanel implements MouseListener, KeyListener, ActionListener {
 
+	Timer t;
 	static JFrame f;
 	static Frame frame;
 	BufferedImage menu = getImg("menu");
 	static boolean start = false;
 	Font joystix;
+	static String name;
+	BufferedImage chara;
+	BufferedImage flynn = getChar("flynn0");
+	BufferedImage atlas = getChar("atlas0");
+	BufferedImage turtle = getChar("turtle0");
+	BufferedImage bald = getChar("bald0");
+	int selected = 0;
 	
 	public static void main(String[] arg) {
 		Runner r = new Runner();
+		
 		try {
 			Scanner scan = new Scanner(new File("saveData.txt"));
 			Frame.hiScore = scan.nextInt();
@@ -50,6 +60,7 @@ public class Runner extends JPanel implements MouseListener, KeyListener, Action
 		f.addKeyListener(this);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setVisible(true);
+		chara = atlas;
 		try {
 			joystix = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("/font/joystix monospace.otf"));
 		} catch (FontFormatException e) {
@@ -59,10 +70,16 @@ public class Runner extends JPanel implements MouseListener, KeyListener, Action
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		t = new Timer(16, this);
+		t.start();
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		f.setVisible(true);
 	}
 	
 	public void paint(Graphics g) {
 		super.paintComponent(g);
+		//tutorial writing
 		g.drawImage(menu, 0,0,1000,828,null);
 		g.setColor(new Color(240, 199, 240));
 		g.fillRect(95, 397, 325, 205);
@@ -70,7 +87,6 @@ public class Runner extends JPanel implements MouseListener, KeyListener, Action
 		g.setFont(joystix);
 		g.setFont(g.getFont().deriveFont(Font.PLAIN,32F));
 		g.drawString("GAMEPLAY", 155, 420);
-		
 		g.setFont(g.getFont().deriveFont(Font.PLAIN,20F));
 		g.drawString("Press 'e' to pick up, place,", 15, 465);
 		g.drawString("and collect ingredients", 15, 490);
@@ -82,6 +98,25 @@ public class Runner extends JPanel implements MouseListener, KeyListener, Action
 		g.drawString("Dont forget to wash them!", 15, 740);
 		g.setFont(g.getFont().deriveFont(Font.PLAIN,30F));
 		g.drawString("" + Frame.hiScore, 790, 130);
+		
+		if(selected == 0) {
+			chara = atlas;
+			name = "atlas";
+		}
+		if(selected == 1) {
+			chara = flynn;
+			name = "flynn";
+		}
+		if(selected == 2) {
+			chara = turtle;
+			name = "turtle";
+		}
+		if(selected == 3) {
+			chara = bald;
+			name = "bald";
+		}
+		//character select
+		g.drawImage(chara, 650, 290, 200, 224, null);
 		
 	}
 	public BufferedImage getImg(String path) {
@@ -96,17 +131,32 @@ public class Runner extends JPanel implements MouseListener, KeyListener, Action
 		
 	}
 	
+	public BufferedImage getChar(String path) {
+		
+		try {
+			return ImageIO.read(getClass().getResource("/character/" + path + ".png"));
+		} catch(Exception e) {
+			System.out.println("tuesday");
+		}
+		
+		return null;
+		
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		
+		if(!start) {
+			repaint();
+		}
+			
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getKeyChar() == 'm') {
-			Frame f = new Frame();
+			chara = atlas;
 		}
 	}
 
@@ -125,10 +175,28 @@ public class Runner extends JPanel implements MouseListener, KeyListener, Action
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
+		System.out.println(e.getX() + " " + e.getY());
 		if(!start) {
 			if(e.getX() >= 104 && e.getX() <= 424 && e.getY() <= 404 && e.getY() >= 354) {
 				frame = new Frame();
+				frame.chef.chara = name;
+				
+				System.out.println(name);
 				start = true;
+			}
+			if(e.getX() >= 532 && e.getX() <= 560 && e.getY() >= 406 && e.getY() <= 486) {
+				if(selected == 0) {
+					selected = 3;
+				}else {
+					selected--;
+				}
+			}
+			if(e.getX() >= 956 && e.getX() <= 982 && e.getY() >= 406 && e.getY() <= 486) {
+				if(selected == 3) {
+					selected = 0;
+				}else {
+					selected++;
+				}
 			}
 		}
 		
