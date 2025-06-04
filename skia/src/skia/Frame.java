@@ -312,9 +312,8 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		c[17] = new Counter(900 - 80, 140, 1);
 		c[18] = new Counter(900 - 80*3, 140, 1);
 		c[19] = new Counter(900 - 80*4, 140, 1);
-		c[20] = new Counter(900 - 80*5, 140, 1);
+		c[20] = new Trashcan(900 - 80*5, 140, 1);
 		c[21] = new Counter(900 - 80*6, 140, 1);
-    
 		c[22] = new Counter(900 - 80*7, 140, 1);
     
 		c[23] = new Counter(20 + 80*3, 140 + 80*2, 0);
@@ -549,6 +548,8 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 						chef.obj.add("strawberry");
 					}
 				}
+			} else if (touched instanceof Trashcan) {
+				((Trashcan) touched).throwOut(chef.obj);
 			}
 		}
 		
