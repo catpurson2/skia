@@ -2,6 +2,8 @@ package skia;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,6 +14,7 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 import javax.imageio.ImageIO;
@@ -23,6 +26,7 @@ public class Runner extends JPanel implements MouseListener, KeyListener, Action
 	static JFrame f;
 	BufferedImage menu = getImg("menu");
 	static boolean start = false;
+	Font joystix;
 	
 	public static void main(String[] arg) {
 		Runner r = new Runner();
@@ -45,13 +49,38 @@ public class Runner extends JPanel implements MouseListener, KeyListener, Action
 		f.addKeyListener(this);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setVisible(true);
+		try {
+			joystix = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("/font/joystix monospace.otf"));
+		} catch (FontFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void paint(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(menu, 0,0,1000,828,null);
 		g.setColor(new Color(240, 199, 240));
-		g.fillRect(95, 397, 325, 55);
+		g.fillRect(95, 397, 325, 205);
+		g.setColor(Color.black);
+		g.setFont(joystix);
+		g.setFont(g.getFont().deriveFont(Font.PLAIN,32F));
+		g.drawString("GAMEPLAY", 155, 420);
+		
+		g.setFont(g.getFont().deriveFont(Font.PLAIN,20F));
+		g.drawString("Press 'e' to pick up, place,", 15, 465);
+		g.drawString("and collect ingredients", 15, 490);
+		g.drawString("Press space to interact", 15, 540);
+		g.drawString("You need to hold a bowl to", 15, 590);
+		g.drawString("grab ingredients", 15, 615);
+		g.drawString("Mix before you bake!", 15, 665);
+		g.drawString("Serve cakes on plates and", 15, 715);
+		g.drawString("Dont forget to wash them!", 15, 740);
+		g.setFont(g.getFont().deriveFont(Font.PLAIN,30F));
+		g.drawString("" + Frame.hiScore, 790, 130);
 		
 	}
 	public BufferedImage getImg(String path) {
