@@ -14,6 +14,7 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -42,9 +43,17 @@ public class Runner extends JPanel implements MouseListener, KeyListener, Action
 		Runner r = new Runner();
 		
 		try {
-			Scanner scan = new Scanner(new File("saveData.txt"));
+			File save = new File("data.txt");
+			
+			FileWriter myWriter = new FileWriter(save);
+			myWriter.write("0");
+			
+			Scanner scan = new Scanner(save);
 			Frame.hiScore = scan.nextInt();
 		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -62,6 +71,7 @@ public class Runner extends JPanel implements MouseListener, KeyListener, Action
 		f.setVisible(true);
 		chara = atlas;
 		try {
+			
 			joystix = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("/font/joystix monospace.otf"));
 		} catch (FontFormatException e) {
 			// TODO Auto-generated catch block
