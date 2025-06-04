@@ -70,9 +70,10 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 	
 		g.setColor(Color.white);
 		g.setFont(joystix);
-		g.setFont(g.getFont().deriveFont(Font.PLAIN,32F));
+		g.setFont(g.getFont().deriveFont(Font.PLAIN,28F));
 		
-		g.drawString("TIME " + min + ":" + tens + sec + "   SCORE: " + reg.score + "  HIGH SCORE: " + hiScore, 5, 35);
+		g.drawString("TIME " + min + ":" + tens + sec + "  HISCORE:" + hiScore, 475, 28);
+		g.drawString("SCORE:" + reg.score, 727, 58);
 		
 		
 		

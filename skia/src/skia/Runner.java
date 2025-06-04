@@ -50,6 +50,9 @@ public class Runner extends JPanel implements MouseListener, KeyListener, Action
 	public void paint(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(menu, 0,0,1000,828,null);
+		g.setColor(new Color(240, 199, 240));
+		g.fillRect(95, 397, 325, 55);
+		
 	}
 	public BufferedImage getImg(String path) {
 		
