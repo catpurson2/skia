@@ -19,16 +19,6 @@ public class Trashcan extends Counter{
 			
 	}
 	
-	public void throwOut(Object obj) {
-		
-		int size = obj.in.size();
-		for(int i = 0; i < size; i++) {
-			obj.in.remove(0);
-			obj.ingredients.remove(0);
-		}
-		obj.bar = null;
-	}
-	
 }
 
 
