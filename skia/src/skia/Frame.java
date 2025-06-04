@@ -243,18 +243,10 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 	
 	}
 	
-	public static void main(String[] arg) {
-		Frame f = new Frame();
-		try {
-			Scanner scan = new Scanner(new File("saveData.txt"));
-			hiScore = scan.nextInt();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
+	
 	
 	public Frame() {
-		JFrame f = new JFrame("Skia");
+		JFrame f = Runner.f;
 		f.setSize(new Dimension(width, height));
 		f.setBackground(Color.white);
 		f.add(this);
