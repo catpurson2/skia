@@ -22,6 +22,7 @@ public class Runner extends JPanel implements MouseListener, KeyListener, Action
 
 	static JFrame f;
 	BufferedImage menu = getImg("menu");
+	static boolean start = false;
 	
 	public static void main(String[] arg) {
 		Runner r = new Runner();
@@ -91,6 +92,12 @@ public class Runner extends JPanel implements MouseListener, KeyListener, Action
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
+		if(!start) {
+			if(e.getX() >= 104 && e.getX() <= 424 && e.getY() <= 404 && e.getY() >= 354) {
+				Frame f = new Frame();
+				start = true;
+			}
+		}
 		
 	}
 

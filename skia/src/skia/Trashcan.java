@@ -25,9 +25,8 @@ public class Trashcan extends Counter{
 		for(int i = 0; i < size; i++) {
 			obj.in.remove(0);
 			obj.ingredients.remove(0);
-			
 		}
-		//remove the ingredient bar
+		obj.bar = null;
 	}
 	
 }

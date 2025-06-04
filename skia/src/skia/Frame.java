@@ -39,7 +39,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 	boolean holding;
 	Timer t;
 	
-	Boolean start = true;
+	
 	Background back = new Background();
 	Counter[] counters = new Counter[36];
 	Box milk = new Box(20 + 80*6 + 80*5, 700-80*2, 0);
@@ -115,7 +115,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		
 		flour.paint(g);
 		if(chef.collided(flour)) {
-			colliding = true;
+			colliding = true; 
 			
 		}
 		touching(flour, colliding);
@@ -196,7 +196,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			
 		}
 		//timing
-		if(start) {
+		if(Runner.start) {
 			min = timer/60;
 			tens = timer%60/10;
 			sec = timer%60%10;
@@ -210,7 +210,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			min = timer/60;
 			tens = timer%60/10;
 			sec = timer%60%10;
-			start = false;
+			Runner.start = false;
 			try {
 				FileWriter myWriter = new FileWriter("saveData.txt");
 				g.setColor(Color.black);
@@ -253,7 +253,6 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		f.setResizable(false);
 		f.addMouseListener(this);
 		f.addKeyListener(this);
-		start = true;
 		
 		
 		init(counters);
