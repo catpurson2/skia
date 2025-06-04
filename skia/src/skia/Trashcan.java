@@ -27,6 +27,12 @@ public class Trashcan extends Counter{
 			obj.ingredients.remove(0);
 			
 		}
+		
+		if(obj.bowl != null) {
+			obj = new Bowl();
+		} else if (obj.plate != null) {
+			obj = new Plate();
+		}
 		//remove the ingredient bar
 	}
 	
