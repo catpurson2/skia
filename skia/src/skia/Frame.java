@@ -34,7 +34,7 @@ import javax.swing.Timer;
 public class Frame extends JPanel implements MouseListener, ActionListener, KeyListener {
 	
 	int width = 1000;
-	int height = 994;
+	int height = 1006;
 	boolean touching = false;
 	boolean holding;
 	Timer t;
@@ -244,7 +244,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 				
 		}
 		
-		if(timer%5 == 0 && Math.abs(timer-lastOrder) > 2 && orders.size() < 4) {
+		if(timer%30 == 0 && Math.abs(timer-lastOrder) > 2 && orders.size() < 4) {
 			orders.add(new Order());
 			lastOrder = timer;
 		}
@@ -255,7 +255,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		}
 		
 		for(int i = 0; i < orders.size(); i++) {
-			orders.get(i).paint(g, 20 + 210*i, 140 + 80*8+5);
+			orders.get(i).paint(g, 20 + 210*i, 140 + 80*8+5+4*3);
 		}
 		//order.paint(g, 20, 140 + 80*8+5);
 		
@@ -473,9 +473,24 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			
 			if(temp.in.contains("cake") && temp.in.contains("frosted")) {
 				chef.obj = new Object();
-				reg.sell(temp);
 				if(temp.in.contains("burnt") || temp.in.contains("green")) {
+					reg.ew(temp);
+				} else {
+					Boolean bad = false;
+					for(int i = 0; i < orders.size(); i++) {
+						if(temp.in.contains("strawberrycake") == orders.get(i).cake
+								&& temp.in.contains("strawberryfrosted") == orders.get(i).frosting
+								&& temp.in.contains("strawberry") == orders.get(i).topping) {
+							reg.sell(temp);
+							orders.remove(i);
+							bad = true;
+							break;
+						}
+					}
 					
+					if(bad) {
+						reg.ew(temp);
+					}
 				}
 				
 			}
@@ -519,15 +534,15 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 				} else if (chef.obj instanceof Plate && touched.obj instanceof Bowl && !((Plate) chef.obj).isDirty) {
 					if(touched.obj.in.contains("cake") && chef.obj.in.size() == 0) {
 						chef.obj.add("cake");
-						if(chef.obj.in.contains("burnt")) {
+						if(touched.obj.in.contains("burnt")) {
 							chef.obj.add("burnt");	
-						} else if(chef.obj.in.contains("strawberrycake")) {
+						} else if(touched.obj.in.contains("strawberrycake")) {
 							chef.obj.add("strawberrycake");
 						}
 						touched.obj = new Bowl();
 					} else if (touched.obj.in.contains("frosting") && !chef.obj.in.contains("frosted") && chef.obj.in.contains("cake")) {
 						chef.obj.add("frosted");
-						if(chef.obj.in.contains("strawberryfrosting")) {
+						if(touched.obj.in.contains("strawberryfrosting")) {
 							chef.obj.add("strawberryfrosted");
 						}
 						touched.obj = new Bowl();
