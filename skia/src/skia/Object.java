@@ -73,7 +73,7 @@ public class Object {
 		ingredients.add(getImg(ingredient));
 		in.add(ingredient);
 		progress = 0;
-		bar = new IngredientBar(in);
+		//bar = new IngredientBar(in);
 	}
 
 }
