@@ -56,6 +56,8 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 	ArrayList<Order> orders = new ArrayList<Order>();
 	int lastOrder;
 	
+	//
+	
 	Counter touched; 
 	int count = 0;
 	Font joystix;
