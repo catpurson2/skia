@@ -164,7 +164,10 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		}
 		ret.paint(g);
 		
+		touching(ret, colliding);
+		
 		reg.paint(g);
+		
 
 		Graphics2D g2 = (Graphics2D) g;
 		
@@ -503,7 +506,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			
 		}
 		
-		if(e.getKeyChar() == 'e' && chef.touching(ret) && chef.obj.empty && ret.plates.size() > 0) {
+		if(e.getKeyChar() == 'e' && touching && touched.equals(ret) && chef.obj.empty && ret.plates.size() > 0) {
 			
 			
 			chef.obj = ret.plates.remove(ret.plates.size()-1);
@@ -603,6 +606,12 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 					chef.obj = new Plate();
 				}
 			}
+		}
+		
+		if(e.getKeyChar() == 'f') {
+			Plate temp = (Plate) chef.obj;
+			chef.obj = new Plate();
+			reg.ew(temp);
 		}
 		
 		
