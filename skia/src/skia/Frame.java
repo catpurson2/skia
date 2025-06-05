@@ -213,7 +213,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			sec = timer%60%10;
 			Runner.start = false;
 			try {
-				FileWriter myWriter = new FileWriter("saveData.txt");
+				FileWriter myWriter = new FileWriter("data.txt");
 				g.setColor(Color.black);
 				g.fillRect(40, 125, 900, 620);
 				
@@ -451,7 +451,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			
 			Plate temp = (Plate) chef.obj;
 			
-			if(temp.in.contains("cake") && temp.in.contains("frosted")) {
+			if(temp.in.contains("cake") && temp.in.contains("frosted") && !temp.in.contains("burnt")) {
 				chef.obj = new Object();
 				reg.sell(temp);
 				
@@ -488,7 +488,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 							touched.obj.add("strawberryfrosted");
 						}
 						chef.obj = new Bowl();
-					} else if (chef.obj.in.contains("frosting") && !(touched.obj.in.contains("strawberry") || touched.obj.in.contains("frosted") || touched.obj.in.contains("cake")) && chef.obj.in.size() == 1)  {
+					} else if (chef.obj.in.contains("strawberry") && !(touched.obj.in.contains("strawberry") || touched.obj.in.contains("frosted") || touched.obj.in.contains("cake")) && chef.obj.in.size() == 1)  {
 						touched.obj.add("strawberry");
 						chef.obj = new Bowl();
 					}
@@ -508,7 +508,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 							chef.obj.add("strawberryfrosted");
 						}
 						touched.obj = new Bowl();
-					} else if (touched.obj.in.contains("frosting") && !(chef.obj.in.contains("strawberry") || chef.obj.in.contains("frosted") || chef.obj.in.contains("cake")) && touched.obj.in.size() == 1)  {
+					} else if (touched.obj.in.contains("strawberry") && !(chef.obj.in.contains("strawberry") || chef.obj.in.contains("frosted") || chef.obj.in.contains("cake")) && touched.obj.in.size() == 1)  {
 						chef.obj.add("strawberry");
 						touched.obj = new Bowl();
 					}
@@ -553,7 +553,11 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 					}
 				}
 			} else if (touched instanceof Trashcan) {
-				((Trashcan) touched).throwOut(chef.obj);
+				if(chef.obj instanceof Bowl) {
+					chef.obj = new Bowl();
+				} else if(chef.obj instanceof Plate) {
+					chef.obj = new Plate();
+				}
 			}
 		}
 		
