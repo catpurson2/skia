@@ -56,11 +56,13 @@ public class Register {
 	public void sell(Plate temp) {
 		temp.sold = true;
 		score += 40 + 5*(temp.in.size()-2);
-		for(int i = 0; i<temp.in.size(); i++) {
-			temp.in.remove(i);
-		}
 		plates.add(temp);
 		
+	}
+	
+	public void ew(Plate temp) {
+		temp.sold = true;
+		plates.add(temp);
 	}
 	
 	public Plate remove() {
