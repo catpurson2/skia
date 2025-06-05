@@ -68,7 +68,7 @@ public class Sink {
 			g.setColor(Color.green);
 			g.fillRect(x+80+(int) (80.0/30*2)+1, y-20+(int) (80.0/30*2), timer*((int) (80.0/18*26*3))/500, (int) (80.0/30*2)+3);
 			g.drawImage(bar.bar, x+80, y-20, 80, 80, null);
-			File in = new File("waterwashing.wav");
+			File in = new File("src/audio/waterwashing.wav");
 			
 			
 		}
