@@ -219,7 +219,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			sec = timer%60%10;
 			Runner.start = false;
 			try {
-				FileWriter myWriter = new FileWriter("saveData.txt");
+				FileWriter myWriter = new FileWriter("data.txt");
 				g.setColor(Color.black);
 				g.fillRect(40, 125, 900, 620);
 				
