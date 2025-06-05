@@ -478,14 +478,14 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 				if(temp.in.contains("burnt") || temp.in.contains("green")) {
 					reg.ew(temp);
 				} else {
-					Boolean bad = false;
+					Boolean bad = true;
 					for(int i = 0; i < orders.size(); i++) {
 						if(temp.in.contains("strawberrycake") == orders.get(i).cake
 								&& temp.in.contains("strawberryfrosted") == orders.get(i).frosting
 								&& temp.in.contains("strawberry") == orders.get(i).topping) {
 							reg.sell(temp);
 							orders.remove(i);
-							bad = true;
+							bad = false;
 							break;
 						}
 					}
