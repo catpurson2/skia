@@ -45,9 +45,6 @@ public class Runner extends JPanel implements MouseListener, KeyListener, Action
 		try {
 			File save = new File("data.txt");
 			
-			FileWriter myWriter = new FileWriter(save);
-			myWriter.write("0");
-			
 			Scanner scan = new Scanner(save);
 			Frame.hiScore = scan.nextInt();
 		} catch (FileNotFoundException e) {
