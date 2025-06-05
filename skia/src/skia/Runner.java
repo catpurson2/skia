@@ -100,12 +100,12 @@ public class Runner extends JPanel implements MouseListener, KeyListener, Action
 		g.drawString("" + Frame.hiScore, 790, 130);
 		
 		if(selected == 0) {
-			chara = atlas;
-			name = "atlas";
-		}
-		if(selected == 1) {
 			chara = flynn;
 			name = "flynn";
+		}
+		if(selected == 1) {
+			chara = atlas;
+			name = "atlas";
 		}
 		if(selected == 2) {
 			chara = turtle;
