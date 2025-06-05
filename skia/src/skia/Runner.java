@@ -67,6 +67,7 @@ public class Runner extends JPanel implements MouseListener, KeyListener, Action
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setVisible(true);
 		chara = atlas;
+		SimpleAudioTester.backgroundMusic();
 		try {
 			
 			joystix = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("/font/joystix monospace.otf"));
