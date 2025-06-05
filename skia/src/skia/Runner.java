@@ -182,13 +182,10 @@ public class Runner extends JPanel implements MouseListener, KeyListener, Action
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		System.out.println(e.getX() + " " + e.getY());
 		if(!start) {
 			if(e.getX() >= 104 && e.getX() <= 424 && e.getY() <= 404 && e.getY() >= 354) {
 				frame = new Frame();
 				frame.chef.chara = name;
-				
-				System.out.println(name);
 				start = true;
 			}
 			if(e.getX() >= 532 && e.getX() <= 560 && e.getY() >= 406 && e.getY() <= 486) {
