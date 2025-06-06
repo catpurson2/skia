@@ -15,6 +15,7 @@ public class Register {
 	float alpha = 1f;
 	ArrayList<Plate> plates = new ArrayList<Plate>();
 	int score = 0;
+	SimpleAudioTester audio = new SimpleAudioTester();
 	
 	public Register(int x, int y) {
 		width = 160;
@@ -53,15 +54,17 @@ public class Register {
 		
 	}
 	
-	public void sell(Plate temp) {
+	public void sell(Plate temp, SimpleAudioTester audio) {
 		temp.sold = true;
 		score += 40 + 5*(temp.in.size()-2);
+		audio.playSound("cheering");
 		plates.add(temp);
 		
 	}
 	
 	public void ew(Plate temp) {
 		temp.sold = true;
+		audio.playSound("arghhh");
 		plates.add(temp);
 		score -= 10;
 	}

@@ -54,8 +54,9 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 	Chef chef = new Chef();
 	ArrayList<Order> orders = new ArrayList<Order>();
 	int lastOrder;
+
 	ArrayList<Customer> customers = new ArrayList<Customer>();
-	
+	SimpleAudioTester audio = new SimpleAudioTester();
 	//
 	
 	Counter touched; 
@@ -210,7 +211,35 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			ret.plates.add(temp);
 			
 		}
+	
+		for(int i = 0; i < customers.size(); i++) {
+			if(customers.get(i).move() && i+1 < customers.size()) {
+				customers.get(i+1).move = true;
+			}
+		}
 		
+		if(customers.get(customers.size()-1).x <= 1000) {
+			customers.add(new Customer(customers.get(customers.size()-1).x+80, 35*4-70));
+			//System.out.println("new customer");
+		}
+		
+		//System.out.println(customers.get(customers.size()-1).x);
+		
+		if(customers.get(0).x-customers.get(0).i*5 <= -60) {
+			customers.remove(0);
+			//System.out.println("gone");
+		}
+		
+		/*if(customers.get(0).move = false) {
+			customers.get(0).img = customers.get(0).rotate;
+		} else {
+			customers.get(0).img = customers.get(0).save;
+		}*/
+		
+		for(Customer i : customers) {
+			i.paint(g);
+		}
+
 		//timing
 		if(Runner.start) {
 			min = timer/60;
@@ -223,11 +252,11 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			}
 		}	
 		if(timer == 0) {
-			if(!SimpleAudioTester.sounds.containsKey("exitsong")) {
-				SimpleAudioTester.stopMusic();
-				SimpleAudioTester.playSound("exitsong");
+			if(!audio.sounds.containsKey("exitsong")) {
+				Runner.audio.stopMusic();
+				audio.playSound("exitsong");
 			}
-			System.out.println(SimpleAudioTester.sounds.containsKey("exitsong"));
+			
 			min = 0;
 			tens = 0;
 			sec = 0;
@@ -293,38 +322,11 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			orders.get(i).paint(g, 20 + 210*i, 140 + 80*8+5+4*3);
 		}
 		
-		//move customers && start moving customers
-		for(int i = 0; i < customers.size(); i++) {
-			if(customers.get(i).move() && i+1 < customers.size()) {
-				customers.get(i+1).move = true;
-			}
-		}
-		
-		//add customer at end
-		if(customers.get(customers.size()-1).x <= 1000) {
-			customers.add(new Customer(customers.get(customers.size()-1).x+80, 35*4-70));
-			//System.out.println("new customer");
-		}
-		
-		//delete first customer
-		if(customers.get(0).x-customers.get(0).i*5 <= -60) {
-			customers.remove(0);
-		}
-		
-		//paint customers
-		for(Customer i : customers) {
-			i.paint(g);
-		}
-		
 		//System.out.println(customers.get(1).x-customers.get(1).i*5 + " " + customers.get(1).move);
 		//order.paint(g, 20, 140 + 80*8+5);
 		
 		
 		frame++;
-		
-		if(SimpleAudioTester.sounds.size() > 0) {
-			SimpleAudioTester.removeInactive();
-		}
 		
 	
 	}
@@ -425,15 +427,15 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 	}
 	
 	public void init(Oven[] o) {
-		o[0] = new Oven(900 - 80*2, 140, 0);
-		o[1] = new Oven(900, 140 + 80, 90);
-		o[2] = new Oven(900, 140 + 80*3, 90);
+		o[0] = new Oven(900 - 80*2, 140, 0, audio);
+		o[1] = new Oven(900, 140 + 80, 90, audio);
+		o[2] = new Oven(900, 140 + 80*3, 90, audio);
 	}
 	
 	public void init(Mixer[] m) {
-		m[0] = new Mixer(20 + 80, 700);
-		m[1] = new Mixer(20 + 80*3, 700);
-		m[2] = new Mixer(20 + 80*5, 700);
+		m[0] = new Mixer(20 + 80, 700, audio);
+		m[1] = new Mixer(20 + 80*3, 700, audio);
+		m[2] = new Mixer(20 + 80*5, 700, audio);
 	}
 	
 	public void init(ArrayList<Customer> c) {
@@ -537,7 +539,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			if(touched instanceof Mixer && ((Mixer) touched).fire){
 				((Mixer)touched).extinguish();
 			}
-		}
+		} 
 		
 		//sell plates
 		if(e.getKeyChar() == 'e' && chef.touching(reg) && chef.obj instanceof Plate) {
@@ -556,7 +558,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 						if(temp.in.contains("strawberrycake") == orders.get(i).cake
 								&& temp.in.contains("strawberryfrosted") == orders.get(i).frosting
 								&& temp.in.contains("strawberry") == orders.get(i).topping) {
-							reg.sell(temp);
+							reg.sell(temp, audio);
 							orders.remove(i);
 							
 							//move customers
@@ -583,10 +585,17 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			chef.obj = ret.plates.remove(ret.plates.size()-1);
 			
 		}
+	
+		if(e.getKeyChar() == 'm') {
+			audio.clearAllSound();
+		}
 		
 		if(e.getKeyChar() == 'e' && touching) {
 			
-			//System.out.println(touched.getClass().getName());
+			//System.out.println(touched.getClass().getName());dw
+			if(chef.obj.plate == null && chef.obj.bowl == null && (touched.obj.bowl != null || touched.obj.plate != null)) {
+				audio.stopSound("alarmforoven");
+			}
 			
 			//touching counters
 			if(touched.getClass().getName().equals("skia.Counter") && !(touched instanceof Mixer)) {
@@ -640,6 +649,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 				
 				//trade objects
 				else {
+					
 					Object temp = touched.obj;
 					touched.obj = chef.obj;
 					chef.obj = temp;
@@ -648,7 +658,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 				
 			//interact with oven
 			} else if (touched.getClass().getName().equals("skia.Oven") && chef.obj.plate == null) {
-				SimpleAudioTester.stopSound("alarmforoven");
+				
 				if(!((Oven) touched).fire) {
 					Object temp = touched.obj;
 					touched.obj = chef.obj;
@@ -660,15 +670,20 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 				}
 			//interact with mixer
 			}else if (touched.getClass().getName().equals("skia.Mixer") && chef.obj.plate == null) {
-				
-				
-				Object temp = touched.obj;
-				touched.obj = chef.obj;
-				chef.obj = temp;
+			
+				if(!((Mixer) touched).fire) {
 					
-				((Mixer) touched).bar.on = false;
+
+					Object temp = touched.obj;
+					touched.obj = chef.obj;
+					chef.obj = temp;
+					if(temp.in.contains("green")) {
+						((Oven)touched).extinguished = false;
+					}
+					((Mixer) touched).bar.on = false;
+				}
 				
-			//interact with ingredient bins	
+      //interact with ingredient bins	
 			} else if (touched.getClass().getName().equals("skia.Box")) {
 				if(chef.obj.bowl != null) {
 					Box temp = (Box) touched;
@@ -682,18 +697,11 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			} else if (touched instanceof Trashcan) {
 				if(chef.obj instanceof Bowl) {
 					chef.obj = new Bowl();
-				} else if(chef.obj instanceof Plate) {
+				} else if(chef.obj instanceof Plate && !((Plate)chef.obj).isDirty()) {
 					chef.obj = new Plate();
 				}
 			}
 		}
-		
-		if(e.getKeyChar() == 'f') {
-			customers.get(0).leave = true;
-			System.out.println(customers.get(0).leave);
-			customers.get(0).move = true;
-		}
-		
 		
 	}
 
