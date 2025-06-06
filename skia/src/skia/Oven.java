@@ -65,9 +65,9 @@ public class Oven extends Counter {
 			
 			if(bar.progress == 500) {
 				((Bowl) obj).bake();
-				if(!SimpleAudioTester.sounds.containsKey("alarmforoven")) {
-					SimpleAudioTester.loopSound("alarmforoven");
-				}
+				
+				SimpleAudioTester.loopSound("alarmforoven");
+				bar.progress++;
 			} else if(bar.progress == 800) {
 				((Bowl) obj).burn();
 				

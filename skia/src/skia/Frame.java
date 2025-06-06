@@ -485,7 +485,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			if(touched instanceof Mixer && ((Mixer) touched).fire){
 				((Mixer)touched).extinguish();
 			}
-		}
+		} 
 		
 		if(e.getKeyChar() == 'e' && chef.touching(reg) && chef.obj instanceof Plate) {
 			
@@ -574,6 +574,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 				}
 				
 				else {
+					SimpleAudioTester.stopSound("alarmforoven");
 					Object temp = touched.obj;
 					touched.obj = chef.obj;
 					chef.obj = temp;
@@ -593,8 +594,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 					((Oven) touched).bar.on = false;
 				}
 			}else if (touched.getClass().getName().equals("skia.Mixer") && chef.obj.plate == null) {
-				
-				
+				SimpleAudioTester.stopSound("alarmforoven");
 				Object temp = touched.obj;
 				touched.obj = chef.obj;
 				chef.obj = temp;
@@ -618,12 +618,6 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 					chef.obj = new Plate();
 				}
 			}
-		}
-		
-		if(e.getKeyChar() == 'f') {
-			Plate temp = (Plate) chef.obj;
-			chef.obj = new Plate();
-			reg.ew(temp);
 		}
 		
 		

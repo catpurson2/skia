@@ -56,12 +56,14 @@ public class Register {
 	public void sell(Plate temp) {
 		temp.sold = true;
 		score += 40 + 5*(temp.in.size()-2);
+		SimpleAudioTester.playSound("cheering");
 		plates.add(temp);
 		
 	}
 	
 	public void ew(Plate temp) {
 		temp.sold = true;
+		SimpleAudioTester.playSound("arghhh");
 		plates.add(temp);
 	}
 	

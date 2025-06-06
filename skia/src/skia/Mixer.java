@@ -63,6 +63,8 @@ public class Mixer extends Counter {
 			
 			if(bar.progress == 500) {
 				((Bowl) obj).mix();
+				SimpleAudioTester.loopSound("alarmforoven");
+				bar.progress++;
 			}
 			if(bar.progress == 800) {
 				((Bowl) obj).add("green");
