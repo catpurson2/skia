@@ -64,7 +64,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 	int min = 0;
 	int tens = 0;
 	int sec = 0;
-	int timer = 100;
+	int timer = 300;
 	long time = System.currentTimeMillis();
 	static int hiScore;
 	int frame = 0;
@@ -76,10 +76,11 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 	
 		g.setColor(Color.white);
 		g.setFont(joystix);
-		g.setFont(g.getFont().deriveFont(Font.PLAIN,28F));
+
+		g.setFont(g.getFont().deriveFont(Font.PLAIN,32F));
 		
-		g.drawString("TIME " + min + ":" + tens + sec + "  HISCORE:" + hiScore, 475, 28);
-		g.drawString("SCORE:" + reg.score, 727, 58);
+		g.drawString("TIME " + min + ":" + tens + sec + "    SCORE:" + reg.score + "    HISCORE:" + hiScore, 5, 35);
+
 		
 		chef.move();
 		
@@ -159,7 +160,10 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		}
 		ret.paint(g);
 		
+		touching(ret, colliding);
+		
 		reg.paint(g);
+		
 
 		Graphics2D g2 = (Graphics2D) g;
 		
@@ -513,7 +517,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			
 		}
 		
-		if(e.getKeyChar() == 'e' && chef.touching(ret) && chef.obj.empty && ret.plates.size() > 0) {
+		if(e.getKeyChar() == 'e' && touching && touched.equals(ret) && chef.obj.empty && ret.plates.size() > 0) {
 			
 			
 			chef.obj = ret.plates.remove(ret.plates.size()-1);
@@ -616,6 +620,12 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			}
 		}
 		
+		if(e.getKeyChar() == 'f') {
+			Plate temp = (Plate) chef.obj;
+			chef.obj = new Plate();
+			reg.ew(temp);
+		}
+		
 		
 	}
 
@@ -652,6 +662,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			if(e.getX() >= 122 && e.getX() <= 482 && e.getY() >= 430 && e.getY() <= 580) {
 				Runner.f.setVisible(false);
 				Runner.f.dispose();
+				Runner.frame = null;
 				Runner r = new Runner();
 			}
 			if(e.getX() >= 538 && e.getX() <= 898 && e.getY() >= 430 && e.getY() <= 580) {

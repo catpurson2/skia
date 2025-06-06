@@ -105,6 +105,12 @@ public class Runner extends JPanel implements MouseListener, KeyListener, Action
 		g.drawString("Serve cakes on plates and", 15, 715);
 		g.drawString("Dont forget to wash them!", 15, 740);
 		g.setFont(g.getFont().deriveFont(Font.PLAIN,30F));
+		
+		g.drawString("Select a character", 520, 720);
+		if(name != null) {
+			g.drawString(name, 690, 600);
+		}
+		
 		g.drawString("" + Frame.hiScore, 790, 130);
 		
 		if(selected == 0) {
@@ -183,6 +189,7 @@ public class Runner extends JPanel implements MouseListener, KeyListener, Action
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
+		
 		if(!start) {
 			if(e.getX() >= 104 && e.getX() <= 424 && e.getY() <= 404 && e.getY() >= 354) {
 				frame = new Frame();
