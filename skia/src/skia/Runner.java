@@ -38,6 +38,7 @@ public class Runner extends JPanel implements MouseListener, KeyListener, Action
 	BufferedImage turtle = getChar("turtle0");
 	BufferedImage bald = getChar("bald0");
 	int selected = 0;
+	SimpleAudioTester audio = new SimpleAudioTester();
 	
 	public static void main(String[] arg) {
 		Runner r = new Runner();
@@ -66,8 +67,8 @@ public class Runner extends JPanel implements MouseListener, KeyListener, Action
 		f.addKeyListener(this);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setVisible(true);
-		chara = atlas;
-		SimpleAudioTester.backgroundMusic();
+		chara = atlas; 
+		audio.backgroundMusic();
 		try {
 			
 			joystix = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("/font/joystix monospace.otf"));

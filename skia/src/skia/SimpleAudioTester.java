@@ -11,11 +11,14 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class SimpleAudioTester {
 
+	Clip backgroundMusic;
+	HashMap<String, Clip> sounds = new HashMap<String, Clip>();
+	String key = "";
 	static Clip backgroundMusic;
 	static HashMap<String, Clip> sounds = new HashMap<String, Clip>();
 	static String key = "";
 	
-	public static void backgroundMusic() {
+	public void backgroundMusic() {
 		try {
             // Use getResource to get the audio file from the classpath
             URL soundURL = SimpleAudioTester.class.getResource("/audio/cooking.wav");
@@ -41,6 +44,8 @@ public class SimpleAudioTester {
 		}
 	}
 	
+    public void playSound(String soundFileName) {
+
     public static void playSound(String soundFileName) {
         try {
             // Use getResource to get the audio file from the classpath
@@ -65,10 +70,11 @@ public class SimpleAudioTester {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+        
     }
     
-    public static void loopSound(String soundFileName) {
-        if(!sounds.containsKey(soundFileName)) {
+    public void loopSound(String soundFileName) {
+       
 	    	try {
 	            // Use getResource to get the audio file from the classpath
 	            URL soundURL = SimpleAudioTester.class.getResource("/audio/" + soundFileName + ".wav");
@@ -80,10 +86,11 @@ public class SimpleAudioTester {
 	
 	            AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundURL);
 	            Clip clip = AudioSystem.getClip();
-	
+	           
 	            sounds.put(soundFileName, clip);
 	            clip.open(audioIn);
 	            clip.loop(-1); // Plays the clip
+	            
 	        } catch (UnsupportedAudioFileException e) {
 	            e.printStackTrace();
 	        } catch (IOException e) {
@@ -93,21 +100,22 @@ public class SimpleAudioTester {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-        }
+        
     }
     
-    public static void stopMusic() {
+    public void stopMusic() {
     	backgroundMusic.stop();
     }
     
-    public static void stopSound(String soundFileName) {
-    	if(sounds.containsKey(soundFileName)) {
+    public void stopSound(String soundFileName) {
+    	System.out.println(sounds);
+    	if(sounds.get(soundFileName) != null) {
     		sounds.get(soundFileName).stop();
     		sounds.remove(soundFileName);
     	}
     }
     
-    public static void removeInactive() {
+    public void removeInactive() {
     	
     	if(sounds.size() > 0) {
     		sounds.forEach( (k, v) -> { 
@@ -122,4 +130,18 @@ public class SimpleAudioTester {
     	
     }
     
+    public void clearAllSound() {
+    	System.out.println(sounds);
+    	if(sounds.size() > 0) {
+    		sounds.forEach( (k, v) -> { 
+        		key = k;
+        	} );
+    	}
+    	if(key!=null && sounds.get(key) != null) {
+    		sounds.get(key).stop();
+    		sounds.remove(key);
+    	}
+    }
+    
 }
+        	
