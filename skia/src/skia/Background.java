@@ -23,7 +23,7 @@ public class Background {
 		
 		try {
 			back2 = ImageIO.read(getClass().getResource("/imgs/background.png"));
-			g.drawImage(back2, 0, 0, 1000, 800, null);
+			g.drawImage(back2, 0, 0, 1000, 980, null);
 		} catch(Exception e) {
 			System.out.println("tuesday");
 		}

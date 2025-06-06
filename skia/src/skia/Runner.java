@@ -45,9 +45,6 @@ public class Runner extends JPanel implements MouseListener, KeyListener, Action
 		try {
 			File save = new File("data.txt");
 			
-			FileWriter myWriter = new FileWriter(save);
-			myWriter.write("0");
-			
 			Scanner scan = new Scanner(save);
 			Frame.hiScore = scan.nextInt();
 		} catch (FileNotFoundException e) {
@@ -70,6 +67,7 @@ public class Runner extends JPanel implements MouseListener, KeyListener, Action
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setVisible(true);
 		chara = atlas;
+		SimpleAudioTester.backgroundMusic();
 		try {
 			
 			joystix = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("/font/joystix monospace.otf"));
@@ -185,13 +183,10 @@ public class Runner extends JPanel implements MouseListener, KeyListener, Action
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		System.out.println(e.getX() + " " + e.getY());
 		if(!start) {
 			if(e.getX() >= 104 && e.getX() <= 424 && e.getY() <= 404 && e.getY() >= 354) {
 				frame = new Frame();
 				frame.chef.chara = name;
-				
-				System.out.println(name);
 				start = true;
 			}
 			if(e.getX() >= 532 && e.getX() <= 560 && e.getY() >= 406 && e.getY() <= 486) {
