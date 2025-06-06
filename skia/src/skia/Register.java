@@ -63,6 +63,7 @@ public class Register {
 	public void ew(Plate temp) {
 		temp.sold = true;
 		plates.add(temp);
+		score -= 10;
 	}
 	
 	public Plate remove() {
