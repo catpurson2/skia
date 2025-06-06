@@ -14,6 +14,7 @@ public class Counter {
 	static BufferedImage metal;
 	static BufferedImage wood;
 	static BufferedImage ret;
+	SimpleAudioTester audio;
 	
 	public Counter(int x, int y, int img) {
 		width = 80;
