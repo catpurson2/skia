@@ -47,7 +47,7 @@ public class Plate extends Object {
 					isDirty = true;
 					super.plate = getImg("dirtyplate");
 					empty = false;
-					super.paint(g, x+80, y-5); //DONT TOUCH THIS IM SCARED WHAT WILL HAPPEN 
+					super.paint(g, x+80, y-5); 
 					sold = false;
 				}
 			}else {
