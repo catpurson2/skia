@@ -12,6 +12,7 @@ public class Extinguisher extends Object {
 	public Extinguisher() {
 		
 		super.plate = up;
+		empty = false;
 		
 		
 	}

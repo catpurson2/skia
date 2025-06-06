@@ -25,14 +25,19 @@ public class Bowl extends Object {
 				}
 			} else {
 				add("batter");
+				
+				if(in.contains("strawberry")) {
+					add("strawberrybatter");
+				}
 			}
 		}
+		
 	}
 	
 	public void bake() {
 		if(ingredients.size() > 0) {
 			
-			if(in.contains("milk") && in.contains("egg") && in.contains("flour") && in.contains("sugar") && in.get(in.size()-1).equals("batter")) {
+			if(in.contains("milk") && in.contains("egg") && in.contains("flour") && in.contains("sugar") && (in.get(in.size()-1).equals("batter") || in.get(in.size()-1).equals("strawberrybatter"))) {
 				add("cake");
 				if(in.contains("strawberry")) {
 					add("strawberrycake");

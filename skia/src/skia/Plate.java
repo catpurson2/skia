@@ -46,7 +46,8 @@ public class Plate extends Object {
 					timer = 0;
 					isDirty = true;
 					super.plate = getImg("dirtyplate");
-					super.paint(g, x+80, y-5); //DONT TOUCH THIS IM SCARED WHAT WILL HAPPEN 
+					empty = false;
+					super.paint(g, x+80, y-5); 
 					sold = false;
 				}
 			}else {
@@ -57,11 +58,13 @@ public class Plate extends Object {
 			super.paint(g, x, y);
 		}
 		
-		
-		
-		
-		
-		
+	}
+	
+	public void add(String ingredient) {
+		ingredients.add(getImg(ingredient));
+		in.add(ingredient);
+		progress = 0;
+		bar = new IngredientBar(in);
 	}
 	
 }

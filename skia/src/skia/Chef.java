@@ -15,21 +15,22 @@ public class Chef {
 	Object obj;
 	int dir;
 	int size;
+	String chara = Runner.name;
 	BufferedImage chef;
-	BufferedImage flynn0 = getImg("flynn0");
-	BufferedImage flynn90 = getImg("flynn90");
-	BufferedImage flynn180 = getImg("flynn180");
-	BufferedImage flynn270 = getImg("flynn270");
+	BufferedImage chef0 = getImg("0");
+	BufferedImage chef90 = getImg("90");
+	BufferedImage chef180 = getImg("180");
+	BufferedImage chef270 = getImg("270");
 	BufferedImage leftHand;
 	BufferedImage rightHand;
-	BufferedImage upLeft = getImg("flynnleft0");
-	BufferedImage upRight = getImg("flynnright0");
-	BufferedImage downLeft = getImg("flynnleft180");
-	BufferedImage downRight = getImg("flynnright180");
-	BufferedImage leftLeft = getImg("flynnleft270");
-	BufferedImage leftRight = getImg("flynnright270");
-	BufferedImage rightLeft = getImg("flynnleft90");
-	BufferedImage rightRight = getImg("flynnright90");
+	BufferedImage upLeft = getImg("left0");
+	BufferedImage upRight = getImg("right0");
+	BufferedImage downLeft = getImg("left180");
+	BufferedImage downRight = getImg("right180");
+	BufferedImage leftLeft = getImg("left270");
+	BufferedImage leftRight = getImg("right270");
+	BufferedImage rightLeft = getImg("left90");
+	BufferedImage rightRight = getImg("right90");
 	
 	public Chef() {
 		x = 150;
@@ -49,6 +50,8 @@ public class Chef {
 	
 	public void paint(Graphics g) {
 		
+		g.drawImage(chef, x, y, width, height, null);
+		
 		
 		if(dir == 0) {
 			g.setColor(Color.green);
@@ -64,7 +67,7 @@ public class Chef {
 				g.drawImage(leftHand, x-5, y-30, 20, 20, null);
 				g.drawImage(rightHand, x+45, y-30, 20, 20, null);
 			}
-			chef = flynn0;
+			chef = chef0;
 			height = 67;
 			width = 60;
 			
@@ -81,7 +84,7 @@ public class Chef {
 				g.drawImage(leftHand, x+70, y-5, 20, 20, null);
 				g.drawImage(rightHand, x+70, y+45, 20, 20, null);
 			}
-			chef = flynn90;
+			chef = chef90;
 			width = 67;
 			height = 60;
 		} else if(dir == 180) {
@@ -97,7 +100,7 @@ public class Chef {
 				g.drawImage(leftHand, x-5, y+70, 20, 20, null);
 				g.drawImage(rightHand, x+45, y+70, 20, 20, null);
 			}
-			chef = flynn180;
+			chef = chef180;
 			height = 67;
 			width = 60;
 		} else if(dir == 270) {
@@ -113,12 +116,11 @@ public class Chef {
 				g.drawImage(leftHand, x-30, y-5, 20, 20, null);
 				g.drawImage(rightHand, x-30, y+45, 20, 20, null);
 			}
-			chef = flynn270;
+			chef = chef270;
 			width = 67;
 			height = 60;
 		}
-    
-		g.drawImage(chef, x, y, width, height, null);
+
 		
 		//hitboxes
 		/*if(dir == 0) {
@@ -256,9 +258,9 @@ public class Chef {
 	public BufferedImage getImg(String path) {
 		
 		try {
-			return ImageIO.read(getClass().getResource("/character/" + path + ".png"));
+			return ImageIO.read(getClass().getResource("/character/" + chara + path + ".png"));
 		} catch(Exception e) {
-			System.out.println("tuesday");
+			System.out.println(chara);
 		}
 		
 		return null;
