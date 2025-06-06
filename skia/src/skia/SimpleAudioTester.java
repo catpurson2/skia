@@ -14,9 +14,6 @@ public class SimpleAudioTester {
 	Clip backgroundMusic;
 	HashMap<String, Clip> sounds = new HashMap<String, Clip>();
 	String key = "";
-	static Clip backgroundMusic;
-	static HashMap<String, Clip> sounds = new HashMap<String, Clip>();
-	static String key = "";
 	
 	public void backgroundMusic() {
 		try {
@@ -46,7 +43,6 @@ public class SimpleAudioTester {
 	
     public void playSound(String soundFileName) {
 
-    public static void playSound(String soundFileName) {
         try {
             // Use getResource to get the audio file from the classpath
             URL soundURL = SimpleAudioTester.class.getResource("/audio/" + soundFileName + ".wav");
@@ -74,7 +70,7 @@ public class SimpleAudioTester {
     }
     
     public void loopSound(String soundFileName) {
-       
+       if(!sounds.containsKey(soundFileName)) {
 	    	try {
 	            // Use getResource to get the audio file from the classpath
 	            URL soundURL = SimpleAudioTester.class.getResource("/audio/" + soundFileName + ".wav");
@@ -100,7 +96,7 @@ public class SimpleAudioTester {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-        
+       }
     }
     
     public void stopMusic() {
