@@ -17,6 +17,7 @@ public class ReturnCounter extends Counter {
 	public void paint(Graphics g) {
 		super.paint(g);
 		
+		//draw plates
 		int i =0;
 		for(Plate obj : plates) {
 			if(obj!=null) {
