@@ -58,11 +58,13 @@ public class Plate extends Object {
 			super.paint(g, x, y);
 		}
 		
-		
-		
-		
-		
-		
+	}
+	
+	public void add(String ingredient) {
+		ingredients.add(getImg(ingredient));
+		in.add(ingredient);
+		progress = 0;
+		bar = new IngredientBar(in);
 	}
 	
 }

@@ -52,7 +52,7 @@ public class Object {
 		}
 		
 		if(bar != null) {
-			bar.paint(g, x, y);
+			bar.paint(g, x+83, y, 0);
 		}
 		
 	}
@@ -73,7 +73,6 @@ public class Object {
 		ingredients.add(getImg(ingredient));
 		in.add(ingredient);
 		progress = 0;
-		//bar = new IngredientBar(in);
 	}
 
 }

@@ -536,6 +536,8 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 						touched.obj.add("cake");
 						if(chef.obj.in.contains("burnt")) {
 							touched.obj.add("burnt");	
+						} else if(chef.obj.in.contains("green")) {
+							touched.obj.add("green");
 						} else if(chef.obj.in.contains("strawberrycake")) {
 							touched.obj.add("strawberrycake");
 						}
@@ -556,6 +558,8 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 						chef.obj.add("cake");
 						if(touched.obj.in.contains("burnt")) {
 							chef.obj.add("burnt");	
+						} else if(touched.obj.in.contains("green")) {
+							chef.obj.add("green");
 						} else if(touched.obj.in.contains("strawberrycake")) {
 							chef.obj.add("strawberrycake");
 						}
@@ -618,12 +622,6 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 					chef.obj = new Plate();
 				}
 			}
-		}
-		
-		if(e.getKeyChar() == 'f') {
-			Plate temp = (Plate) chef.obj;
-			chef.obj = new Plate();
-			reg.ew(temp);
 		}
 		
 		
