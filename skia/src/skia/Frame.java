@@ -542,7 +542,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 							reg.sell(temp);
 							orders.remove(i);
 							customers.get(0).leave = true;
-							System.out.println(customers.get(0).leave);
+							//System.out.println(customers.get(0).leave);
 							customers.get(0).move = true;
 							//move(customers);
 							bad = false;

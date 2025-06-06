@@ -10,7 +10,9 @@ public class Customer {
 	static BufferedImage c1;
 	static BufferedImage c2;
 	static BufferedImage c3;
-	BufferedImage save;
+	static BufferedImage r1;
+	static BufferedImage r2;
+	static BufferedImage r3;
 	BufferedImage rotate;
 	BufferedImage img;
 	int x, y;
@@ -23,20 +25,23 @@ public class Customer {
 			c1 = getImg("customer1");
 			c2 = getImg("customer2");
 			c3 = getImg("customer3");
+			r1 = getImg("rotate1");
+			r2 = getImg("rotate2");
+			r3 = getImg("rotate3");
 		}
 		
 		int i = (int) (Math.random()*3);
 		
 		if(i == 0) {
-			save = c1;
+			img = c1;
+			rotate = r1;
 		} if (i == 1) {
-			save = c2;
+			img = c2;
+			rotate = r2;
 		} if (i == 2) {
-			save = c3;
+			img = c3;
+			rotate = r3;
 		}
-		
-		rotate = save;
-		img = save;
 		
 		this.x = x;
 		this.y = y;
@@ -48,10 +53,10 @@ public class Customer {
 	public void paint(Graphics g) {
 		if(x-i*5 == 190) {
 			g.drawImage(rotate, x-i*5, y, 60, 67, null);
-			System.out.println("rotate");
+			//System.out.println("rotate");
 		} else {
-			g.drawImage(save, x-i*5, y, 60, 67, null);
-			System.out.println("save");
+			g.drawImage(img, x-i*5, y, 60, 67, null);
+			//System.out.println("save");
 		}
 	}
 	
