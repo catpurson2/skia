@@ -25,8 +25,9 @@ public class Mixer extends Counter {
 	int f;
 	int b;
 
-	public Mixer(int x, int y) {
+	public Mixer(int x, int y, SimpleAudioTester audio) {
 		super(x, y, 1);
+		super.audio = audio;
 		obj = new Object();
 		//mixImg = "mixer";
 		notmix = getImg("nomix");
@@ -63,6 +64,8 @@ public class Mixer extends Counter {
 			
 			if(bar.progress == 500) {
 				((Bowl) obj).mix();
+				audio.loopSound("alarmforoven");
+				bar.progress++;
 			}
 			if(bar.progress == 800) {
 				((Bowl) obj).add("green");
@@ -95,8 +98,8 @@ public class Mixer extends Counter {
 		g.drawImage(img, x, y-4, (int) (1*width), (int) (1*height), null);
 		
 		if(fire && !extinguished) {
-			SimpleAudioTester.stopSound("alarmforoven");
-			SimpleAudioTester.loopSound("smokealarm");
+			audio.stopSound("alarmforoven");
+			audio.loopSound("smokealarm");
 			b++;
 			if(b%5 == 0) {
 				if(fires.equals(fire1)) {
@@ -117,7 +120,7 @@ public class Mixer extends Counter {
 	}
 	
 	public void extinguish() {
-		SimpleAudioTester.stopSound("smokealarm");
+		audio.stopSound("smokealarm");
 		obj.progress = 0;
 		bar.on = false;
 		extinguished = true;
