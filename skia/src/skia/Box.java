@@ -26,8 +26,6 @@ public class Box extends Counter {
 				break;
 		}
 		
-		System.out.println(type);
-		
 		img = getImg(type+"bin");
 		
 		// TODO Auto-generated constructor stub
