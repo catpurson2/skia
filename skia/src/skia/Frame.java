@@ -64,7 +64,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 	int min = 0;
 	int tens = 0;
 	int sec = 0;
-	int timer = 300;
+	int timer = 10;
 	long time = System.currentTimeMillis();
 	static int hiScore;
 	int frame = 0;
@@ -80,11 +80,6 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		
 		g.drawString("TIME " + min + ":" + tens + sec + "  HISCORE:" + hiScore, 475, 28);
 		g.drawString("SCORE:" + reg.score, 727, 58);
-		
-		
-		
-		
-		
 		
 		chef.move();
 		
@@ -214,10 +209,16 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			}
 		}	
 		if(timer == 0) {
-			min = timer/60;
-			tens = timer%60/10;
-			sec = timer%60%10;
+			if(!SimpleAudioTester.sounds.containsKey("exitsong")) {
+				SimpleAudioTester.stopMusic();
+				SimpleAudioTester.playSound("exitsong");
+			}
+			System.out.println(SimpleAudioTester.sounds.containsKey("exitsong"));
+			min = 0;
+			tens = 0;
+			sec = 0;
 			Runner.start = false;
+			timer--;
 			try {
 				FileWriter myWriter = new FileWriter("data.txt");
 				g.setColor(Color.black);
@@ -276,6 +277,11 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		
 		
 		frame++;
+		
+		if(SimpleAudioTester.sounds.size() > 0) {
+			SimpleAudioTester.removeInactive();
+			System.out.println(SimpleAudioTester.sounds);
+		}
 		
 	
 	}
