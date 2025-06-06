@@ -47,9 +47,9 @@ public class IngredientBar {
 		}
 		
 		if(in.contains("burnt")) {
-			this.in.add(green);
-		} else if (in.contains("green")) {
 			this.in.add(burnt);
+		} else if (in.contains("green")) {
+			this.in.add(green);
 		} else if (in.contains("strawberrycake")) {
 			this.in.add(scake);
 		} else if (in.contains("cake")) {
