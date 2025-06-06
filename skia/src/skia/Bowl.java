@@ -27,6 +27,7 @@ public class Bowl extends Object {
 				add("batter");
 			}
 		}
+		
 	}
 	
 	public void bake() {

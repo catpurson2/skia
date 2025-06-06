@@ -11,10 +11,19 @@ public class Mixer extends Counter {
 	BufferedImage mixer3;
 	BufferedImage mixer4;
 	BufferedImage img;
+	BufferedImage fires;
+	BufferedImage fire1;
+	BufferedImage fire2;
+	BufferedImage fire3;
+	BufferedImage fire4;
 	Progress bar = new Progress(x, y+80);
 	//String mixImg;
 	Boolean mixing;
+	Boolean fire;
+	Boolean extinguished;
+	//counting variables
 	int f;
+	int b;
 
 	public Mixer(int x, int y) {
 		super(x, y, 1);
@@ -27,8 +36,13 @@ public class Mixer extends Counter {
 		mixer4 = getImg("mixer2");
 		img = mixer;
 		mixing = false;
+		fire = false;
 		f = 0;
-		
+		fire1 = getImg("fire1");
+		fire2 = getImg("fire2");
+		fire3 = getImg("fire3");
+		fire4 = getImg("fire4");
+		fires = fire1;
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -38,13 +52,23 @@ public class Mixer extends Counter {
 		f++;
 		
 		if(obj.bowl != null) {
-			bar.turnOn(obj.progress);
+			if(!obj.in.contains("green")) {
+				bar.turnOn(obj.progress);
+				
+			}
+			bar.paint(g);
 			mixing = true;
 			mix();
-			bar.paint(g);
+			
 			
 			if(bar.progress == 500) {
 				((Bowl) obj).mix();
+			}
+			if(bar.progress == 800) {
+				((Bowl) obj).add("green");
+				fire = true;
+				extinguished = false;
+				
 			}
 			obj.progress = bar.progress;
 		} else {
@@ -69,6 +93,35 @@ public class Mixer extends Counter {
 		}
 		
 		g.drawImage(img, x, y-4, (int) (1*width), (int) (1*height), null);
+		
+		if(fire && !extinguished) {
+			SimpleAudioTester.stopSound("alarmforoven");
+			SimpleAudioTester.loopSound("smokealarm");
+			b++;
+			if(b%5 == 0) {
+				if(fires.equals(fire1)) {
+					fires = fire2;
+				}else if(fires.equals(fire2)) {
+					fires = fire3;
+				}else if(fires.equals(fire3)) {
+					fires = fire4;
+				}else {
+					fires = fire1;
+					b=0;
+				}
+			}
+			g.drawImage(fires, x,y, 80,80,null);
+			
+		}
+		
+	}
+	
+	public void extinguish() {
+		SimpleAudioTester.stopSound("smokealarm");
+		obj.progress = 0;
+		bar.on = false;
+		extinguished = true;
+		fire = false;
 		
 	}
 	

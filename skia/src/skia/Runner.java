@@ -67,6 +67,7 @@ public class Runner extends JPanel implements MouseListener, KeyListener, Action
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setVisible(true);
 		chara = atlas;
+		SimpleAudioTester.backgroundMusic();
 		try {
 			
 			joystix = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("/font/joystix monospace.otf"));
@@ -104,15 +105,21 @@ public class Runner extends JPanel implements MouseListener, KeyListener, Action
 		g.drawString("Serve cakes on plates and", 15, 715);
 		g.drawString("Dont forget to wash them!", 15, 740);
 		g.setFont(g.getFont().deriveFont(Font.PLAIN,30F));
+		
+		g.drawString("Select a character", 520, 720);
+		if(name != null) {
+			g.drawString(name, 690, 600);
+		}
+		
 		g.drawString("" + Frame.hiScore, 790, 130);
 		
 		if(selected == 0) {
-			chara = atlas;
-			name = "atlas";
-		}
-		if(selected == 1) {
 			chara = flynn;
 			name = "flynn";
+		}
+		if(selected == 1) {
+			chara = atlas;
+			name = "atlas";
 		}
 		if(selected == 2) {
 			chara = turtle;
@@ -153,7 +160,7 @@ public class Runner extends JPanel implements MouseListener, KeyListener, Action
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		if(!start) {
+		if(!start && frame == null) {
 			repaint();
 		}
 			
@@ -182,13 +189,11 @@ public class Runner extends JPanel implements MouseListener, KeyListener, Action
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		System.out.println(e.getX() + " " + e.getY());
+		
 		if(!start) {
 			if(e.getX() >= 104 && e.getX() <= 424 && e.getY() <= 404 && e.getY() >= 354) {
 				frame = new Frame();
 				frame.chef.chara = name;
-				
-				System.out.println(name);
 				start = true;
 			}
 			if(e.getX() >= 532 && e.getX() <= 560 && e.getY() >= 406 && e.getY() <= 486) {

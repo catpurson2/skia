@@ -10,13 +10,35 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class SimpleAudioTester {
-
-	
-
 	static Clip backgroundMusic;
 	static HashMap<String, Clip> sounds = new HashMap<String, Clip>();
 	static String key = "";
 	
+	public static void backgroundMusic() {
+		try {
+            // Use getResource to get the audio file from the classpath
+            URL soundURL = SimpleAudioTester.class.getResource("/audio/cooking.wav");
+
+            if (soundURL == null) {
+                System.err.println("Sound file not found boooo: backgroundMusic");
+                return;
+            }
+
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundURL);
+            backgroundMusic = AudioSystem.getClip();
+            backgroundMusic.open(audioIn);
+            // Plays the clip
+            backgroundMusic.loop(-1);
+        } catch (UnsupportedAudioFileException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (LineUnavailableException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
     public static void playSound(String soundFileName) {
         try {
             // Use getResource to get the audio file from the classpath
@@ -29,6 +51,7 @@ public class SimpleAudioTester {
 
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundURL);
             Clip clip = AudioSystem.getClip();
+            sounds.put(soundFileName, clip);
             clip.open(audioIn);
             clip.start(); // Plays the clip
         } catch (UnsupportedAudioFileException e) {
@@ -98,5 +121,6 @@ public class SimpleAudioTester {
     	
     }
     
+
 }
         	
