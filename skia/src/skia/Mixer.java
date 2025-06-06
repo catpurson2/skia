@@ -60,7 +60,9 @@ public class Mixer extends Counter {
 			bar.paint(g);
 			mixing = true;
 			mix();
-			
+			if(obj.in.contains("batter") || obj.progress >= 500) {
+				audio.loopSound("alarmforoven");
+			}
 			
 			if(bar.progress == 500) {
 				((Bowl) obj).mix();

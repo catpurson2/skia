@@ -597,12 +597,16 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 				}
 			}else if (touched.getClass().getName().equals("skia.Mixer") && chef.obj.plate == null) {
 			
-				Object temp = touched.obj;
-				touched.obj = chef.obj;
-				chef.obj = temp;
+				if(!((Mixer) touched).fire) {
 					
-				((Mixer) touched).bar.on = false;
-				
+					Object temp = touched.obj;
+					touched.obj = chef.obj;
+					chef.obj = temp;
+					if(temp.in.contains("green")) {
+						((Oven)touched).extinguished = false;
+					}
+					((Mixer) touched).bar.on = false;
+				}
 				
 			} else if (touched.getClass().getName().equals("skia.Box")) {
 				if(chef.obj.bowl != null) {
