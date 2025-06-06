@@ -55,6 +55,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 	Chef chef = new Chef();
 	ArrayList<Order> orders = new ArrayList<Order>();
 	int lastOrder;
+	ArrayList<Customer> customers = new ArrayList<Customer>();
 	
 	//
 	
@@ -279,6 +280,36 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		for(int i = 0; i < orders.size(); i++) {
 			orders.get(i).paint(g, 20 + 210*i, 140 + 80*8+5+4*3);
 		}
+		
+		for(int i = 0; i < customers.size(); i++) {
+			if(customers.get(i).move() && i+1 < customers.size()) {
+				customers.get(i+1).move = true;
+			}
+		}
+		
+		if(customers.get(customers.size()-1).x <= 1000) {
+			customers.add(new Customer(customers.get(customers.size()-1).x+80, 35*4-70));
+			//System.out.println("new customer");
+		}
+		
+		//System.out.println(customers.get(customers.size()-1).x);
+		
+		if(customers.get(0).x-customers.get(0).i*5 <= -60) {
+			customers.remove(0);
+			//System.out.println("gone");
+		}
+		
+		/*if(customers.get(0).move = false) {
+			customers.get(0).img = customers.get(0).rotate;
+		} else {
+			customers.get(0).img = customers.get(0).save;
+		}*/
+		
+		for(Customer i : customers) {
+			i.paint(g);
+		}
+		
+		//System.out.println(customers.get(1).x-customers.get(1).i*5 + " " + customers.get(1).move);
 		//order.paint(g, 20, 140 + 80*8+5);
 		
 		
@@ -306,6 +337,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		init(counters);
 		init(ovens);
 		init(mixers);
+		init(customers);
 		orders.add(new Order());
 		lastOrder = 300;
 		
@@ -393,6 +425,12 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		m[0] = new Mixer(20 + 80, 700);
 		m[1] = new Mixer(20 + 80*3, 700);
 		m[2] = new Mixer(20 + 80*5, 700);
+	}
+	
+	public void init(ArrayList<Customer> c) {
+		for(int i = 0; i < 1080; i+=80) {
+			c.add(new Customer(190+i, 35*4-70));
+		}
 	}
 	
 	public void touching(Counter i, Boolean colliding) {
@@ -503,6 +541,10 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 								&& temp.in.contains("strawberry") == orders.get(i).topping) {
 							reg.sell(temp);
 							orders.remove(i);
+							customers.get(0).leave = true;
+							System.out.println(customers.get(0).leave);
+							customers.get(0).move = true;
+							//move(customers);
 							bad = false;
 							break;
 						}
@@ -624,8 +666,16 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			}
 		}
 		
+		if(e.getKeyChar() == 'f') {
+			customers.get(0).leave = true;
+			System.out.println(customers.get(0).leave);
+			customers.get(0).move = true;
+		}
+		
 		
 	}
+
+
 
 	@Override
 	public void keyReleased(KeyEvent e) {
