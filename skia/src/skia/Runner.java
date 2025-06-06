@@ -38,7 +38,7 @@ public class Runner extends JPanel implements MouseListener, KeyListener, Action
 	BufferedImage turtle = getChar("turtle0");
 	BufferedImage bald = getChar("bald0");
 	int selected = 0;
-	SimpleAudioTester audio = new SimpleAudioTester();
+	static SimpleAudioTester audio = new SimpleAudioTester();
 	
 	public static void main(String[] arg) {
 		Runner r = new Runner();

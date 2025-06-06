@@ -203,6 +203,34 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			ret.plates.add(temp);
 			
 		}
+		
+		for(int i = 0; i < customers.size(); i++) {
+			if(customers.get(i).move() && i+1 < customers.size()) {
+				customers.get(i+1).move = true;
+			}
+		}
+		
+		if(customers.get(customers.size()-1).x <= 1000) {
+			customers.add(new Customer(customers.get(customers.size()-1).x+80, 35*4-70));
+			//System.out.println("new customer");
+		}
+		
+		//System.out.println(customers.get(customers.size()-1).x);
+		
+		if(customers.get(0).x-customers.get(0).i*5 <= -60) {
+			customers.remove(0);
+			//System.out.println("gone");
+		}
+		
+		/*if(customers.get(0).move = false) {
+			customers.get(0).img = customers.get(0).rotate;
+		} else {
+			customers.get(0).img = customers.get(0).save;
+		}*/
+		
+		for(Customer i : customers) {
+			i.paint(g);
+		}
 		//timing
 		if(Runner.start) {
 			min = timer/60;
@@ -216,10 +244,10 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		}	
 		if(timer == 0) {
 			if(!audio.sounds.containsKey("exitsong")) {
-				audio.stopMusic();
+				Runner.audio.stopMusic();
 				audio.playSound("exitsong");
 			}
-			System.out.println(audio.sounds.containsKey("exitsong"));
+			
 			min = 0;
 			tens = 0;
 			sec = 0;
@@ -282,33 +310,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			orders.get(i).paint(g, 20 + 210*i, 140 + 80*8+5+4*3);
 		}
 		
-		for(int i = 0; i < customers.size(); i++) {
-			if(customers.get(i).move() && i+1 < customers.size()) {
-				customers.get(i+1).move = true;
-			}
-		}
 		
-		if(customers.get(customers.size()-1).x <= 1000) {
-			customers.add(new Customer(customers.get(customers.size()-1).x+80, 35*4-70));
-			//System.out.println("new customer");
-		}
-		
-		//System.out.println(customers.get(customers.size()-1).x);
-		
-		if(customers.get(0).x-customers.get(0).i*5 <= -60) {
-			customers.remove(0);
-			//System.out.println("gone");
-		}
-		
-		/*if(customers.get(0).move = false) {
-			customers.get(0).img = customers.get(0).rotate;
-		} else {
-			customers.get(0).img = customers.get(0).save;
-		}*/
-		
-		for(Customer i : customers) {
-			i.paint(g);
-		}
 		
 		//System.out.println(customers.get(1).x-customers.get(1).i*5 + " " + customers.get(1).move);
 		//order.paint(g, 20, 140 + 80*8+5);
