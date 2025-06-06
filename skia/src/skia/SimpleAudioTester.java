@@ -100,7 +100,9 @@ public class SimpleAudioTester {
     }
     
     public void stopMusic() {
-    	backgroundMusic.stop();
+    	if(backgroundMusic.isRunning()) {
+    		backgroundMusic.stop();
+    	}
     }
     
     public void stopSound(String soundFileName) {

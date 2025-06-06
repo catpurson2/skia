@@ -21,6 +21,8 @@ public class Order {
 	
 	public Order() {
 		
+		//randomize order
+		
 		if(Math.random() < 0.5) {
 			cake = false;
 		} else {
@@ -39,6 +41,7 @@ public class Order {
 			topping = true;
 		}
 		
+		//load images
 		if(small == null) {
 			small = getImg("small");
 			big = getImg("big");
@@ -53,6 +56,8 @@ public class Order {
 	
 	public void paint(Graphics g, int x, int y) {
 		
+		
+		//draw correct image
 		if(topping) {
 			g.drawImage(big, x, y, 200, 176, null);
 		} else {

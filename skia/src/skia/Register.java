@@ -33,6 +33,8 @@ public class Register {
 		
 		int i =0;
 		g.drawImage(img, x, y, width, height, null);
+		
+		//draw plates
 		for(int j =0; j< plates.size(); j++) {
 			Plate obj = plates.get(j);
 			if(obj != null && !obj.isDirty) {
@@ -53,7 +55,9 @@ public class Register {
 		return null;
 		
 	}
-	
+		
+		//take plate then increase score
+
 	public void sell(Plate temp, SimpleAudioTester audio) {
 		temp.sold = true;
 		score += 40 + 5*(temp.in.size()-2);
@@ -63,6 +67,8 @@ public class Register {
 	}
 	
 	public void ew(Plate temp) {
+		
+		//take plate then decrease score
 		temp.sold = true;
 		audio.playSound("arghhh");
 		plates.add(temp);
@@ -71,6 +77,7 @@ public class Register {
 	
 	public Plate remove() {
 		
+		//remove plates from register
 		for(int i = 0; i<plates.size(); i++) {
 			if(plates.get(i) != null && plates.get(i).isDirty) {
 				return plates.remove(i);

@@ -21,6 +21,8 @@ public class Customer {
 	Boolean leave;
 	
 	public Customer(int x, int y) {
+		
+		//load images
 		if(c1 == null) {
 			c1 = getImg("customer1");
 			c2 = getImg("customer2");
@@ -30,6 +32,7 @@ public class Customer {
 			r3 = getImg("rotate3");
 		}
 		
+		//randomize color
 		int i = (int) (Math.random()*3);
 		
 		if(i == 0) {
@@ -60,6 +63,7 @@ public class Customer {
 		}
 	}
 	
+	//increment movement
 	public Boolean move() {
 		if(move) {
 			i++;
