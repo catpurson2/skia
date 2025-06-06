@@ -66,6 +66,7 @@ public class Register {
 		temp.sold = true;
 		audio.playSound("arghhh");
 		plates.add(temp);
+		score -= 10;
 	}
 	
 	public Plate remove() {

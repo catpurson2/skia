@@ -50,6 +50,8 @@ public class Chef {
 	
 	public void paint(Graphics g) {
 		
+		g.drawImage(chef, x, y, width, height, null);
+		
 		
 		if(dir == 0) {
 			g.setColor(Color.green);
@@ -118,8 +120,7 @@ public class Chef {
 			width = 67;
 			height = 60;
 		}
-    
-		g.drawImage(chef, x, y, width, height, null);
+
 		
 		//hitboxes
 		/*if(dir == 0) {
