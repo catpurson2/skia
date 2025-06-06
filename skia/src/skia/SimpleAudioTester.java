@@ -10,7 +10,6 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class SimpleAudioTester {
-
 	static Clip backgroundMusic;
 	static HashMap<String, Clip> sounds = new HashMap<String, Clip>();
 	static String key = "";
@@ -40,7 +39,6 @@ public class SimpleAudioTester {
 			e.printStackTrace();
 		}
 	}
-	
     public static void playSound(String soundFileName) {
         try {
             // Use getResource to get the audio file from the classpath
@@ -65,6 +63,7 @@ public class SimpleAudioTester {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+        
     }
     
     public static void loopSound(String soundFileName) {
@@ -122,4 +121,6 @@ public class SimpleAudioTester {
     	
     }
     
+
 }
+        	
