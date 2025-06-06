@@ -12,7 +12,7 @@ public class SimpleAudioTester {
     public static void playSound(String soundFileName) {
         try {
             // Use getResource to get the audio file from the classpath
-            URL soundURL = SimpleAudioTester.class.getResource(soundFileName);
+            URL soundURL = SimpleAudioTester.class.getResource("/audio/" + soundFileName + ".wav");
 
             if (soundURL == null) {
                 System.err.println("Sound file not found boooo: " + soundFileName);
@@ -32,5 +32,7 @@ public class SimpleAudioTester {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    }
+        
+    }     
+        	
 }
