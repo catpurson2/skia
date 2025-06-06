@@ -68,7 +68,6 @@ public class Runner extends JPanel implements MouseListener, KeyListener, Action
 		f.setVisible(true);
 		chara = atlas;
 		SimpleAudioTester.backgroundMusic();
-		SimpleAudioTester.playSound("cheering");
 		try {
 			
 			joystix = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("/font/joystix monospace.otf"));
@@ -155,7 +154,7 @@ public class Runner extends JPanel implements MouseListener, KeyListener, Action
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		if(!start) {
+		if(!start && frame == null) {
 			repaint();
 		}
 			

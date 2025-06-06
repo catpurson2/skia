@@ -64,7 +64,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 	int min = 0;
 	int tens = 0;
 	int sec = 0;
-	int timer = 10;
+	int timer = 100;
 	long time = System.currentTimeMillis();
 	static int hiScore;
 	int frame = 0;
@@ -219,6 +219,8 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			sec = 0;
 			Runner.start = false;
 			timer--;
+		}
+		if(timer == -1) {
 			try {
 				FileWriter myWriter = new FileWriter("data.txt");
 				g.setColor(Color.black);
@@ -257,7 +259,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 				System.out.println("An error occurred.");
 				e.printStackTrace();
 			}
-				
+			
 		}
 		
 		if(timer%30 == 0 && Math.abs(timer-lastOrder) > 2 && orders.size() < 4) {
@@ -280,7 +282,6 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		
 		if(SimpleAudioTester.sounds.size() > 0) {
 			SimpleAudioTester.removeInactive();
-			System.out.println(SimpleAudioTester.sounds);
 		}
 		
 	
@@ -521,7 +522,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			
 			//System.out.println(touched.getClass().getName());dw
 			
-			if(touched.getClass().getName().equals("skia.Counter")) {
+			if(touched.getClass().getName().equals("skia.Counter") && !(touched instanceof Mixer)) {
 				
 				if(chef.obj instanceof Bowl && touched.obj instanceof Plate && !((Plate) touched.obj).isDirty) {
 					if(chef.obj.in.contains("cake") && touched.obj.in.size() == 0) {
@@ -566,17 +567,15 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 				}
 				
 				else {
-					
 					Object temp = touched.obj;
 					touched.obj = chef.obj;
 					chef.obj = temp;
-					
-					
 				}
 				
 				
 
 			} else if (touched.getClass().getName().equals("skia.Oven") && chef.obj.plate == null) {
+				SimpleAudioTester.stopSound("alarmforoven");
 				if(!((Oven) touched).fire) {
 					Object temp = touched.obj;
 					touched.obj = chef.obj;
@@ -586,12 +585,15 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 					}
 					((Oven) touched).bar.on = false;
 				}
-			} if (touched.getClass().getName().equals("skia.Mixer") && chef.obj.plate == null) {
-				if(chef.obj.mixed) {
-					Object temp = touched.obj;
-					touched.obj = chef.obj;
-					chef.obj = temp;
-				}
+			}else if (touched.getClass().getName().equals("skia.Mixer") && chef.obj.plate == null) {
+				
+				
+				Object temp = touched.obj;
+				touched.obj = chef.obj;
+				chef.obj = temp;
+					
+				((Mixer) touched).bar.on = false;
+				
 				
 			} else if (touched.getClass().getName().equals("skia.Box")) {
 				if(chef.obj.bowl != null) {

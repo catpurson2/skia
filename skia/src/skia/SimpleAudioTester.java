@@ -68,29 +68,32 @@ public class SimpleAudioTester {
     }
     
     public static void loopSound(String soundFileName) {
-        try {
-            // Use getResource to get the audio file from the classpath
-            URL soundURL = SimpleAudioTester.class.getResource("/audio/" + soundFileName + ".wav");
-
-            if (soundURL == null) {
-                System.err.println("Sound file not found boooo: " + soundFileName);
-                return;
-            }
-
-            AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundURL);
-            Clip clip = AudioSystem.getClip();
-            sounds.put(soundFileName, clip);
-            clip.open(audioIn);
-            clip.loop(-1); // Plays the clip
-        } catch (UnsupportedAudioFileException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (LineUnavailableException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        if(!sounds.containsKey(soundFileName)) {
+	    	try {
+	            // Use getResource to get the audio file from the classpath
+	            URL soundURL = SimpleAudioTester.class.getResource("/audio/" + soundFileName + ".wav");
+	
+	            if (soundURL == null) {
+	                System.err.println("Sound file not found boooo: " + soundFileName);
+	                return;
+	            }
+	
+	            AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundURL);
+	            Clip clip = AudioSystem.getClip();
+	
+	            sounds.put(soundFileName, clip);
+	            clip.open(audioIn);
+	            clip.loop(-1); // Plays the clip
+	        } catch (UnsupportedAudioFileException e) {
+	            e.printStackTrace();
+	        } catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (LineUnavailableException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }
     }
     
     public static void stopMusic() {
@@ -98,8 +101,10 @@ public class SimpleAudioTester {
     }
     
     public static void stopSound(String soundFileName) {
-    	sounds.get(soundFileName).stop();
-    	sounds.remove(soundFileName);
+    	if(sounds.containsKey(soundFileName)) {
+    		sounds.get(soundFileName).stop();
+    		sounds.remove(soundFileName);
+    	}
     }
     
     public static void removeInactive() {
