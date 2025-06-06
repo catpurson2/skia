@@ -65,10 +65,15 @@ public class Oven extends Counter {
 			
 			if(bar.progress == 500) {
 				((Bowl) obj).bake();
+				if(!SimpleAudioTester.sounds.containsKey("alarmforoven")) {
+					SimpleAudioTester.loopSound("alarmforoven");
+				}
 			} else if(bar.progress == 800) {
 				((Bowl) obj).burn();
+				
 			}
 		} else {
+			
 			bar.on = false;
 			on = false;
 		}
@@ -96,6 +101,8 @@ public class Oven extends Counter {
 		super.paint(g);
 	
 		if(fire && !extinguished) {
+			SimpleAudioTester.stopSound("alarmforoven");
+			SimpleAudioTester.loopSound("smokealarm");
 			b++;
 			if(b%5 == 0) {
 				if(fires.equals(fire1)) {
@@ -120,6 +127,7 @@ public class Oven extends Counter {
 	}
 	
 	public void extinguish() {
+		SimpleAudioTester.stopSound("smokealarm");
 		obj.progress = 0;
 		bar.on = false;
 		extinguished = true;

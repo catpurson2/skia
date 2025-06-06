@@ -64,7 +64,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 	int min = 0;
 	int tens = 0;
 	int sec = 0;
-	int timer = 3;
+	int timer = 300;
 	long time = System.currentTimeMillis();
 	static int hiScore;
 	int frame = 0;
@@ -76,9 +76,11 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 	
 		g.setColor(Color.white);
 		g.setFont(joystix);
+
 		g.setFont(g.getFont().deriveFont(Font.PLAIN,32F));
 		
 		g.drawString("TIME " + min + ":" + tens + sec + "    SCORE:" + reg.score + "    HISCORE:" + hiScore, 5, 35);
+
 		
 		chef.move();
 		
@@ -211,10 +213,18 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			}
 		}	
 		if(timer == 0) {
-			min = timer/60;
-			tens = timer%60/10;
-			sec = timer%60%10;
+			if(!SimpleAudioTester.sounds.containsKey("exitsong")) {
+				SimpleAudioTester.stopMusic();
+				SimpleAudioTester.playSound("exitsong");
+			}
+			System.out.println(SimpleAudioTester.sounds.containsKey("exitsong"));
+			min = 0;
+			tens = 0;
+			sec = 0;
 			Runner.start = false;
+			timer--;
+		}
+		if(timer == -1) {
 			try {
 				FileWriter myWriter = new FileWriter("data.txt");
 				g.setColor(Color.black);
@@ -253,7 +263,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 				System.out.println("An error occurred.");
 				e.printStackTrace();
 			}
-				
+			
 		}
 		
 		if(timer%30 == 0 && Math.abs(timer-lastOrder) > 2 && orders.size() < 4) {
@@ -273,6 +283,10 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 		
 		
 		frame++;
+		
+		if(SimpleAudioTester.sounds.size() > 0) {
+			SimpleAudioTester.removeInactive();
+		}
 		
 	
 	}
@@ -464,9 +478,12 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			
 		}
 		
-		if(e.getKeyChar() == ' ' && touching && chef.obj instanceof Extinguisher && touched instanceof Oven ){
-			if(((Oven) touched).fire) {
+		if(e.getKeyChar() == ' ' && touching && chef.obj instanceof Extinguisher){
+			if(touched instanceof Oven && ((Oven) touched).fire) {
 				((Oven) touched).extinguish();
+			}
+			if(touched instanceof Mixer && ((Mixer) touched).fire){
+				((Mixer)touched).extinguish();
 			}
 		}
 		
@@ -512,7 +529,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 			
 			//System.out.println(touched.getClass().getName());dw
 			
-			if(touched.getClass().getName().equals("skia.Counter")) {
+			if(touched.getClass().getName().equals("skia.Counter") && !(touched instanceof Mixer)) {
 				
 				if(chef.obj instanceof Bowl && touched.obj instanceof Plate && !((Plate) touched.obj).isDirty) {
 					if(chef.obj.in.contains("cake") && touched.obj.in.size() == 0) {
@@ -557,17 +574,15 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 				}
 				
 				else {
-					
 					Object temp = touched.obj;
 					touched.obj = chef.obj;
 					chef.obj = temp;
-					
-					
 				}
 				
 				
 
 			} else if (touched.getClass().getName().equals("skia.Oven") && chef.obj.plate == null) {
+				SimpleAudioTester.stopSound("alarmforoven");
 				if(!((Oven) touched).fire) {
 					Object temp = touched.obj;
 					touched.obj = chef.obj;
@@ -577,12 +592,15 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 					}
 					((Oven) touched).bar.on = false;
 				}
-			} if (touched.getClass().getName().equals("skia.Mixer") && chef.obj.plate == null) {
-				if(chef.obj.mixed) {
-					Object temp = touched.obj;
-					touched.obj = chef.obj;
-					chef.obj = temp;
-				}
+			}else if (touched.getClass().getName().equals("skia.Mixer") && chef.obj.plate == null) {
+				
+				
+				Object temp = touched.obj;
+				touched.obj = chef.obj;
+				chef.obj = temp;
+					
+				((Mixer) touched).bar.on = false;
+				
 				
 			} else if (touched.getClass().getName().equals("skia.Box")) {
 				if(chef.obj.bowl != null) {
