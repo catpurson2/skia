@@ -19,13 +19,13 @@ public class Oven extends Counter {
 	BufferedImage fire2;
 	BufferedImage fire3;
 	BufferedImage fire4;
-	
 	Progress bar = new Progress(x, y-20);
 	Boolean on;
 	Boolean fire;
 
-	public Oven(int x, int y, int dir) {
+	public Oven(int x, int y, int dir, SimpleAudioTester audio) {
 		super(x, y, 0);
+		super.audio = audio;
 		fires = getImg("fire1");
 		if(dir == 0) {
 			oven = getImg("oven");
@@ -66,7 +66,7 @@ public class Oven extends Counter {
 			if(bar.progress == 500) {
 				((Bowl) obj).bake();
 				
-				SimpleAudioTester.loopSound("alarmforoven");
+				audio.loopSound("alarmforoven");
 				bar.progress++;
 			} else if(bar.progress == 800) {
 				((Bowl) obj).burn();
@@ -101,8 +101,8 @@ public class Oven extends Counter {
 		super.paint(g);
 	
 		if(fire && !extinguished) {
-			SimpleAudioTester.stopSound("alarmforoven");
-			SimpleAudioTester.loopSound("smokealarm");
+			audio.stopSound("alarmforoven");
+			audio.loopSound("smokealarm");
 			b++;
 			if(b%5 == 0) {
 				if(fires.equals(fire1)) {
@@ -127,7 +127,7 @@ public class Oven extends Counter {
 	}
 	
 	public void extinguish() {
-		SimpleAudioTester.stopSound("smokealarm");
+		audio.stopSound("smokealarm");
 		obj.progress = 0;
 		bar.on = false;
 		extinguished = true;
