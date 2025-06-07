@@ -64,7 +64,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 	int min = 0;
 	int tens = 0;
 	int sec = 0;
-	int timer = 301; //starts at 301 because timer will decrease by 1 at beginning
+	int timer = 300;
 	long time = System.currentTimeMillis();
 	static int hiScore;
 	int frame = 0;
