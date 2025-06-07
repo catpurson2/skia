@@ -19,13 +19,13 @@ public class Oven extends Counter {
 	BufferedImage fire2;
 	BufferedImage fire3;
 	BufferedImage fire4;
-	
 	Progress bar = new Progress(x, y-20);
 	Boolean on;
 	Boolean fire;
 
-	public Oven(int x, int y, int dir) {
+	public Oven(int x, int y, int dir, SimpleAudioTester audio) {
 		super(x, y, 0);
+		super.audio = audio;
 		fires = getImg("fire1");
 		if(dir == 0) {
 			oven = getImg("oven");
@@ -50,13 +50,14 @@ public class Oven extends Counter {
 	
 	public void paint(Graphics g) {
 		
-
+		//bakes bowl/shows progress bar/burns bowl
+		//also triggers appropriate noises
 		if(obj.bowl != null) {
 			if(obj.mixed && obj.ingredients.size() > 0) {
 				obj.progress = 0;
 				obj.mixed = false;
 			}
-    }
+		}
     
 		if(obj.bowl != null && !fire && !extinguished) {
 
@@ -65,18 +66,22 @@ public class Oven extends Counter {
 			
 			if(bar.progress == 500) {
 				((Bowl) obj).bake();
+				
+				audio.loopSound("alarmforoven");
+				bar.progress++;
 			} else if(bar.progress == 800) {
 				((Bowl) obj).burn();
+				
 			}
 		} else {
+			
 			bar.on = false;
 			on = false;
 		}
 		
 		Graphics2D g2 = (Graphics2D) g;
 		
-		//check if ingredients of obj contain burnt to turn off extinguished, wait no do that in chef
-		
+		//shows theres something in the oven
 		if(on|| fire) {
 			c++;
 			if(c%10 == 0) {
@@ -96,6 +101,11 @@ public class Oven extends Counter {
 		super.paint(g);
 	
 		if(fire && !extinguished) {
+			
+			//replaces oven timer noise with fire alarm
+			audio.stopSound("alarmforoven");
+			audio.loopSound("smokealarm");
+			//makes fire animation
 			b++;
 			if(b%5 == 0) {
 				if(fires.equals(fire1)) {
@@ -120,6 +130,8 @@ public class Oven extends Counter {
 	}
 	
 	public void extinguish() {
+		//turns off the fire and stops the fire alarm
+		audio.stopSound("smokealarm");
 		obj.progress = 0;
 		bar.on = false;
 		extinguished = true;

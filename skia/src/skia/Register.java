@@ -15,6 +15,7 @@ public class Register {
 	float alpha = 1f;
 	ArrayList<Plate> plates = new ArrayList<Plate>();
 	int score = 0;
+	SimpleAudioTester audio = new SimpleAudioTester();
 	
 	public Register(int x, int y) {
 		width = 160;
@@ -32,6 +33,8 @@ public class Register {
 		
 		int i =0;
 		g.drawImage(img, x, y, width, height, null);
+		
+		//draw plates
 		for(int j =0; j< plates.size(); j++) {
 			Plate obj = plates.get(j);
 			if(obj != null && !obj.isDirty) {
@@ -52,21 +55,29 @@ public class Register {
 		return null;
 		
 	}
-	
-	public void sell(Plate temp) {
+		
+		//take plate then increase score
+
+	public void sell(Plate temp, SimpleAudioTester audio) {
 		temp.sold = true;
 		score += 40 + 5*(temp.in.size()-2);
+		audio.playSound("cheering");
 		plates.add(temp);
 		
 	}
 	
 	public void ew(Plate temp) {
+		
+		//take plate then decrease score
 		temp.sold = true;
+		audio.playSound("arghhh");
 		plates.add(temp);
+		score -= 10;
 	}
 	
 	public Plate remove() {
 		
+		//remove plates from register
 		for(int i = 0; i<plates.size(); i++) {
 			if(plates.get(i) != null && plates.get(i).isDirty) {
 				return plates.remove(i);

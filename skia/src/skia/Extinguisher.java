@@ -11,8 +11,10 @@ public class Extinguisher extends Object {
 	
 	public Extinguisher() {
 		
+		//mainly just a class for unique visuals and so
+		//other classes can check if its an extinguisher
 		super.plate = up;
-		
+		empty = false;
 		
 	}
 	

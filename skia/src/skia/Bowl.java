@@ -17,6 +17,7 @@ public class Bowl extends Object {
 	}
 	
 	public void mix() {
+		//combines into cake batter or frosting in mixer
 		if(ingredients.size() > 0) {
 			if(in.contains("milk") && in.contains("sugar") && !in.contains("egg") && !in.contains("flour")) {
 				add("frosting");
@@ -25,25 +26,31 @@ public class Bowl extends Object {
 				}
 			} else {
 				add("batter");
+				
+				if(in.contains("strawberry")) {
+					add("strawberrybatter");
+				}
 			}
 		}
+		
 	}
 	
 	public void bake() {
+		//combines into a cake/strawberry cake in oven
 		if(ingredients.size() > 0) {
-			
-			if(in.contains("milk") && in.contains("egg") && in.contains("flour") && in.contains("sugar") && in.get(in.size()-1).equals("batter")) {
+			if(in.contains("milk") && in.contains("egg") && in.contains("flour") && in.contains("sugar") && (in.get(in.size()-1).equals("batter") || in.get(in.size()-1).equals("strawberrybatter"))) {
 				add("cake");
 				if(in.contains("strawberry")) {
 					add("strawberrycake");
 				}
-			} else {
+			} else { //if theres not enough ingredients ruins the cake
 				add("green");
 			}
 		}
 	}
 	
 	public void burn() {
+		//burns when the oven catches on fire
 		add("burnt");
 		burnt = true;
 	}

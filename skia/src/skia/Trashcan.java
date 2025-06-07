@@ -16,7 +16,6 @@ public class Trashcan extends Counter{
 		
 		super.img = trash;
 		
-			
 	}
 	
 

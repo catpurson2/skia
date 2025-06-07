@@ -17,11 +17,12 @@ public class ReturnCounter extends Counter {
 	public void paint(Graphics g) {
 		super.paint(g);
 		
+		//draw plates
 		int i =0;
 		for(Plate obj : plates) {
 			if(obj!=null) {
 				obj.paint(g, x+5, y+5+4*i);
-				
+				//staggers them to show the stack
 				i++;
 				if(i%2 == 0) {
 					i*=2;

@@ -30,7 +30,7 @@ public class Plate extends Object {
 		
 		if(sold) {
 			Graphics2D g2 = (Graphics2D) g;
-			
+			//fades out the plate when being sold
 			g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
 			
 			alpha -= 0.025;
@@ -47,7 +47,7 @@ public class Plate extends Object {
 					isDirty = true;
 					super.plate = getImg("dirtyplate");
 					empty = false;
-					super.paint(g, x+80, y-5); //DONT TOUCH THIS IM SCARED WHAT WILL HAPPEN 
+					super.paint(g, x+80, y-5); 
 					sold = false;
 				}
 			}else {
@@ -58,11 +58,14 @@ public class Plate extends Object {
 			super.paint(g, x, y);
 		}
 		
-		
-		
-		
-		
-		
+	}
+	
+	public void add(String ingredient) {
+		//combines cakes and frosting on the plate
+		ingredients.add(getImg(ingredient));
+		in.add(ingredient);
+		progress = 0;
+		bar = new IngredientBar(in); //labels whats on the plate
 	}
 	
 }

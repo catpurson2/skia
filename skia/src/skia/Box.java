@@ -7,7 +7,7 @@ public class Box extends Counter {
 	public Box(int x, int y, int t) {
 		
 		super(x, y, 0);
-		
+		//gives each box its specific ingredient
 		switch(t) {
 			case 0:
 				type = "milk";
@@ -25,8 +25,6 @@ public class Box extends Counter {
 				type = "strawberry";
 				break;
 		}
-		
-		System.out.println(type);
 		
 		img = getImg(type+"bin");
 		

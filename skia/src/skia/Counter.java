@@ -9,11 +9,12 @@ import javax.imageio.ImageIO;
 public class Counter {
 	
 	int width, height, x, y, c;
-	Object obj = new Object();
+	Object obj = new Object(); //every counter has an object
 	BufferedImage img;
 	static BufferedImage metal;
 	static BufferedImage wood;
 	static BufferedImage ret;
+	SimpleAudioTester audio;
 	
 	public Counter(int x, int y, int img) {
 		width = 80;
@@ -42,8 +43,8 @@ public class Counter {
 		
 		Graphics2D g2 = (Graphics2D) g;
 		g.drawImage(img, x, y, width, height, null);
+		//paints its object on top of its counter
 		if(obj != null && this.getClass().getName().equals("skia.Counter")) {
-			
 			obj.paint(g, x+5, y+5);
 		}
 		

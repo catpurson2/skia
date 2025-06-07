@@ -16,7 +16,6 @@ public class Object {
 	int progress;
 	boolean empty;
 	boolean mixed;
-	static BufferedImage[] ing;
 	boolean burnt = false;
 	
 
@@ -26,17 +25,11 @@ public class Object {
 		ingredients = new ArrayList<BufferedImage>();
 		in = new ArrayList<String>();
 		mixed = true;
-		
-		if(ing == null) {
-			ing = new BufferedImage[4];
-			ing[0] = getImg("milk");
-			ing[1] = getImg("egg");
-			ing[2] = getImg("flour");
-			ing[3] = getImg("sugar");
-		}
 	}
 	
 	public void paint(Graphics g, int x, int y) {
+		//will only paint if its one of the subclasses
+		//Object is essentially the empty thing that chef starts off holding
 		if(bowl != null) {
 			g.drawImage(bowl, x, y, 70, 70, null);
 		}
@@ -46,13 +39,11 @@ public class Object {
 		
 	
 		for(BufferedImage i : ingredients) {
-			
 			g.drawImage(i, x, y, 70, 70, null);
-			
 		}
 		
 		if(bar != null) {
-			bar.paint(g, x, y);
+			bar.paint(g, x+83, y, 0);
 		}
 		
 	}
@@ -70,10 +61,10 @@ public class Object {
 	}
 	
 	public void add(String ingredient) {
+		//adds ingredients to the object
 		ingredients.add(getImg(ingredient));
 		in.add(ingredient);
 		progress = 0;
-		//bar = new IngredientBar(in);
 	}
 
 }

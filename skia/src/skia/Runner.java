@@ -38,6 +38,7 @@ public class Runner extends JPanel implements MouseListener, KeyListener, Action
 	BufferedImage turtle = getChar("turtle0");
 	BufferedImage bald = getChar("bald0");
 	int selected = 0;
+	static SimpleAudioTester audio = new SimpleAudioTester();
 	
 	public static void main(String[] arg) {
 		Runner r = new Runner();
@@ -57,6 +58,7 @@ public class Runner extends JPanel implements MouseListener, KeyListener, Action
 	}
 	
 	public Runner() {
+		//sets up the main menu
 		f = new JFrame();
 		f.setSize(new Dimension(1000, 828));
 		f.setBackground(Color.white);
@@ -66,7 +68,8 @@ public class Runner extends JPanel implements MouseListener, KeyListener, Action
 		f.addKeyListener(this);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setVisible(true);
-		chara = atlas;
+		chara = atlas; 
+		audio.backgroundMusic();
 		try {
 			
 			joystix = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("/font/joystix monospace.otf"));
@@ -104,15 +107,22 @@ public class Runner extends JPanel implements MouseListener, KeyListener, Action
 		g.drawString("Serve cakes on plates and", 15, 715);
 		g.drawString("Dont forget to wash them!", 15, 740);
 		g.setFont(g.getFont().deriveFont(Font.PLAIN,30F));
-		g.drawString("" + Frame.hiScore, 790, 130);
 		
-		if(selected == 0) {
-			chara = atlas;
-			name = "atlas";
+		
+		//character selection
+		g.drawString("Select a character", 520, 720);
+		if(name != null) {
+			g.drawString(name, 690, 600);
 		}
-		if(selected == 1) {
+		
+		g.drawString("" + Frame.hiScore, 790, 130);
+		if(selected == 0) {
 			chara = flynn;
 			name = "flynn";
+		}
+		if(selected == 1) {
+			chara = atlas;
+			name = "atlas";
 		}
 		if(selected == 2) {
 			chara = turtle;
@@ -153,7 +163,8 @@ public class Runner extends JPanel implements MouseListener, KeyListener, Action
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		if(!start) {
+		//only repaints when the game is not actually started
+		if(!start && frame == null) {
 			repaint();
 		}
 			
@@ -162,9 +173,7 @@ public class Runner extends JPanel implements MouseListener, KeyListener, Action
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		if(e.getKeyChar() == 'm') {
-			chara = atlas;
-		}
+		
 	}
 
 	@Override
@@ -182,15 +191,17 @@ public class Runner extends JPanel implements MouseListener, KeyListener, Action
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		System.out.println(e.getX() + " " + e.getY());
+		
+		//switch character selected
+		//buttons only work when in the main menu
 		if(!start) {
 			if(e.getX() >= 104 && e.getX() <= 424 && e.getY() <= 404 && e.getY() >= 354) {
+				//starts the game
 				frame = new Frame();
 				frame.chef.chara = name;
-				
-				System.out.println(name);
 				start = true;
 			}
+			//cycles through characters
 			if(e.getX() >= 532 && e.getX() <= 560 && e.getY() >= 406 && e.getY() <= 486) {
 				if(selected == 0) {
 					selected = 3;
