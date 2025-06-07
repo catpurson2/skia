@@ -51,14 +51,12 @@ public class Chef {
 	public void paint(Graphics g) {
 		
 		g.drawImage(chef, x, y, width, height, null);
-		
-		
-		if(dir == 0) {
-			g.setColor(Color.green);
-			
+		//makes sure chef is actually facing the right direction when moving
+		//dir == 0 is when facing up
+		if(dir == 0) { 
 			obj.paint(g, x-5, y-60);
 			if(obj instanceof Extinguisher) {
-				((Extinguisher) obj).plate = ((Extinguisher) obj).up;
+				((Extinguisher) obj).plate = ((Extinguisher) obj).up; ///extinguisher is only object with direction
 			}
 			
 			if(obj.bowl != null || obj.plate != null) {
@@ -71,8 +69,7 @@ public class Chef {
 			height = 67;
 			width = 60;
 			
-		} else if(dir == 90) {
-			g.setColor(Color.black);
+		} else if(dir == 90) { //facing right
 			if(obj instanceof Extinguisher) {
 				((Extinguisher) obj).plate = ((Extinguisher) obj).right;
 			}
@@ -87,8 +84,7 @@ public class Chef {
 			chef = chef90;
 			width = 67;
 			height = 60;
-		} else if(dir == 180) {
-			g.setColor(Color.white);
+		} else if(dir == 180) { //facing down
 			if(obj instanceof Extinguisher) {
 				((Extinguisher) obj).plate = ((Extinguisher) obj).down;
 			}
@@ -103,7 +99,7 @@ public class Chef {
 			chef = chef180;
 			height = 67;
 			width = 60;
-		} else if(dir == 270) {
+		} else if(dir == 270) { //facing left
 			g.setColor(Color.blue);
 			if(obj instanceof Extinguisher) {
 				((Extinguisher) obj).plate = ((Extinguisher) obj).left;
@@ -121,27 +117,14 @@ public class Chef {
 			height = 60;
 		}
 
-		
-		//hitboxes
-		/*if(dir == 0) {
-			
-			g.drawRect(x,y-20,60,20);
-		}else if(dir == 90) {
-			
-			g.drawRect(x+size,y,20,60);
-		}else if(dir == 180) {
-			
-			g.drawRect(x,y+size,60,20);
-		}else {
-			
-			g.drawRect(x-20,y,20,60);
-		}*/
 	}
 	
 	public boolean touching(Counter character) {
 		
-		//represent eachj object as a rectange
-		//then check if they are interesecting
+		//represent each object as a rectangle
+		//then check if they are intersecting
+		//checks for direction bc wanting to know
+		//what the front of the chef is looking at
 		
 		Rectangle main = new Rectangle(character.x,character.y,character.width,character.height);
 		Rectangle thisObject;
@@ -161,9 +144,11 @@ public class Chef {
 	}
 	public boolean touching(Sink character) {
 		
-		//represent eachj object as a rectange
-		//then check if they are interesecting
-		
+		//represent each object as a rectangle
+		//then check if they are intersecting
+		//overloaded to work with sinks as well
+		//checks for direction bc wanting to know
+		//what the front of the chef is looking at
 		
 		Rectangle main = new Rectangle(character.x,character.y,character.width,character.height);
 		Rectangle thisObject;
@@ -184,9 +169,11 @@ public class Chef {
 	
 	public boolean touching(Register character) {
 		
-		//represent eachj object as a rectange
-		//then check if they are interesecting
-		
+		//represent each object as a rectangle
+		//then check if they are intersecting
+		//overloaded to work with registers as well
+		//checks for direction bc wanting to know
+		//what the front of the chef is looking at
 		
 		Rectangle main = new Rectangle(character.x,character.y,character.width,character.height);
 		Rectangle thisObject;
@@ -207,8 +194,8 @@ public class Chef {
 	
 	public boolean collided(Counter character) {
 		
-		//represent eachj object as a rectange
-		//then check if they are interesecting
+		//represent each object as a rectangle
+		//then check if they are intersecting
 		
 		Rectangle main = new Rectangle(character.x,character.y,character.width,character.height);
 		Rectangle thisObject = new Rectangle(x, y, size, size);
@@ -219,9 +206,8 @@ public class Chef {
 	
 	public boolean collided(Sink character) {
 		
-		//represent eachj object as a rectange
-		//then check if they are interesecting
-		//System.out.println(((80-size)/2) + " " + size);
+		//represent each object as a rectangle
+		//then check if they are intersecting
 		
 		Rectangle main = new Rectangle(character.x,character.y,character.width,character.height);
 		Rectangle thisObject = new Rectangle(x, y, size, size);
@@ -232,8 +218,8 @@ public class Chef {
 	
 	public boolean collided(Register character) {
 		
-		//represent eachj object as a rectange
-		//then check if they are interesecting
+		//represent each object as a rectangle
+		//then check if they are intersecting
 		
 		Rectangle main = new Rectangle(character.x, character.y, character.width, character.height);
 		Rectangle thisObject = new Rectangle(x, y, size, size);
@@ -256,7 +242,7 @@ public class Chef {
 	}
 
 	public BufferedImage getImg(String path) {
-		
+		//helper method to draw things easier
 		try {
 			return ImageIO.read(getClass().getResource("/character/" + chara + path + ".png"));
 		} catch(Exception e) {

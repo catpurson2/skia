@@ -22,7 +22,7 @@ public class ReturnCounter extends Counter {
 		for(Plate obj : plates) {
 			if(obj!=null) {
 				obj.paint(g, x+5, y+5+4*i);
-				
+				//staggers them to show the stack
 				i++;
 				if(i%2 == 0) {
 					i*=2;

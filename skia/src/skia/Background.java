@@ -28,11 +28,6 @@ public class Background {
 			System.out.println("tuesday");
 		}
 		
-		
-		
-		//g.fillRect(0, 0, 1000, 800);
-		//g.drawImage
-		
 	}
 	
 	private Image getImage(String path) {

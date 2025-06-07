@@ -36,6 +36,8 @@ public class IngredientBar {
 			green = getImg("tinygreen");
 		}
 		
+		//creates the ingredient bar based on what
+		//the given list contains
 		if(in.contains("strawberry")) {
 			this.in.add(strawberry);
 		}
