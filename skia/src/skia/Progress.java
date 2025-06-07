@@ -25,7 +25,8 @@ public class Progress {
 	}
 	
 	public Boolean paint(Graphics g) {
-		
+		//changes colors at certain values of progress
+		//to tell you how close it is to being done/burning
 		if(progress <= 500) {
 			
 			if(progress < 250) {

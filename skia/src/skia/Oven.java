@@ -50,13 +50,14 @@ public class Oven extends Counter {
 	
 	public void paint(Graphics g) {
 		
-
+		//bakes bowl/shows progress bar/burns bowl
+		//also triggers appropriate noises
 		if(obj.bowl != null) {
 			if(obj.mixed && obj.ingredients.size() > 0) {
 				obj.progress = 0;
 				obj.mixed = false;
 			}
-    }
+		}
     
 		if(obj.bowl != null && !fire && !extinguished) {
 
@@ -80,8 +81,7 @@ public class Oven extends Counter {
 		
 		Graphics2D g2 = (Graphics2D) g;
 		
-		//check if ingredients of obj contain burnt to turn off extinguished, wait no do that in chef
-		
+		//shows theres something in the oven
 		if(on|| fire) {
 			c++;
 			if(c%10 == 0) {
@@ -101,8 +101,11 @@ public class Oven extends Counter {
 		super.paint(g);
 	
 		if(fire && !extinguished) {
+			
+			//replaces oven timer noise with fire alarm
 			audio.stopSound("alarmforoven");
 			audio.loopSound("smokealarm");
+			//makes fire animation
 			b++;
 			if(b%5 == 0) {
 				if(fires.equals(fire1)) {
@@ -127,6 +130,7 @@ public class Oven extends Counter {
 	}
 	
 	public void extinguish() {
+		//turns off the fire and stops the fire alarm
 		audio.stopSound("smokealarm");
 		obj.progress = 0;
 		bar.on = false;

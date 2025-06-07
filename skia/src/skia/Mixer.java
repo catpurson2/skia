@@ -50,12 +50,12 @@ public class Mixer extends Counter {
 	public void paint(Graphics g) {
 		
 		super.paint(g);
-		f++;
 		
+		//processes the mixing and progress bar
+		f++;
 		if(obj.bowl != null) {
 			if(!obj.in.contains("green")) {
 				bar.turnOn(obj.progress);
-				
 			}
 			bar.paint(g);
 			mixing = true;
@@ -81,6 +81,7 @@ public class Mixer extends Counter {
 			bar.on = false;
 		}
 		
+		//mixing animation
 		if(mixing && f%5 == 0) {
 			if(img.equals(mixer)) {
 				img = mixer2;
@@ -94,12 +95,14 @@ public class Mixer extends Counter {
 		}
 		
 		if(!mixing) {
+			//stops the mixing animation
 			img = notmix;
 		}
 		
 		g.drawImage(img, x, y-4, (int) (1*width), (int) (1*height), null);
 		
 		if(fire && !extinguished) {
+			//shows fire and makes fire noises
 			audio.stopSound("alarmforoven");
 			audio.loopSound("smokealarm");
 			b++;
@@ -122,6 +125,7 @@ public class Mixer extends Counter {
 	}
 	
 	public void extinguish() {
+		//stops the fire
 		audio.stopSound("smokealarm");
 		obj.progress = 0;
 		bar.on = false;
@@ -131,6 +135,7 @@ public class Mixer extends Counter {
 	}
 	
 	public void mix() {
+		//starts the animation of mixing
 		if(img.equals(notmix)) {
 			img = mixer;
 		}

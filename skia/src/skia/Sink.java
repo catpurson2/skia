@@ -34,10 +34,7 @@ public class Sink {
 	
 	public void paint(Graphics g) {
 		
-		
-		
-		int i = 0;
-		
+		int i = 0; //counting variable to see how many plates there are
 		Graphics2D g2 = (Graphics2D) g;
 		g.drawImage(img, x, y, width, height, null);
 		for(Object obj: cleanPlates) {
@@ -45,8 +42,9 @@ public class Sink {
 				obj.plate = getImg("plate");
 				obj.paint(g, x+8, y+5+4*i);
 			}
-			
 			i++;
+			//staggers the plates so you can visually
+			//see them stacked on the sink
 			if(i%2 == 0) {
 				i*=2;
 			}else {
@@ -55,7 +53,7 @@ public class Sink {
 		}
 		i = 0;
 		for(Object obj : dirtyPlates) {
-			
+			//if the plate is dirty, shows it in the water
 			if(obj instanceof Plate) {
 				obj.plate = getImg("sideplate");
 				obj.paint(g, x+96 - 5*i, y+5);
@@ -63,13 +61,11 @@ public class Sink {
 			
 			i++;
 		}
-		
+		//creates the progress bar when washing
 		if(washing) {
 			g.setColor(Color.green);
 			g.fillRect(x+80+(int) (80.0/30*2)+1, y-20+(int) (80.0/30*2), timer*((int) (80.0/18*26*3))/500, (int) (80.0/30*2)+3);
 			g.drawImage(bar.bar, x+80, y-20, 80, 80, null);
-			File in = new File("src/audio/waterwashing.wav");
-			
 			
 		}
 		

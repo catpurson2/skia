@@ -56,10 +56,8 @@ public class Customer {
 	public void paint(Graphics g) {
 		if(x-i*5 == 190) {
 			g.drawImage(rotate, x-i*5, y, 60, 67, null);
-			//System.out.println("rotate");
 		} else {
 			g.drawImage(img, x-i*5, y, 60, 67, null);
-			//System.out.println("save");
 		}
 	}
 	
@@ -76,7 +74,6 @@ public class Customer {
 				x = x-i*5;
 				i = 0;
 				move = false;
-				//System.out.println("stop");
 			}
 		}
 		return false;

@@ -28,6 +28,8 @@ public class Object {
 	}
 	
 	public void paint(Graphics g, int x, int y) {
+		//will only paint if its one of the subclasses
+		//Object is essentially the empty thing that chef starts off holding
 		if(bowl != null) {
 			g.drawImage(bowl, x, y, 70, 70, null);
 		}
@@ -37,9 +39,7 @@ public class Object {
 		
 	
 		for(BufferedImage i : ingredients) {
-			
 			g.drawImage(i, x, y, 70, 70, null);
-			
 		}
 		
 		if(bar != null) {
@@ -61,6 +61,7 @@ public class Object {
 	}
 	
 	public void add(String ingredient) {
+		//adds ingredients to the object
 		ingredients.add(getImg(ingredient));
 		in.add(ingredient);
 		progress = 0;

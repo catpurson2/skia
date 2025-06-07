@@ -16,6 +16,8 @@ public class SimpleAudioTester {
 	String key = "";
 	
 	public void backgroundMusic() {
+		//dedicated background music method that will loop
+		//almost indefinitely, until another method is called
 		try {
             // Use getResource to get the audio file from the classpath
             URL soundURL = SimpleAudioTester.class.getResource("/audio/cooking.wav");
@@ -42,7 +44,7 @@ public class SimpleAudioTester {
 	}
 	
     public void playSound(String soundFileName) {
-
+    	//plays the given file name once
         try {
             // Use getResource to get the audio file from the classpath
             URL soundURL = SimpleAudioTester.class.getResource("/audio/" + soundFileName + ".wav");
@@ -70,6 +72,8 @@ public class SimpleAudioTester {
     }
     
     public void loopSound(String soundFileName) {
+    	//loops the given file name until told to stop
+    	//stores all given files in a hashmap with a name and its clip
        if(!sounds.containsKey(soundFileName)) {
 	    	try {
 	            // Use getResource to get the audio file from the classpath
@@ -100,36 +104,22 @@ public class SimpleAudioTester {
     }
     
     public void stopMusic() {
+    	//stops the background music
     	if(backgroundMusic.isRunning()) {
     		backgroundMusic.stop();
     	}
     }
     
     public void stopSound(String soundFileName) {
-    	System.out.println(sounds);
+    	//stops the given sound from playing
     	if(sounds.get(soundFileName) != null) {
     		sounds.get(soundFileName).stop();
     		sounds.remove(soundFileName);
     	}
     }
     
-    public void removeInactive() {
-    	
-    	if(sounds.size() > 0) {
-    		sounds.forEach( (k, v) -> { 
-        		if(!v.isRunning()) {
-        			key = k;
-        		}
-        	} );
-    	}
-    	if(key!=null) {
-    		sounds.remove(key);
-    	}
-    	
-    }
-    
     public void clearAllSound() {
-    	System.out.println(sounds);
+    	//stops any and all sounds that are currently looping
     	if(sounds.size() > 0) {
     		sounds.forEach( (k, v) -> { 
         		key = k;

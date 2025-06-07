@@ -30,7 +30,7 @@ public class Plate extends Object {
 		
 		if(sold) {
 			Graphics2D g2 = (Graphics2D) g;
-			
+			//fades out the plate when being sold
 			g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
 			
 			alpha -= 0.025;
@@ -61,10 +61,11 @@ public class Plate extends Object {
 	}
 	
 	public void add(String ingredient) {
+		//combines cakes and frosting on the plate
 		ingredients.add(getImg(ingredient));
 		in.add(ingredient);
 		progress = 0;
-		bar = new IngredientBar(in);
+		bar = new IngredientBar(in); //labels whats on the plate
 	}
 	
 }

@@ -58,6 +58,7 @@ public class Runner extends JPanel implements MouseListener, KeyListener, Action
 	}
 	
 	public Runner() {
+		//sets up the main menu
 		f = new JFrame();
 		f.setSize(new Dimension(1000, 828));
 		f.setBackground(Color.white);
@@ -162,6 +163,7 @@ public class Runner extends JPanel implements MouseListener, KeyListener, Action
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		//only repaints when the game is not actually started
 		if(!start && frame == null) {
 			repaint();
 		}
@@ -171,9 +173,7 @@ public class Runner extends JPanel implements MouseListener, KeyListener, Action
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		if(e.getKeyChar() == 'm') {
-			chara = atlas;
-		}
+		
 	}
 
 	@Override
@@ -193,13 +193,15 @@ public class Runner extends JPanel implements MouseListener, KeyListener, Action
 		// TODO Auto-generated method stub
 		
 		//switch character selected
-		
+		//buttons only work when in the main menu
 		if(!start) {
 			if(e.getX() >= 104 && e.getX() <= 424 && e.getY() <= 404 && e.getY() >= 354) {
+				//starts the game
 				frame = new Frame();
 				frame.chef.chara = name;
 				start = true;
 			}
+			//cycles through characters
 			if(e.getX() >= 532 && e.getX() <= 560 && e.getY() >= 406 && e.getY() <= 486) {
 				if(selected == 0) {
 					selected = 3;
