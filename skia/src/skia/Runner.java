@@ -43,17 +43,7 @@ public class Runner extends JPanel implements MouseListener, KeyListener, Action
 	public static void main(String[] arg) {
 		Runner r = new Runner();
 		
-		try {
-			File save = new File("data.txt");
-			
-			Scanner scan = new Scanner(save);
-			Frame.hiScore = scan.nextInt();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 		
 	}
 	
@@ -70,6 +60,17 @@ public class Runner extends JPanel implements MouseListener, KeyListener, Action
 		f.setVisible(true);
 		chara = atlas; 
 		audio.backgroundMusic();
+		try {
+			File save = new File("data.txt");
+			
+			Scanner scan = new Scanner(save);
+			Frame.hiScore = scan.nextInt();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		try {
 			
 			joystix = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("/font/joystix monospace.otf"));

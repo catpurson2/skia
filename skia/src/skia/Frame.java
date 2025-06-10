@@ -672,7 +672,7 @@ public class Frame extends JPanel implements MouseListener, ActionListener, KeyL
 						touched.obj = chef.obj;
 						chef.obj = temp;
 						if(temp.in.contains("green")) {
-							((Oven)touched).extinguished = false;
+							((Mixer)touched).extinguished = false;
 						}
 						((Mixer) touched).bar.on = false;
 					}
